@@ -1,0 +1,663 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AutoQuiray - Tu Autoescuela de Confianza</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        .fade-in {
+            animation: fadeIn 0.5s ease-in;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .car-animation {
+            animation: drive 3s ease-in-out infinite;
+        }
+        @keyframes drive {
+            0%, 100% { transform: translateX(0); }
+            50% { transform: translateX(20px); }
+        }
+    </style>
+</head>
+<body class="bg-gradient-to-br from-blue-50 to-indigo-100 min-h-screen">
+    <!-- Navigation -->
+    <nav class="bg-white shadow-lg sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <div class="flex items-center">
+                    <div class="text-2xl font-bold text-blue-600">🚗 AutoQuiray</div>
+                </div>
+                <div class="hidden md:block">
+                    <div class="ml-10 flex items-baseline space-x-4">
+                        <button onclick="showPage('home')" class="nav-btn text-blue-600 hover:text-blue-800 px-3 py-2 rounded-md text-sm font-medium transition-colors">Inicio</button>
+                        <button onclick="showPage('login')" class="nav-btn text-gray-700 hover:text-blue-600 px-3 py-2 rounded-md text-sm font-medium transition-colors">Acceso Alumnos</button>
+                        <button onclick="showPage('tests')" class="nav-btn text-gray-700 hover:text-blue-600 px-3 py-2 rounded-md text-sm font-medium transition-colors">Tests Online</button>
+                    </div>
+                </div>
+                <div class="md:hidden">
+                    <button onclick="toggleMobileMenu()" class="text-gray-700 hover:text-blue-600">
+                        <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <!-- Mobile menu -->
+        <div id="mobile-menu" class="md:hidden hidden bg-white border-t">
+            <div class="px-2 pt-2 pb-3 space-y-1">
+                <button onclick="showPage('home'); toggleMobileMenu()" class="block text-blue-600 hover:text-blue-800 px-3 py-2 rounded-md text-base font-medium w-full text-left">Inicio</button>
+                <button onclick="showPage('login'); toggleMobileMenu()" class="block text-gray-700 hover:text-blue-600 px-3 py-2 rounded-md text-base font-medium w-full text-left">Acceso Alumnos</button>
+                <button onclick="showPage('tests'); toggleMobileMenu()" class="block text-gray-700 hover:text-blue-600 px-3 py-2 rounded-md text-base font-medium w-full text-left">Tests Online</button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Home Page -->
+    <div id="home-page" class="page-content">
+        <!-- Hero Section -->
+        <section class="relative bg-gradient-to-r from-blue-600 to-indigo-700 text-white py-20">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center">
+                    <div class="car-animation text-6xl mb-6">🚗</div>
+                    <h1 class="text-4xl md:text-6xl font-bold mb-6">AutoQuiray</h1>
+                    <p class="text-xl md:text-2xl mb-8 max-w-3xl mx-auto">Tu autoescuela de confianza. Más de 20 años formando conductores responsables y seguros.</p>
+                    <button onclick="showPage('login')" class="bg-white text-blue-600 hover:bg-gray-100 font-bold py-3 px-8 rounded-full text-lg transition-colors shadow-lg">
+                        Comenzar Ahora
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Services Section -->
+        <section class="py-16 bg-white">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center mb-12">
+                    <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">Nuestros Servicios</h2>
+                    <p class="text-xl text-gray-600">Formación completa para todos los tipos de carnet</p>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                    <div class="bg-gradient-to-br from-blue-50 to-blue-100 p-8 rounded-xl shadow-lg hover:shadow-xl transition-shadow">
+                        <div class="text-4xl mb-4">🚗</div>
+                        <h3 class="text-xl font-bold text-gray-900 mb-3">Carnet B</h3>
+                        <p class="text-gray-600 mb-4">Permiso de conducir para turismos y vehículos ligeros. Clases teóricas y prácticas personalizadas.</p>
+                        <ul class="text-sm text-gray-600 space-y-1">
+                            <li>• Clases teóricas grupales</li>
+                            <li>• Prácticas individualizadas</li>
+                            <li>• Tests online ilimitados</li>
+                        </ul>
+                    </div>
+                    <div class="bg-gradient-to-br from-green-50 to-green-100 p-8 rounded-xl shadow-lg hover:shadow-xl transition-shadow">
+                        <div class="text-4xl mb-4">🏍️</div>
+                        <h3 class="text-xl font-bold text-gray-900 mb-3">Carnet A</h3>
+                        <p class="text-gray-600 mb-4">Permiso para motocicletas. Desde A1 hasta A2 y A. Formación completa y segura.</p>
+                        <ul class="text-sm text-gray-600 space-y-1">
+                            <li>• A1, A2 y A disponibles</li>
+                            <li>• Motos de diferentes cilindradas</li>
+                            <li>• Circuito cerrado y vía pública</li>
+                        </ul>
+                    </div>
+                    <div class="bg-gradient-to-br from-orange-50 to-orange-100 p-8 rounded-xl shadow-lg hover:shadow-xl transition-shadow">
+                        <div class="text-4xl mb-4">🚛</div>
+                        <h3 class="text-xl font-bold text-gray-900 mb-3">Carnet C</h3>
+                        <p class="text-gray-600 mb-4">Permiso para vehículos pesados y camiones. Formación profesional especializada.</p>
+                        <ul class="text-sm text-gray-600 space-y-1">
+                            <li>• C1 y C disponibles</li>
+                            <li>• Formación CAP</li>
+                            <li>• Vehículos profesionales</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- About Section -->
+        <section class="py-16 bg-gray-50">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                    <div>
+                        <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-6">¿Por qué elegir AutoQuiray?</h2>
+                        <div class="space-y-4">
+                            <div class="flex items-start">
+                                <div class="text-2xl mr-4">✅</div>
+                                <div>
+                                    <h3 class="font-bold text-lg text-gray-900">Más de 20 años de experiencia</h3>
+                                    <p class="text-gray-600">Formando conductores responsables desde 2003</p>
+                                </div>
+                            </div>
+                            <div class="flex items-start">
+                                <div class="text-2xl mr-4">👨‍🏫</div>
+                                <div>
+                                    <h3 class="font-bold text-lg text-gray-900">Profesores cualificados</h3>
+                                    <p class="text-gray-600">Equipo de instructores certificados y con amplia experiencia</p>
+                                </div>
+                            </div>
+                            <div class="flex items-start">
+                                <div class="text-2xl mr-4">🎯</div>
+                                <div>
+                                    <h3 class="font-bold text-lg text-gray-900">95% de aprobados</h3>
+                                    <p class="text-gray-600">Alta tasa de éxito en exámenes teóricos y prácticos</p>
+                                </div>
+                            </div>
+                            <div class="flex items-start">
+                                <div class="text-2xl mr-4">💻</div>
+                                <div>
+                                    <h3 class="font-bold text-lg text-gray-900">Plataforma online</h3>
+                                    <p class="text-gray-600">Tests ilimitados y seguimiento de tu progreso</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="bg-white p-8 rounded-xl shadow-lg">
+                        <h3 class="text-2xl font-bold text-gray-900 mb-6 text-center">Contacta con nosotros</h3>
+                        <div class="space-y-4">
+                            <div class="flex items-center">
+                                <div class="text-xl mr-3">📍</div>
+                                <div>
+                                    <p class="font-semibold">Dirección</p>
+                                    <p class="text-gray-600">Avenida América piso panchilandia -Algeciras</p>
+                                </div>
+                            </div>
+                            <div class="flex items-center">
+                                <div class="text-xl mr-3">📞</div>
+                                <div>
+                                    <p class="font-semibold">Teléfono</p>
+                                    <p class="text-gray-600">91 123 45 67</p>
+                                </div>
+                            </div>
+                            <div class="flex items-center">
+                                <div class="text-xl mr-3">📧</div>
+                                <div>
+                                    <p class="font-semibold">Email</p>
+                                    <p class="text-gray-600">info@autoquiray.com</p>
+                                </div>
+                            </div>
+                            <div class="flex items-center">
+                                <div class="text-xl mr-3">🕒</div>
+                                <div>
+                                    <p class="font-semibold">Horario</p>
+                                    <p class="text-gray-600">L-V: 9:00-20:00 | S: 9:00-14:00</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- Login Page -->
+    <div id="login-page" class="page-content hidden">
+        <div class="min-h-screen flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
+            <div class="max-w-md w-full space-y-8">
+                <div class="text-center">
+                    <div class="text-4xl mb-4">🚗</div>
+                    <h2 class="text-3xl font-bold text-gray-900">Acceso Alumnos</h2>
+                    <p class="mt-2 text-gray-600">Inicia sesión para acceder a tu área personal</p>
+                </div>
+                <div class="bg-white p-8 rounded-xl shadow-lg">
+                    <form onsubmit="handleLogin(event)" class="space-y-6">
+                        <div>
+                            <label for="email" class="block text-sm font-medium text-gray-700 mb-2">Email</label>
+                            <input id="email" name="email" type="email" required 
+                                   class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-blue-500 focus:border-blue-500"
+                                   placeholder="tu@email.com">
+                        </div>
+                        <div>
+                            <label for="password" class="block text-sm font-medium text-gray-700 mb-2">Contraseña</label>
+                            <input id="password" name="password" type="password" required 
+                                   class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-blue-500 focus:border-blue-500"
+                                   placeholder="••••••••">
+                        </div>
+                        <div class="flex items-center justify-between">
+                            <div class="flex items-center">
+                                <input id="remember-me" name="remember-me" type="checkbox" 
+                                       class="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded">
+                                <label for="remember-me" class="ml-2 block text-sm text-gray-700">Recordarme</label>
+                            </div>
+                            <div class="text-sm">
+                                <a href="#" class="font-medium text-blue-600 hover:text-blue-500">¿Olvidaste tu contraseña?</a>
+                            </div>
+                        </div>
+                        <button type="submit" 
+                                class="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-colors">
+                            Iniciar Sesión
+                        </button>
+                    </form>
+                    <div class="mt-6 text-center">
+                        <p class="text-sm text-gray-600">
+                            ¿No tienes cuenta? 
+                            <a href="#" class="font-medium text-blue-600 hover:text-blue-500">Contacta con la autoescuela</a>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Tests Page -->
+    <div id="tests-page" class="page-content hidden">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+            <div class="text-center mb-12">
+                <h1 class="text-4xl font-bold text-gray-900 mb-4">Tests Online</h1>
+                <p class="text-xl text-gray-600">Practica con tests oficiales para tu tipo de carnet</p>
+            </div>
+
+            <!-- Test Selection -->
+            <div id="test-selection" class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12">
+                <div class="bg-white p-8 rounded-xl shadow-lg hover:shadow-xl transition-shadow cursor-pointer" onclick="startTest('B')">
+                    <div class="text-center">
+                        <div class="text-5xl mb-4">🚗</div>
+                        <h3 class="text-2xl font-bold text-gray-900 mb-3">Test Carnet B</h3>
+                        <p class="text-gray-600 mb-4">Test oficial para permiso de conducir B (turismos)</p>
+                        <div class="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm font-medium inline-block mb-4">
+                            30 preguntas
+                        </div>
+                        <button class="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-6 rounded-lg transition-colors">
+                            Comenzar Test
+                        </button>
+                    </div>
+                </div>
+
+                <div class="bg-white p-8 rounded-xl shadow-lg hover:shadow-xl transition-shadow cursor-pointer" onclick="startTest('A')">
+                    <div class="text-center">
+                        <div class="text-5xl mb-4">🏍️</div>
+                        <h3 class="text-2xl font-bold text-gray-900 mb-3">Test Carnet A</h3>
+                        <p class="text-gray-600 mb-4">Test oficial para permiso de conducir A (motocicletas)</p>
+                        <div class="bg-green-100 text-green-800 px-3 py-1 rounded-full text-sm font-medium inline-block mb-4">
+                            30 preguntas
+                        </div>
+                        <button class="w-full bg-green-600 hover:bg-green-700 text-white font-bold py-3 px-6 rounded-lg transition-colors">
+                            Comenzar Test
+                        </button>
+                    </div>
+                </div>
+
+                <div class="bg-white p-8 rounded-xl shadow-lg hover:shadow-xl transition-shadow cursor-pointer" onclick="startTest('C')">
+                    <div class="text-center">
+                        <div class="text-5xl mb-4">🚛</div>
+                        <h3 class="text-2xl font-bold text-gray-900 mb-3">Test Carnet C</h3>
+                        <p class="text-gray-600 mb-4">Test oficial para permiso de conducir C (camiones)</p>
+                        <div class="bg-orange-100 text-orange-800 px-3 py-1 rounded-full text-sm font-medium inline-block mb-4">
+                            30 preguntas
+                        </div>
+                        <button class="w-full bg-orange-600 hover:bg-orange-700 text-white font-bold py-3 px-6 rounded-lg transition-colors">
+                            Comenzar Test
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Test Interface -->
+            <div id="test-interface" class="hidden">
+                <div class="bg-white rounded-xl shadow-lg p-8">
+                    <div class="flex justify-between items-center mb-6">
+                        <h2 id="test-title" class="text-2xl font-bold text-gray-900"></h2>
+                        <div class="flex items-center space-x-4">
+                            <div class="text-sm text-gray-600">
+                                Pregunta <span id="current-question">1</span> de <span id="total-questions">30</span>
+                            </div>
+                            <div id="timer" class="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm font-medium">
+                                ⏱️ 30:00
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="mb-8">
+                        <div class="w-full bg-gray-200 rounded-full h-2 mb-6">
+                            <div id="progress-bar" class="bg-blue-600 h-2 rounded-full transition-all duration-300" style="width: 3.33%"></div>
+                        </div>
+                        
+                        <div id="question-container" class="mb-6">
+                            <h3 id="question-text" class="text-lg font-medium text-gray-900 mb-4"></h3>
+                            <div id="answers-container" class="space-y-3"></div>
+                        </div>
+
+                        <div class="flex justify-between">
+                            <button id="prev-btn" onclick="previousQuestion()" 
+                                    class="bg-gray-300 hover:bg-gray-400 text-gray-700 font-bold py-2 px-6 rounded-lg transition-colors disabled:opacity-50 disabled:cursor-not-allowed">
+                                ← Anterior
+                            </button>
+                            <button id="next-btn" onclick="nextQuestion()" 
+                                    class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-6 rounded-lg transition-colors">
+                                Siguiente →
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Test Results -->
+            <div id="test-results" class="hidden">
+                <div class="bg-white rounded-xl shadow-lg p-8 text-center">
+                    <div id="result-icon" class="text-6xl mb-4"></div>
+                    <h2 id="result-title" class="text-3xl font-bold mb-4"></h2>
+                    <div id="result-stats" class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+                        <div class="bg-gray-50 p-4 rounded-lg">
+                            <div class="text-2xl font-bold text-gray-900" id="correct-answers">0</div>
+                            <div class="text-sm text-gray-600">Respuestas correctas</div>
+                        </div>
+                        <div class="bg-gray-50 p-4 rounded-lg">
+                            <div class="text-2xl font-bold text-gray-900" id="incorrect-answers">0</div>
+                            <div class="text-sm text-gray-600">Respuestas incorrectas</div>
+                        </div>
+                        <div class="bg-gray-50 p-4 rounded-lg">
+                            <div class="text-2xl font-bold text-gray-900" id="final-score">0%</div>
+                            <div class="text-sm text-gray-600">Puntuación final</div>
+                        </div>
+                    </div>
+                    <div class="space-x-4">
+                        <button onclick="restartTest()" 
+                                class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-6 rounded-lg transition-colors">
+                            Repetir Test
+                        </button>
+                        <button onclick="backToSelection()" 
+                                class="bg-gray-300 hover:bg-gray-400 text-gray-700 font-bold py-3 px-6 rounded-lg transition-colors">
+                            Elegir Otro Test
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Global variables
+        let currentPage = 'home';
+        let currentTest = null;
+        let currentQuestionIndex = 0;
+        let userAnswers = [];
+        let testTimer = null;
+        let timeRemaining = 1800; // 30 minutes
+
+        // Sample questions for different license types
+        const testQuestions = {
+            'B': [
+                {
+                    question: "¿Cuál es la velocidad máxima permitida en autopistas para turismos?",
+                    answers: ["100 km/h", "120 km/h", "130 km/h", "140 km/h"],
+                    correct: 1
+                },
+                {
+                    question: "¿Qué significa una señal triangular con borde rojo?",
+                    answers: ["Prohibición", "Obligación", "Peligro", "Información"],
+                    correct: 2
+                },
+                {
+                    question: "¿Cuándo es obligatorio el uso del cinturón de seguridad?",
+                    answers: ["Solo en autopistas", "Solo en ciudad", "Siempre", "Solo de noche"],
+                    correct: 2
+                },
+                {
+                    question: "¿Qué distancia de seguridad debe mantener con el vehículo de delante?",
+                    answers: ["1 metro", "3 segundos", "5 metros", "10 metros"],
+                    correct: 1
+                },
+                {
+                    question: "¿Está permitido usar el teléfono móvil mientras se conduce?",
+                    answers: ["Sí, siempre", "Solo con manos libres", "Solo para emergencias", "Nunca"],
+                    correct: 1
+                }
+            ],
+            'A': [
+                {
+                    question: "¿Cuál es la cilindrada máxima para el carnet A1?",
+                    answers: ["125 cc", "250 cc", "400 cc", "500 cc"],
+                    correct: 0
+                },
+                {
+                    question: "¿Es obligatorio el uso del casco en motocicleta?",
+                    answers: ["Solo en autopistas", "Solo en ciudad", "Siempre", "Solo de noche"],
+                    correct: 2
+                },
+                {
+                    question: "¿Qué significa el zigzag en el pavimento?",
+                    answers: ["Curva peligrosa", "Paso de peatones próximo", "Zona de adelantamiento", "Cambio de carril"],
+                    correct: 1
+                },
+                {
+                    question: "¿Cuándo debe encender las luces de la motocicleta?",
+                    answers: ["Solo de noche", "Solo con lluvia", "Siempre", "Solo en túneles"],
+                    correct: 2
+                },
+                {
+                    question: "¿Está permitido circular por el arcén con motocicleta?",
+                    answers: ["Sí, siempre", "Solo en atascos", "Solo en emergencias", "Nunca"],
+                    correct: 3
+                }
+            ],
+            'C': [
+                {
+                    question: "¿Cuál es el peso máximo autorizado para el carnet C?",
+                    answers: ["3.500 kg", "7.500 kg", "Sin límite", "12.000 kg"],
+                    correct: 2
+                },
+                {
+                    question: "¿Cuántas horas de descanso son obligatorias tras 4,5 horas de conducción?",
+                    answers: ["15 minutos", "30 minutos", "45 minutos", "1 hora"],
+                    correct: 2
+                },
+                {
+                    question: "¿Qué documentación adicional necesita un conductor profesional?",
+                    answers: ["CAP", "ADR", "Carnet de manipulador", "Todas las anteriores"],
+                    correct: 0
+                },
+                {
+                    question: "¿Cuál es la velocidad máxima para camiones en autopista?",
+                    answers: ["90 km/h", "100 km/h", "110 km/h", "120 km/h"],
+                    correct: 0
+                },
+                {
+                    question: "¿Es obligatorio el tacógrafo en vehículos de transporte?",
+                    answers: ["Solo en internacionales", "Solo mayores de 3,5t", "Siempre", "Solo en autopistas"],
+                    correct: 1
+                }
+            ]
+        };
+
+        // Navigation functions
+        function showPage(page) {
+            // Hide all pages
+            document.querySelectorAll('.page-content').forEach(p => p.classList.add('hidden'));
+            
+            // Show selected page
+            document.getElementById(page + '-page').classList.remove('hidden');
+            document.getElementById(page + '-page').classList.add('fade-in');
+            
+            // Update navigation
+            document.querySelectorAll('.nav-btn').forEach(btn => {
+                btn.classList.remove('text-blue-600');
+                btn.classList.add('text-gray-700');
+            });
+            
+            currentPage = page;
+        }
+
+        function toggleMobileMenu() {
+            const menu = document.getElementById('mobile-menu');
+            menu.classList.toggle('hidden');
+        }
+
+        // Login function
+        function handleLogin(event) {
+            event.preventDefault();
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+            
+            // Simulate login process
+            if (email && password) {
+                alert('¡Bienvenido! Acceso concedido. En una aplicación real, serías redirigido a tu área personal.');
+                // Reset form
+                event.target.reset();
+            }
+        }
+
+        // Test functions
+        function startTest(type) {
+            currentTest = type;
+            currentQuestionIndex = 0;
+            userAnswers = [];
+            timeRemaining = 1800; // 30 minutes
+            
+            // Hide selection, show test interface
+            document.getElementById('test-selection').classList.add('hidden');
+            document.getElementById('test-interface').classList.remove('hidden');
+            
+            // Set test title
+            const titles = {
+                'B': 'Test Carnet B - Turismos',
+                'A': 'Test Carnet A - Motocicletas', 
+                'C': 'Test Carnet C - Camiones'
+            };
+            document.getElementById('test-title').textContent = titles[type];
+            
+            // Start timer
+            startTimer();
+            
+            // Load first question
+            loadQuestion();
+        }
+
+        function loadQuestion() {
+            const questions = testQuestions[currentTest];
+            const question = questions[currentQuestionIndex];
+            
+            // Update progress
+            document.getElementById('current-question').textContent = currentQuestionIndex + 1;
+            document.getElementById('total-questions').textContent = questions.length;
+            
+            const progress = ((currentQuestionIndex + 1) / questions.length) * 100;
+            document.getElementById('progress-bar').style.width = progress + '%';
+            
+            // Load question
+            document.getElementById('question-text').textContent = question.question;
+            
+            // Load answers
+            const answersContainer = document.getElementById('answers-container');
+            answersContainer.innerHTML = '';
+            
+            question.answers.forEach((answer, index) => {
+                const answerDiv = document.createElement('div');
+                answerDiv.className = 'flex items-center';
+                answerDiv.innerHTML = `
+                    <input type="radio" id="answer-${index}" name="question-answer" value="${index}" 
+                           class="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300"
+                           ${userAnswers[currentQuestionIndex] === index ? 'checked' : ''}>
+                    <label for="answer-${index}" class="ml-3 text-gray-700 cursor-pointer flex-1 p-2 rounded hover:bg-gray-50">
+                        ${answer}
+                    </label>
+                `;
+                answersContainer.appendChild(answerDiv);
+            });
+            
+            // Update navigation buttons
+            document.getElementById('prev-btn').disabled = currentQuestionIndex === 0;
+            document.getElementById('next-btn').textContent = 
+                currentQuestionIndex === questions.length - 1 ? 'Finalizar Test' : 'Siguiente →';
+        }
+
+        function previousQuestion() {
+            if (currentQuestionIndex > 0) {
+                saveCurrentAnswer();
+                currentQuestionIndex--;
+                loadQuestion();
+            }
+        }
+
+        function nextQuestion() {
+            saveCurrentAnswer();
+            
+            if (currentQuestionIndex < testQuestions[currentTest].length - 1) {
+                currentQuestionIndex++;
+                loadQuestion();
+            } else {
+                finishTest();
+            }
+        }
+
+        function saveCurrentAnswer() {
+            const selectedAnswer = document.querySelector('input[name="question-answer"]:checked');
+            if (selectedAnswer) {
+                userAnswers[currentQuestionIndex] = parseInt(selectedAnswer.value);
+            }
+        }
+
+        function startTimer() {
+            testTimer = setInterval(() => {
+                timeRemaining--;
+                
+                const minutes = Math.floor(timeRemaining / 60);
+                const seconds = timeRemaining % 60;
+                
+                document.getElementById('timer').textContent = 
+                    `⏱️ ${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+                
+                if (timeRemaining <= 0) {
+                    clearInterval(testTimer);
+                    finishTest();
+                }
+            }, 1000);
+        }
+
+        function finishTest() {
+            clearInterval(testTimer);
+            saveCurrentAnswer();
+            
+            // Calculate results
+            const questions = testQuestions[currentTest];
+            let correctAnswers = 0;
+            
+            userAnswers.forEach((answer, index) => {
+                if (answer === questions[index].correct) {
+                    correctAnswers++;
+                }
+            });
+            
+            const incorrectAnswers = questions.length - correctAnswers;
+            const score = Math.round((correctAnswers / questions.length) * 100);
+            const passed = score >= 90; // 90% to pass
+            
+            // Show results
+            document.getElementById('test-interface').classList.add('hidden');
+            document.getElementById('test-results').classList.remove('hidden');
+            
+            // Update results display
+            document.getElementById('result-icon').textContent = passed ? '🎉' : '😔';
+            document.getElementById('result-title').textContent = passed ? '¡Aprobado!' : 'No aprobado';
+            document.getElementById('result-title').className = passed ? 
+                'text-3xl font-bold mb-4 text-green-600' : 'text-3xl font-bold mb-4 text-red-600';
+            
+            document.getElementById('correct-answers').textContent = correctAnswers;
+            document.getElementById('incorrect-answers').textContent = incorrectAnswers;
+            document.getElementById('final-score').textContent = score + '%';
+        }
+
+        function restartTest() {
+            startTest(currentTest);
+            document.getElementById('test-results').classList.add('hidden');
+        }
+
+        function backToSelection() {
+            document.getElementById('test-results').classList.add('hidden');
+            document.getElementById('test-interface').classList.add('hidden');
+            document.getElementById('test-selection').classList.remove('hidden');
+            
+            // Reset test state
+            currentTest = null;
+            currentQuestionIndex = 0;
+            userAnswers = [];
+            if (testTimer) {
+                clearInterval(testTimer);
+            }
+        }
+
+        // Initialize page
+        document.addEventListener('DOMContentLoaded', function() {
+            showPage('home');
+        });
+    </script>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9830fa5575ef62e8',t:'MTc1ODUzNTQ2My4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>
