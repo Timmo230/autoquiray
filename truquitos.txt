@@ -2,6 +2,7 @@ git status
 git add . sirve para agregar todos los archivos a un commit
 git init es lo primero que se hace con un directorio para crear su archivo .git
 git commit -m "Nombre del commit" para añadir nueva versión del proyecto.
+git pull Actualiza en tu ordenador los cambios
 
 
 git remote add origin https://github.com/Timmo230/PROYECTO.git
