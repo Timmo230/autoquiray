@@ -1,0 +1,19 @@
+nav{
+    background-color: #333;
+    color: white;
+    padding: 10px;
+}
+
+ul{
+    display: flex;
+    flex: left;
+    align-items: center;
+}
+
+nav button{
+    background: linear-gradient(to right, rgb(70, 70, 247), #af1de9);
+    border-radius: 15px;
+    height: 40px;
+    padding: 10px;
+    color: white;
+}
