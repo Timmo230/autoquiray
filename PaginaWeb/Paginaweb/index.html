@@ -7,6 +7,8 @@
     <link rel="stylesheet" href="./css/reset.css">
     <link rel="stylesheet" href="./css/styles.css">
     <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
 </head>
 <body>
     <!-- Navegador ---->
@@ -32,24 +34,24 @@
         </div>
         
         <div id="botones">
-            <button>Comienza Ahora</button>
-            <button>Descubrir mas</button>
+            <button>Comienza Ahora &nbsp; <i class="fa-solid fa-angle-right"></i></button>
+            <button>Descubrir mas &nbsp; <i class="fa-solid fa-arrow-down"></i></button>
         </div>
 
-        <div>
-            <div>
-                <p>2222</p>
-                <p>Estudiantes activos</p>
+        <div id="stats_container">
+            <div class="stats">
+                <p class="number color-blue">2222</p>
+                <p class="info">Estudiantes activos</p>
             </div>
 
-            <div>
-                <p>94%</p>
-                <p>De exito</p>
+            <div class="stats">
+                <p class="number color-green">94%</p>
+                <p class="info">De exito</p>
             </div>
 
-            <div>
-                <p>150</p>
-                <p>Test hoy</p>
+            <div class="stats">
+                <p class="number color-purple">150</p>
+                <p class="info">Test hoy</p>
             </div>
         </div>
 
@@ -57,13 +59,26 @@
 
     <!-- Contenido principal ---->
     <main>
-        <article>
-            <h2>Nuestros Servicios</h2>
-            <h2>Carnet A</h2>
-            <h2>Carnet C</h2>
+        <article id="services">
+            <h2 class="main-title">Nuestros Servicios</h2>
+            <h3>Tecnologia de vanguardia para tu aprendizaje</h3>
+            <div class="flex">
+                <div>
+                    <h2>Carnet B</h2>
+                    <p>1257 estudiantes graduados</p>
+                </div>
+                <div>
+                    <h2>Carnet A</h2>
+                    <p>845 estudiantes graduados</p>
+                </div>
+                <div>
+                    <h2>Carnet C</h2>
+                    <p>634 estudiantes graduados</p>
+                </div>
+            </div>
         </article>
 
-        <article>
+        <article id="reasons">
             <h2>¿Por qué AutoQuiray?</h2>
             <ul>
                 <li>
