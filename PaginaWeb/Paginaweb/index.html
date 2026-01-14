@@ -3,105 +3,82 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AutoQuiray - Autoescuela Digital</title>
-    <link rel="stylesheet" href="./css/reset.css">
-    <link rel="stylesheet" href="./css/styles.css">
-    <script src="https://cdn.tailwindcss.com"></script>
+    <title>Document</title>
+    <link rel="stylesheet" href="./statics/css/main.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-
+    <link rel="stylesheet" href="./statics/css/styles.css">
 </head>
 <body>
-    <!-- Navegador ---->
-    <nav>
-        <ul>
-            <li><img src="./img/Screenshot 2025-12-03 084027.png" alt="icono"></li>
-            <li><h3>AutoQuiray</h3></li>
-            <li><button>Iniciar sesion</button></li>
-        </ul>
+    <nav class="navbar navbar-expand-lg bg-navbar" data-bs-theme="dark">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">
+                <img src="./statics/img/logo.png" alt="Logo" height="50" class="d-inline-block align-text-top">
+            </a>
+            <div>
+                <a class="btn btn-green-btn text-white me-5" href="#" role="button"><i class="fa-regular fa-user me-1"></i> Area Privada</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+            </div>
+            <div class="collapse navbar-collapse" id="navbarNavDropdown">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="#">Inicio</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Tests Online</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Mis Clases</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Atencion al Cliente</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Zona Profesores</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
     </nav>
 
-    <!-- Encabezado ---->
-    <header class="bg-gradient-to-br from-gray-900 via-blue-900 to-purple-900">
-        <div>
-            <h1>Tu Futuro <span>al Volante</span></h1>
-            <hr>
-            <h3>Revoluciona tu aprendizaje con <span>IA personalizada</span></h3>
-        </div>
-        
-        <div id="caracteristicas">
-            <h5 id="IAAdaptativa">IA Adaptativa</h5>
-            <h5 id="analisis">Analisis en tiempo real</h5>
-        </div>
-        
-        <div id="botones">
-            <button>Comienza Ahora &nbsp; <i class="fa-solid fa-angle-right"></i></button>
-            <button>Descubrir mas &nbsp; <i class="fa-solid fa-arrow-down"></i></button>
-        </div>
-
-        <div id="stats_container">
-            <div class="stats">
-                <p class="number color-blue">2222</p>
-                <p class="info">Estudiantes activos</p>
+    <header class="pt-5 position-relative overflow-hidden">
+        <div class="container">
+            <div class="d-flex justify-content-center">
+                <p class="btn text-green-btn bg-navbar bg-opacity-50 p-2 px-4 rounded-pill fw-semibold">
+                    <span class="opacity-100">Plataforma Activa</span>
+                </p>
             </div>
-
-            <div class="stats">
-                <p class="number color-green">94%</p>
-                <p class="info">De exito</p>
+            <div class="d-flex justify-content-center">
+                <h1 class="fw-bold text-light">AUTOQUIRAY</h1>
             </div>
-
-            <div class="stats">
-                <p class="number color-purple">150</p>
-                <p class="info">Test hoy</p>
+            <div class="d-flex justify-content-center">
+                <h3 class="text-green-btn">Tu autoescuela digital</h3>
+            </div>
+            <div class="d-flex justify-content-center text-center mt-3">
+                <h5 class="text-secondary text-light opacity-50">Aprende a conducir con la mejor tecnología. Tests online, seguimiento personalizado y reserva de clases desde cualquier dispositivo.</h5>
+            </div>
+            <div class="d-flex justify-content-center text-center mt-5">
+                <p class="btn btn-green-btn rounded p-3 text-light fs-5 fw-bold me-4"><i class="fa-regular fa-file-zipper me-2"></i>Acceder a mis tests</p>
+                <p class="btn bg-navbar bg-opacity-50 text-light rounded p-3 border fw-bold fs-5"><i class="fa-solid fa-arrow-right-from-bracket me-2"></i>Iniciar Sesión</p>
             </div>
         </div>
 
+        <svg viewBox="0 0 1440 100" preserveAspectRatio="none">
+            <path
+                d="M0,40 
+                C240,80 480,80 720,60 
+                960,40 1200,40 1440,60 
+                L1440,100 L0,100 Z"
+                fill="#ffffff">
+            </path>
+        </svg>
     </header>
 
-    <!-- Contenido principal ---->
-    <main>
-        <article id="services">
-            <h2 class="main-title">Nuestros Servicios</h2>
-            <h3>Tecnologia de vanguardia para tu aprendizaje</h3>
-            <div class="flex">
-                <div>
-                    <h2>Carnet B</h2>
-                    <p>1257 estudiantes graduados</p>
-                </div>
-                <div>
-                    <h2>Carnet A</h2>
-                    <p>845 estudiantes graduados</p>
-                </div>
-                <div>
-                    <h2>Carnet C</h2>
-                    <p>634 estudiantes graduados</p>
-                </div>
-            </div>
-        </article>
-
-        <article id="reasons">
-            <h2>¿Por qué AutoQuiray?</h2>
-            <ul>
-                <li>
-                    <h4>IA Personalizada</h4>
-                    <p>Sistema inteligente que adapta el aprendizaje a tu ritmo</p>
-                </li>
-
-                <li>
-                    <h4>Analisis en Tiempo Real</h4>
-                    <p>Feedback inmediato para mejorar tus habilidades de conduccion</p>
-                </li>
-                
-                <li>
-                    <h4>Incorporacion inmediata</h4>
-                    <p>Incorporacion a todo tipo de servicios inmediatos tannto practico como teorico</p>
-                </li>
-            </ul>
-        </article>
+    <main class="d-flex flex-column mt-5 align-content-center">
+        <h2>Ventajas de nuestra plataforma</h2>
     </main>
 
-    <!-- Pie de página ---->
-    <footer>
-        <p>La llave de tu indpendencia se llama AutoQuiray</p>
-    </footer>
+    <script src="./node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

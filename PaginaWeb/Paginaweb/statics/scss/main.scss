@@ -1,0 +1,14 @@
+@import "./../../node_modules/bootstrap/scss/_functions";
+@import "./../../node_modules/bootstrap/scss/_variables";
+
+$navbar: #3e4454;
+$green-btn: #0db07b;
+
+$autoquiray-colors: (
+    "navbar": $navbar,
+    "green-btn": $green-btn,
+);
+
+$theme-colors:map-merge($autoquiray-colors, $theme-colors);
+
+@import "./../../node_modules/bootstrap/scss/bootstrap";
