@@ -1,5 +1,6 @@
 $navbar: #3e4454;
 $green-btn: #0db07b;
+$green: #34d399;
 $main: #f0f0f0;
 $footer: #1e293b;
 
@@ -11,6 +12,7 @@ $autoquiray-colors: (
     "blue": $blue,
     "orange": $orange,
     "footer": $footer,
+    "green": $green,
 );
 
 $theme-colors:map-merge($autoquiray-colors, $theme-colors);

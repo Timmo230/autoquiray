@@ -9,8 +9,8 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <link rel="stylesheet" href="./statics/css/styles.css">
 </head>
-<body>
-    <nav class="navbar navbar-expand-lg bg-navbar" data-bs-theme="dark">
+<body class="bg-navbar">
+    <nav class="navbar navbar-expand-lg bg-navbar position-sticky top-0 z-3 bg-opacity-75" data-bs-theme="dark">
         <div class="container-fluid">
             <a class="navbar-brand" href="#">
                 <img src="./statics/img/logo.png" alt="Logo" height="50" class="d-inline-block align-text-top">
@@ -84,7 +84,7 @@
             </section>
             <section class="container-fluid px-3 mb-5">
                 <div class="d-flex flex-wrap justify-content-center gap-3 align-items-stretch cards-flex">
-                    <div class="card bg-white p-4 rounded-4 card-flex ventajas">
+                    <div class="card bg-white p-4 rounded-4 card-flex ventajas arriba shadow">
                         <div class="mb-2">
                             <img src="./statics/img/tests.png" alt="">
                         </div>
@@ -92,7 +92,7 @@
                         <p>Miles de preguntas actualizadas según la normativa DGT vigente</p>
                     </div>
 
-                    <div class="card bg-white p-4 rounded-4 card-flex ventajas">
+                    <div class="card bg-white p-4 rounded-4 card-flex ventajas arriba shadow">
                         <div class="mb-2">
                             <img src="./statics/img/Progreso.png" alt="">
                         </div>
@@ -100,7 +100,7 @@
                         <p>Visualiza tu evolución con estadísticas detalladas y gráficos</p>
                     </div>
 
-                    <div class="card bg-white p-4 rounded-4 card-flex ventajas">
+                    <div class="card bg-white p-4 rounded-4 card-flex ventajas arriba shadow">
                         <div class="mb-2">
                             <img src="./statics/img/Reserva.png" alt="">
                         </div>
@@ -108,7 +108,7 @@
                         <p>Programa tus clases prácticas fácilmente desde la app</p>
                     </div>
 
-                    <div class="card bg-white p-4 rounded-4 card-flex ventajas">
+                    <div class="card bg-white p-4 rounded-4 card-flex ventajas arriba shadow">
                         <div class="mb-2">
                             <img src="./statics/img/atencion.png" alt="">
                         </div>
@@ -142,20 +142,71 @@
         </article>
     </main>
 
-    <footer class="bg-footer text-light">
-        <div class="row row-cols-1 row-cols-sm-3">
-            <div class="col d-flex">
-                <i class="fa-solid fa-shield-halved"></i>
-                <p>Datos protegidor segun RGPD</p>
+    <footer class="bg-footer text-light pt-4 px-2 row row-cols-1 justify-content-center">
+        <div class="row row-cols-1 row-cols-md-3 mb-5 col footDiv">
+            <div class="col d-flex my-1 border-end border-secondary border-md-0">
+                <i class="fa-solid fa-shield-halved text-green mx-2 my-auto fs-4"></i>
+                <p class="my-auto fs-5-5">Datos protegidor segun RGPD</p>
             </div>
-            <div class="col d-flex">
-                <i class="fa-solid fa-lock"></i>
-                <p>Acceso seguro con credenciales</p>
+            <div class="col d-flex my-1 border-end border-secondary border-md-0">
+                <i class="fa-solid fa-lock text-green mx-2 my-auto fs-4"></i>
+                <p class="my-auto fs-5-5">Acceso seguro con credenciales</p>
             </div>
-            <div class="col d-flex">
-                <i class="fa-solid fa-server"></i>
-                <p>Servidor local Active Directory</p>
+            <div class="col d-flex my-1">
+                <i class="fa-solid fa-server text-green mx-2 my-auto fs-4"></i>
+                <p class="my-auto fs-5-5">Servidor local Active Directory</p>
             </div>
+        </div>
+        <div class="row row-cols-1 row-cols-md-3 mt-2 col footDiv text-center border-bottom border-secondary">
+            <div class="col my-1 row row-cols-1">
+                <div class="col mb-3">
+                    <img src="./statics/img/logo.png" alt="" class="footLogo">
+                </div>
+                <p class="opacity-50">Tu autoescuela digital de confianza. Formación de calidad para obtener tu carnet de conducir.</p>
+            </div>
+            <div class="col d-flex flex-column my-1">
+                <p class="fw-bold fs-5">Enlaces Rapidos</p>
+                <ul class="navbar-nav mb-2">
+                    <li class="nav-item">
+                        <a class="nav-link opacity-50" href="#">Test Online</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link opacity-50" href="#">Mis Clases</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link opacity-50" href="#">Contactos</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link opacity-50" href="#">Area Privada</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="col d-flex flex-column my-1 text-start">
+                <p class="fw-bold fs-5">Seguridad</p>
+                <ul class="navbar-nav mb-2">
+                    <li class="nav-item">
+                        <div class="d-flex my-3">
+                            <i class="fa-solid fa-shield-halved text-green mx-2 my-auto fs-5"></i>
+                            <p class="opacity-50 my-auto">Datos protegidos RGPD</p>
+                        </div>
+                    </li>
+                    <li class="nav-item">
+                        <div class="d-flex my-3">
+                            <i class="fa-solid fa-lock text-green mx-2 my-auto fs-5"></i>
+                            <p class="opacity-50 my-auto">Conexión SSL cifrada</p>
+                        </div>
+                    </li>
+                    <li class="nav-item">
+                        <div class="d-flex my-3">
+                            <i class="fa-solid fa-server text-green mx-2 my-auto fs-5"></i>
+                            <p class="opacity-50 my-auto">Servidor local seguro</p>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div>
+            <p class="opacity-50 text-center mt-3">© 2025 AUTOQUIRAY. Todos los derechos reservados. | Aviso Legal | Política de Privacidad</p>
         </div>
     </footer>
     <script src="./node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
