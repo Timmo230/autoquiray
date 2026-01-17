@@ -3,48 +3,53 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>AUTOQUIRAY</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,300..900;1,300..900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="./statics/css/main.min.css">
     <link rel="stylesheet" href="./statics/css/cards.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <link rel="stylesheet" href="./statics/css/styles.css">
 </head>
 <body class="bg-navbar">
-    <nav class="navbar navbar-expand-lg bg-navbar position-sticky top-0 z-3 bg-opacity-75" data-bs-theme="dark">
-        <div class="container-fluid">
+    <nav class="navbar navbar-expand-xl bg-navbar position-sticky top-0 z-3 bg-opacity-90" id="nav" data-bs-theme="dark">
+        <div class="container-fluid d-flex">
+
+            <!-- IZQUIERDA: Logo -->
             <a class="navbar-brand" href="#">
-                <img src="./statics/img/logo.png" alt="Logo" height="50" class="d-inline-block align-text-top">
+                <img src="./statics/img/logo.png" width="250" alt="">
             </a>
-            <div>
-                <a class="btn btn-green-btn text-white me-5" href="#" role="button"><i class="fa-regular fa-user me-1"></i> Area Privada</a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+
+            <!-- CENTRO: Menu -->
+            <div class="collapse navbar-collapse justify-content-center" id="navbarNavDropdown">
+                <ul class="navbar-nav">
+                    <li class="nav-item"><a class="nav-link active" href="#">Inicio</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#">Tests Online</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#">Mis Clases</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#">Atención al Cliente</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#">Zona Profesores</a></li>
+                </ul>
+            </div>
+
+            <!-- DERECHA: Botón + Toggler -->
+            <div class="d-flex align-items-center nav-buttons">
+                <a class="btn btn-green-btn text-white me-3 btngreenLight" href="#">
+                    <i class="fa-regular fa-user me-1"></i> Área Privada
+                </a>
+                <button class="navbar-toggler" type="button"
+                    data-bs-toggle="collapse"
+                    data-bs-target="#navbarNavDropdown">
                     <span class="navbar-toggler-icon"></span>
                 </button>
             </div>
-            <div class="collapse navbar-collapse" id="navbarNavDropdown">
-                <ul class="navbar-nav">
-                    <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="#">Inicio</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Tests Online</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Mis Clases</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Atencion al Cliente</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Zona Profesores</a>
-                    </li>
-                </ul>
-            </div>
+
         </div>
     </nav>
 
+
     <header class="pt-5 position-relative overflow-hidden">
-        <div class="container">
+        <div class="container pt-5">
             <div class="d-flex justify-content-center">
                 <p class="btn text-green-btn bg-navbar bg-opacity-50 p-2 px-4 rounded-pill fw-semibold">
                     <span class="opacity-100">Plataforma Activa</span>
@@ -60,8 +65,8 @@
                 <h5 class="text-secondary text-light opacity-50">Aprende a conducir con la mejor tecnología. Tests online, seguimiento personalizado y reserva de clases desde cualquier dispositivo.</h5>
             </div>
             <div class="d-flex justify-content-center text-center mt-5">
-                <p class="btn btn-green-btn rounded p-3 text-light fs-5 fw-bold me-4"><i class="fa-regular fa-file-zipper me-2"></i>Acceder a mis tests</p>
-                <p class="btn bg-navbar bg-opacity-50 text-light rounded p-3 border fw-bold fs-5"><i class="fa-solid fa-arrow-right-from-bracket me-2"></i>Iniciar Sesión</p>
+                <p class="btn btn-green-btn rounded-4 p-3 text-light fs-5-5 fw-bold me-4 btngreenLight"><i class="fa-regular fa-file-zipper me-2"></i>Acceder a mis tests</p>
+                <p class="btn text-light rounded-4 p-3 border fw-bold fs-5-5" id="iniciarSesion"><i class="fa-solid fa-arrow-right-from-bracket me-2"></i>Iniciar Sesión</p>
             </div>
         </div>
 
@@ -78,11 +83,11 @@
 
     <main class="d-flex flex-column pt-5 align-content-center bg-main">
         <article class="d-flex flex-column">
-            <section class="text-center py-4">
-                <h2>Ventajas de nuestra plataforma</h2>
-                <h5>Todo lo necesario para obtener tu carnet de conducir en un solo lugar</h5>
+            <section class="text-center py-4 mb-5">
+                <h2 class="fs-1 fw-bolder">Ventajas de nuestra plataforma</h2>
+                <h5 class="opacity-50">Todo lo necesario para obtener tu carnet de conducir en un solo lugar</h5>
             </section>
-            <section class="container-fluid px-3 mb-5">
+            <section class="container-fluid px-3 mb-5 mt-3">
                 <div class="d-flex flex-wrap justify-content-center gap-3 align-items-stretch cards-flex">
                     <div class="card bg-white p-4 rounded-4 card-flex ventajas arriba shadow">
                         <div class="mb-2">
@@ -145,16 +150,28 @@
     <footer class="bg-footer text-light pt-4 px-2 row row-cols-1 justify-content-center">
         <div class="row row-cols-1 row-cols-md-3 mb-5 col footDiv">
             <div class="col d-flex my-1 border-end border-secondary border-md-0">
-                <i class="fa-solid fa-shield-halved text-green mx-2 my-auto fs-4"></i>
-                <p class="my-auto fs-5-5">Datos protegidor segun RGPD</p>
+                <div class="ms-auto">
+                    <i class="fa-solid fa-shield-halved text-green mx-2 my-auto fs-4"></i> 
+                </div>
+                <div class="me-auto">
+                    <p class="my-auto fs-5-5">Datos protegidor segun RGPD</p>
+                </div>
             </div>
             <div class="col d-flex my-1 border-end border-secondary border-md-0">
-                <i class="fa-solid fa-lock text-green mx-2 my-auto fs-4"></i>
-                <p class="my-auto fs-5-5">Acceso seguro con credenciales</p>
+                <div class="ms-auto">
+                    <i class="fa-solid fa-lock text-green mx-2 my-auto fs-4"></i>
+                </div>
+                <div class="me-auto">
+                    <p class="my-auto fs-5-5">Acceso seguro con credenciales</p>
+                </div>
             </div>
-            <div class="col d-flex my-1">
-                <i class="fa-solid fa-server text-green mx-2 my-auto fs-4"></i>
-                <p class="my-auto fs-5-5">Servidor local Active Directory</p>
+            <div class="col d-flex my-1">            
+                <div class="ms-auto">
+                    <i class="fa-solid fa-server text-green mx-2 my-auto fs-4"></i>
+                </div>
+                <div class="me-auto">
+                    <p class="my-auto fs-5-5">Servidor local Active Directory</p>
+                </div>
             </div>
         </div>
         <div class="row row-cols-1 row-cols-md-3 mt-2 col footDiv text-center border-bottom border-secondary">
@@ -181,25 +198,37 @@
                     </li>
                 </ul>
             </div>
-            <div class="col d-flex flex-column my-1 text-start">
+            <div class="col d-flex flex-column my-1">
                 <p class="fw-bold fs-5">Seguridad</p>
                 <ul class="navbar-nav mb-2">
                     <li class="nav-item">
                         <div class="d-flex my-3">
-                            <i class="fa-solid fa-shield-halved text-green mx-2 my-auto fs-5"></i>
-                            <p class="opacity-50 my-auto">Datos protegidos RGPD</p>
+                            <div class="ms-auto">
+                                <i class="fa-solid fa-shield-halved text-green mx-2 my-auto fs-5"></i>
+                            </div>
+                            <div class="me-auto">
+                                <p class="opacity-50 my-auto">Datos protegidos RGPD</p>
+                            </div>
                         </div>
                     </li>
                     <li class="nav-item">
                         <div class="d-flex my-3">
-                            <i class="fa-solid fa-lock text-green mx-2 my-auto fs-5"></i>
-                            <p class="opacity-50 my-auto">Conexión SSL cifrada</p>
+                            <div class="ms-auto">
+                                <i class="fa-solid fa-lock text-green mx-2 my-auto fs-5"></i>
+                            </div>
+                            <div class="me-auto">
+                                <p class="opacity-50 my-auto">Conexión SSL cifrada</p>
+                            </div>
                         </div>
                     </li>
                     <li class="nav-item">
                         <div class="d-flex my-3">
-                            <i class="fa-solid fa-server text-green mx-2 my-auto fs-5"></i>
-                            <p class="opacity-50 my-auto">Servidor local seguro</p>
+                            <div class="ms-auto">
+                                <i class="fa-solid fa-server text-green mx-2 my-auto fs-5"></i>
+                            </div>
+                            <div class="me-auto">
+                                <p class="opacity-50 my-auto">Servidor local seguro</p>
+                            </div>
                         </div>
                     </li>
                 </ul>
@@ -210,5 +239,6 @@
         </div>
     </footer>
     <script src="./node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="./statics/js/app.js"></script>
 </body>
 </html>

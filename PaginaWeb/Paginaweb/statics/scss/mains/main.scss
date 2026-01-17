@@ -5,3 +5,7 @@
 @import "./../variables.scss";
 
 @import "./../../../node_modules/bootstrap/scss/bootstrap";
+
+.bg-opacity-90 { 
+    --bs-bg-opacity: 0.9;
+}
