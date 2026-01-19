@@ -1,3 +1,16 @@
+<?php
+    require "./database.php";
+
+    $statement = $conn->prepare("SELECT count(*) AS total FROM students WHERE active=1");
+    $statement->execute();
+    $user_ammount = $statement->fetch(PDO::FETCH_ASSOC)["total"];
+
+    $statement = $conn->prepare("SELECT count(*) AS total FROM question_tests");
+    $statement->execute();
+    $questions_ammount = $statement->fetch(PDO::FETCH_ASSOC)["total"];
+?>
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -9,10 +22,8 @@
     ?>
     <link rel="stylesheet" href="./statics/css/index.css">
 </head>
-<body class="bg-navbar">
-    <nav class="navbar navbar-expand-xl bg-navbar position-sticky top-0 z-3 bg-opacity-90" id="nav" data-bs-theme="dark">
-    </nav>
-
+<body class="bg-navbar">   
+    <?php require "./partials/nav.php" ?>
 
     <header class="pt-5 position-relative overflow-hidden bg-linear-blue">
         <div class="container pt-5">
@@ -105,11 +116,11 @@
                             <p class="text-secondary opacity-75 fs-5">Aprobados a la primera</p>
                         </div>
                         <div class="card-flex data">
-                            <p class="text-blue fs-2 fw-bold m-0">5000+</p>
+                            <p class="text-blue fs-2 fw-bold m-0"><?= $questions_ammount?></p>
                             <p class="text-secondary opacity-75 fs-5">Preguntas disponibles</p>
                         </div>
                         <div class="card-flex data">
-                            <p class="text-purple fs-2 fw-bold m-0">1200+</p>
+                            <p class="text-purple fs-2 fw-bold m-0"><?= $user_ammount ?></p>
                             <p class="text-secondary opacity-75 fs-5">Alumnos activos</p>
                         </div>
                         <div class="card-flex data">

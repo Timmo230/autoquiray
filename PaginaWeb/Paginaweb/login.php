@@ -10,8 +10,9 @@
     <link rel="stylesheet" href="./statics/css/login.css">
 </head>
 <body>
-    <nav class="navbar navbar-expand-xl bg-navbar position-sticky top-0 z-3 bg-opacity-90" id="nav" data-bs-theme="dark">
-    </nav>
+
+    <?php require "./partials/nav.php" ?>
+    
     <main class="bg-linear-blue py-5">
         <section class="p-4 rounded-4 mx-auto" id="login">
             <form>
