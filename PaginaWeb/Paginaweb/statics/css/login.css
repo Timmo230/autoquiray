@@ -1,0 +1,28 @@
+.form-control:focus, .form-select:focus {
+  border-color: var(--bs-green-btn); /* verde ejemplo */
+  box-shadow: 0 0 0 0.2rem rgba(40, 167, 69, 0.25);
+}
+
+.btngreenLight{
+    transition: transform 0.3s ease;
+}
+
+.btngreenLight:hover{
+    box-shadow: 5px 5px 20px #0db07b,
+    -5px 5px 20px #3cd6a3;
+    transform: translateY(-5px);
+}
+
+#login {
+    background-color: #f3f4f6;
+    width: 90%;
+    max-width: 420px;
+}
+
+#login .logo {
+    max-width: 75%;
+}
+
+#login img{
+    max-width: 98%;
+}

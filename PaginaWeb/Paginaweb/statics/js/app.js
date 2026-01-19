@@ -1,7 +1,7 @@
 const navGrande = `<div class="container-fluid">
 
             <!-- IZQUIERDA: Logo -->
-            <a class="navbar-brand" href="#">
+            <a class="navbar-brand" href="./index.php">
                 <img src="./statics/img/logo.png" width="250" alt="">
             </a>
 
@@ -30,7 +30,7 @@ const navGrande = `<div class="container-fluid">
 
         </div>`
 const navPequeno = `<div class="container-fluid">
-            <a class="navbar-brand" href="#">
+            <a class="navbar-brand" href="./index.php">
                 <img src="./statics/img/logo.png" width="250" alt="">
             </a>
 

@@ -1,26 +1,9 @@
-:root {
-  --bp-sm: 576px;
-  --bp-md: 768px;
-  --bp-lg: 992px;
-  --bp-xl: 1200px;
-}
-
-header{
+.bg-linear-blue{
     background: linear-gradient(135deg, #0f172a 0%, #1e3a5f 50%, #0f172a 100%);
 }
 
-svg{
-    display:block; 
-    width:100%; 
-    height:100px;
-}
-
-.footDiv:first-child{
-    max-width: 1000px;
-}
-
-.footDiv:nth-child(2){
-    max-width: 1300px;
+.nav-item, .rubik {
+  font-family: "Rubik", sans-serif;
 }
 
 .footLogo{
@@ -29,37 +12,10 @@ svg{
 }
 
 
-.card img{
-    height: 70px;
-}
-
-.arriba {
-  transition: transform 0.3s ease;
-}
-
-.arriba:hover {
-  transform: translateY(-5px);
-}
-
-#iniciarSesion{
-    background-color: rgba(62, 68, 84, .5);
-}
-#iniciarSesion:hover{
-    background-color: rgba(62, 68, 84, 1);
-}
-
-.btngreenLight:hover{
-    box-shadow: 5px 5px 20px #0db07b,
-    -5px -5px 20px #0db07b,
-    5px -5px 20px #0db07b,
-    -5px 5px 20px #0db07b;
-}
-
-.container{
-    max-width: 600px;
-}
-.nav-item {
-  font-family: "Rubik", sans-serif;
+@media (max-width: 600px){
+    nav img{
+        width: 150px;
+    }
 }
 
 @media (min-width: 1200px) {
@@ -96,11 +52,5 @@ svg{
     }
     .navbar .nav-link:hover{
         background-color: rgba(255, 255, 255, .3);
-    }
-}
-
-@media (max-width: 600px){
-    nav img{
-        width: 150px;
     }
 }
