@@ -1,7 +1,7 @@
 <?php
     require "./database.php";
 
-    $statement = $conn->prepare("SELECT count(*) AS total FROM students WHERE active=1");
+    $statement = $conn->prepare("SELECT count(*) AS total FROM users WHERE active=1 AND type='student'");
     $statement->execute();
     $user_ammount = $statement->fetch(PDO::FETCH_ASSOC)["total"];
 

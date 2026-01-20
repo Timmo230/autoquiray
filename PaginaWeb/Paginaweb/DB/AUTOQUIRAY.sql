@@ -6,80 +6,123 @@ USE autoquiray;
 
 
 CREATE TABLE users(
-    DNI VARCHAR(255) PRIMARY KEY NOT NULL,
+    requistration_id VARCHAR(255) PRIMARY KEY,
+    document_id VARCHAR(255) NOT NULL,
+    document_type ENUM("DNI", "passport") NOT NULL,
     name VARCHAR(255) NOT NULL,
     email VARCHAR(255) NOT NULL UNIQUE,
-    type ENUM("student", "teacher", "administrator") NOT NULL
+    type ENUM("student", "teacher", "administrator") NOT NULL,
+    active BOOLEAN NOT NULL DEFAULT 1,
+    passwd VARCHAR(255) NOT NULL
 );
 
 CREATE TABLE students(
-    DNI VARCHAR(255) NOT NULL PRIMARY KEY,
-    active BOOLEAN NOT NULL DEFAULT 1,
+    requistration_id VARCHAR(255) NOT NULL PRIMARY KEY,
+    permission ENUM("A1", "A2", "A", "B") NOT NULL,
 
-    FOREIGN KEY (DNI) REFERENCES users(DNI)
+    FOREIGN KEY (requistration_id) REFERENCES users(requistration_id)
+        ON UPDATE CASCADE
+        ON DELETE CASCADE
+);
+
+CREATE TABLE examns(
+    id INT UNSIGNED PRIMARY KEY,
+    date DATE NOT NULL,
+    start_time TIME NOT NULL,
+    type ENUM("theorist", "practical"),
+    permission ENUM("A1", "A2", "A", "B") NOT NULL,
+    price DECIMAL(8, 2) NOT NULL
+);
+
+CREATE TABLE registers(
+    student_id VARCHAR(255) NOT NULL,
+    exam_id INT UNSIGNED NOT NULL,
+    note INT UNSIGNED NULL,
+
+    FOREIGN KEY (student_id) REFERENCES students(requistration_id)
+        ON UPDATE CASCADE
+        ON DELETE CASCADE,
+    
+    FOREIGN KEY (exam_id) REFERENCES examns(id)
         ON UPDATE CASCADE
         ON DELETE CASCADE
 );
 
 CREATE TABLE teachers(
-    DNI VARCHAR(255) NOT NULL PRIMARY KEY,
+    requistration_id VARCHAR(255) NOT NULL PRIMARY KEY,
+    salary DECIMAL(8, 2) NOT NULL,
 
-    FOREIGN KEY (DNI) REFERENCES users(DNI)
+    FOREIGN KEY (requistration_id) REFERENCES users(requistration_id)
         ON UPDATE CASCADE
         ON DELETE CASCADE
 );
 
 CREATE TABLE administrators(
-    DNI VARCHAR(255) NOT NULL PRIMARY KEY,
+    requistration_id VARCHAR(255) NOT NULL PRIMARY KEY,
+    salary DECIMAL(8, 2) NOT NULL,
 
-    FOREIGN KEY (DNI) REFERENCES users(DNI)
+    FOREIGN KEY (requistration_id) REFERENCES users(requistration_id)
         ON UPDATE CASCADE
         ON DELETE CASCADE
 );
 
+ALTER TABLE users
+ADD administrator_id VARCHAR(255) NULL,
+ADD FOREIGN KEY (administrator_id) REFERENCES users(requistration_id)
+    ON UPDATE CASCADE
+    ON DELETE SET NULL;
+
 CREATE TABLE student_questions(
     id INT UNSIGNED PRIMARY KEY AUTO_INCREMENT,
-    student_DNI VARCHAR(255) NOT NULL,
+    student_id VARCHAR(255) DEFAULT NULL,
     menssage VARCHAR(512) NOT NULL,
     date_sent DATETIME NOT NULL,
     affair VARCHAR(255) NOT NULL,
 
-    FOREIGN KEY (student_DNI) REFERENCES students(DNI)
+    FOREIGN KEY (student_id) REFERENCES students(requistration_id)
         ON UPDATE CASCADE
-        ON DELETE CASCADE
+        ON DELETE SET NULL
 );
 
 CREATE TABLE answers(
-    question_relacionated_id INT UNSIGNED PRIMARY KEY,
-    teacher_DNI VARCHAR(255) NOT NULL,
+    id INT UNSIGNED PRIMARY KEY AUTO_INCREMENT,
+    question_id INT UNSIGNED NOT NULL,
+    teacher_id VARCHAR(255) NULL DEFAULT NULL,
     menssage VARCHAR(512) NOT NULL,
     date_sent DATETIME NOT NULL,
 
-    FOREIGN KEY (question_relacionated_id) REFERENCES student_questions(id)
+    FOREIGN KEY (question_id) REFERENCES student_questions(id)
         ON UPDATE CASCADE
-        ON DELETE RESTRICT,
+        ON DELETE CASCADE,
     
-    FOREIGN KEY (teacher_DNI) REFERENCES teachers(DNI)
+    FOREIGN KEY (teacher_id) REFERENCES teachers(requistration_id)
         ON UPDATE CASCADE
-        ON DELETE RESTRICT
+        ON DELETE SET NULL
 );
 
 CREATE TABLE tests(
     id INT UNSIGNED PRIMARY KEY AUTO_INCREMENT,
-    teacher_DNI VARCHAR(255) NULL,
+    teacher_id VARCHAR(255) NULL DEFAULT NULL,
     title VARCHAR(255) NOT NULL,
+    permission ENUM("A1", "A2", "A", "B") NOT NULL,
 
-    FOREIGN KEY (teacher_DNI) REFERENCES teachers(DNI)
+    FOREIGN KEY (teacher_id) REFERENCES teachers(requistration_id)
         ON UPDATE CASCADE
-        ON DELETE RESTRICT
+        ON DELETE SET NULL
 );
 
 CREATE TABLE question_tests(
     id INT UNSIGNED PRIMARY KEY AUTO_INCREMENT,
+    teacher_id VARCHAR(255) NULL DEFAULT NULL,
     title VARCHAR(255) NOT NULL,
     option1 VARCHAR(512) NOT NULL,
     option2 VARCHAR(512) NOT NULL,
-    option3 VARCHAR(512) NOT NULL
+    option3 VARCHAR(512) NOT NULL,
+    correct_option ENUM("a", "b", "c") NOT NULL,
+
+    FOREIGN KEY (teacher_id) REFERENCES teachers(requistration_id)
+        ON UPDATE CASCADE
+        ON DELETE SET NULL
 );
 
 CREATE TABLE tests_have_questions(
@@ -96,11 +139,11 @@ CREATE TABLE tests_have_questions(
 );
 
 CREATE TABLE students_do_tests(
-    student_DNI VARCHAR(255) NOT NULL,
+    student_id VARCHAR(255) NOT NULL,
     test_id INT UNSIGNED NOT NULL,
     last_note INT UNSIGNED NOT NULL,
 
-    FOREIGN KEY (student_DNI) REFERENCES students(DNI)
+    FOREIGN KEY (student_id) REFERENCES students(requistration_id)
         ON UPDATE CASCADE
         ON DELETE CASCADE,
     
@@ -111,25 +154,26 @@ CREATE TABLE students_do_tests(
 
 CREATE TABLE timetables(
     id INT UNSIGNED PRIMARY KEY AUTO_INCREMENT,
-    administrator_DNI VARCHAR(255) NOT NULL,
-    date DATETIME NOT NULL,
+    administrator_id VARCHAR(255) NOT NULL,
+    date DATE NOT NULL,
     start_time TIME NOT NULL,
     end_time TIME NOT NULL,
 
-    FOREIGN KEY (administrator_DNI) REFERENCES administrators(DNI)
+    FOREIGN KEY (administrator_id) REFERENCES administrators(requistration_id)
         ON UPDATE CASCADE
         ON DELETE RESTRICT
 );
 
 CREATE TABLE classes(
     id INT UNSIGNED PRIMARY KEY AUTO_INCREMENT,
-    teacher_DNI VARCHAR(255) NOT NULL,
+    teacher_id VARCHAR(255) NOT NULL,
     timetable_id INT UNSIGNED NOT NULL,
     title VARCHAR(255) NOT NULL,
     max_students INT UNSIGNED NOT NULL,
-    full BOOLEAN NOT NULL,
+    maximun_students BOOLEAN NOT NULL,
+    permission ENUM("A1", "A2", "A", "B") NOT NULL,
 
-    FOREIGN KEY (teacher_DNI) REFERENCES teachers(DNI)
+    FOREIGN KEY (teacher_id) REFERENCES teachers(requistration_id)
         ON UPDATE CASCADE
         ON DELETE CASCADE,
     
@@ -139,10 +183,10 @@ CREATE TABLE classes(
 );
 
 CREATE TABLE students_reserves_classes(
-    student_DNI VARCHAR(255) NOT NULL,
+    student_id VARCHAR(255) NOT NULL,
     class_id INT UNSIGNED NOT NULL,
 
-    FOREIGN KEY (student_DNI) REFERENCES students(DNI)
+    FOREIGN KEY (student_id) REFERENCES students(requistration_id)
         ON UPDATE CASCADE
         ON DELETE RESTRICT,
     
