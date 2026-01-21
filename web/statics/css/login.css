@@ -1,0 +1,13 @@
+#login {
+    background-color: #f3f4f6;
+    width: 90%;
+    max-width: 420px;
+}
+
+#login .logo {
+    max-width: 75%;
+}
+
+#login img{
+    max-width: 98%;
+}

@@ -18,7 +18,7 @@
             <form>
                 <div class="d-flex justify-content-center">
                     <div class="mb-3 d-flex flex-column text-center">
-                        <img src="./statics/img/logo.png" alt="logo" class="bg-navbar p-3 rounded-4 bg-opacity-90 mx-auto logo">
+                        <img src="./statics/img/logo/logo.png" alt="logo" class="bg-navbar p-3 rounded-4 bg-opacity-90 mx-auto logo">
                         <h2 class="rubik my-3">Area Privada</h2>
                         <p class="fs-5 opacity-50 rubik">Accede a tu cuenta de AUTOQUIRAY</p>
                     </div>
@@ -48,7 +48,7 @@
                     <button type="submit" class="btn btn-green-btn rounded-4 p-3 text-light fs-5-5 fw-bold w-100 btngreenLight">Iniciar sesion</button>
                 </div>
                 <div class="mb-3">
-                    <img src="./statics/img/conexionSegura.png" alt="" width="400px" class="rounded-2">
+                    <img src="./statics/img/login/conexionSegura.png" alt="" width="400px" class="rounded-2">
                 </div>
             </form>
         </section>
@@ -56,8 +56,7 @@
 
     <?php
         include "./partials/footer.php";
+        require "./partials/scripts.php";
     ?>
-    <script src="./node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="./statics/js/app.js"></script>
 </body>
 </html>

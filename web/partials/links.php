@@ -1,3 +1,4 @@
+<?php $uri = parse_url($_SERVER["REQUEST_URI"], PHP_URL_PATH) ?>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,300..900;1,300..900&display=swap" rel="stylesheet">
@@ -5,4 +6,4 @@
 <link rel="stylesheet" href="./statics/css/cards.min.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 <link rel="stylesheet" href="./statics/css/general.css">
-<link rel="icon" href="./statics/img/favicon.png">
+<link rel="icon" href="./statics/img/logo/favicon.png">

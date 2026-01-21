@@ -23,26 +23,11 @@ svg{
     height: 70px;
 }
 
-.arriba {
-  transition: transform 0.3s ease;
-}
-
-.arriba:hover {
-  transform: translateY(-5px);
-}
-
 #iniciarSesion{
     background-color: rgba(62, 68, 84, .5);
 }
 #iniciarSesion:hover{
     background-color: rgba(62, 68, 84, 1);
-}
-
-.btngreenLight:hover{
-    box-shadow: 5px 5px 20px #0db07b,
-    -5px -5px 20px #0db07b,
-    5px -5px 20px #0db07b,
-    -5px 5px 20px #0db07b;
 }
 
 .container{
