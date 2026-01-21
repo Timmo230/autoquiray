@@ -43,9 +43,9 @@
             </div>
             <div class="row justify-content-center text-center mt-5 g-3">
                 <div class="col-12 col-sm-6">
-                    <p class="btn btn-green-btn rounded-4 p-3 text-light fs-5-5 fw-bold w-100 btngreenLight arriba">
+                    <a class="btn btn-green-btn rounded-4 p-3 text-light fs-5-5 fw-bold w-100 btngreenLight arriba mb-4" href="./tests.php">
                         <i class="fa-regular fa-file-zipper me-2"></i>Acceder a mis tests
-                    </p>
+                    </a>
                 </div>
 
                 <div class="col-12 col-sm-6">

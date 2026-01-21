@@ -1,4 +1,41 @@
-.card{
-    border: 0px solid black !important;
-    background-color: white;
+.container-fluid{
+    max-width: 1200px;
+}
+
+.btngreenLight:hover{
+    box-shadow: 5px 5px 20px #068057,
+    -5px 5px 20px #068057;
+}
+
+.col, .row {
+    overflow: visible;
+}
+
+.test-card {
+    transition: transform .25s ease, box-shadow .25s ease;
+}
+
+.test-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 30px 60px rgba(0,0,0,.25);
+}
+
+.btn-t, .btn-t:hover{
+    background-color: #079d6e;
+}
+
+.senales:hover .test-card{
+    outline: 2px solid #e23636;
+}
+
+.circulacion:hover .test-card{
+    outline: 2px solid #3372ef;
+}
+
+.seguridad:hover .test-card{
+    outline: 2px solid var(--bs-green-btn);
+}
+
+.oficial:hover .test-card{
+    outline: 2px solid #068057;
 }

@@ -2,7 +2,7 @@
     $host = "localhost";
     $database = "autoquiray";
     $user = "root";
-    $password = "123";
+    $password = "";
     
     try{
         $conn = new PDO(
