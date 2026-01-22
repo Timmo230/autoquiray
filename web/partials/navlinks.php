@@ -42,6 +42,13 @@
     <?php endif?>
     
 
-
-    <li class="nav-item"><a class="nav-link" href="#">Zona Profesores</a></li>
+    <?php if($uri == "/PROYECTO/web/zonaProfesores.php"): ?>
+        <li class="nav-item">
+            <a class="nav-link active" href="./zonaProfesores.php" id="actualPg">Zona Profesores</a>
+        </li>
+    <?php else: ?>
+        <li class="nav-item">
+            <a class="nav-link" href="./zonaProfesores.php">Zona Profesores</a>
+        </li>
+    <?php endif?>
 </ul>

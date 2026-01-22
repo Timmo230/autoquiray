@@ -3,10 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Contacto</title>
     <?php 
         include "./partials/links.php";
     ?>
+    <link rel="stylesheet" href="./statics/css/icons.css">
     <link rel="stylesheet" href="./statics/css/contacto.css">
 </head>
 <body class="bg-main">
@@ -50,8 +51,8 @@
                         <h4>Información de Contacto</h3>
                     </div>
                     <div class="col d-flex rounded-4 my-2">
-                        <div class="my-auto bg-green bg-opacity-50 px-3 py-2 rounded-4">
-                            <i class="fa-solid fa-phone fs-5 text-dark-green my-2"></i>
+                        <div class="my-auto green bg-opacity-50 px-3 py-2 rounded-4">
+                            <i class="fa-solid fa-phone fs-5 my-2"></i>
                         </div>
                         <div class="rubik ps-3 my-auto">
                             <h5>Teléfono</h5>
