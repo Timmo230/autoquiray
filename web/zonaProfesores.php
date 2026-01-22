@@ -68,7 +68,7 @@
                     <div class="container-fluid my-4 p-0">
                         <div class="card shadow-sm border-0 rounded-4">
                             <div class="table-responsive shadow-sm table-container">
-                                <table class="table align-middle mb-0">
+                                <table class="table align-middle mb-0 table-hover">
                                     <thead class="table-light">
                                     <tr>
                                         <th>Alumno</th>
