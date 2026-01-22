@@ -1,0 +1,34 @@
+h5{
+    font-size: 14px;
+}
+
+.box{
+    padding: 36px 24px;
+}
+
+.btngreenLight:hover{
+    box-shadow: 5px 5px 10px #29916e,
+    -5px 5px 10px #29916e;
+}
+
+.container{
+    max-width: 1200px;
+}
+
+.urgente{
+    background-color: #0ba875;
+}
+
+.urgente div h5{
+    font-size: 16px;
+}
+
+.blue{
+    background-color: #dbeafe;
+    color: #2563eb;
+}
+
+.purple{
+    background-color: #f3e8ff;
+    color: #ab60ef;
+}

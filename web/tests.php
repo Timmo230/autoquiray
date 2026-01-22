@@ -42,7 +42,7 @@
                                 ~20 min
                             </small>
 
-                            <a href="#" class="btn btn-green-btn btngreenLight arriba rounded-3 px-4 text-white btn-t">
+                            <a href="#" class="btn btn-dark-green btngreenLight arriba rounded-3 px-4 text-white btn-t">
                                 Empezar
                             </a>
                         </div>
@@ -75,7 +75,7 @@
                                 ~25 min
                             </small>
 
-                            <a href="#" class="btn btn-green-btn btngreenLight arriba rounded-3 px-4 text-white btn-t">
+                            <a href="#" class="btn btn-dark-green btngreenLight arriba rounded-3 px-4 text-white btn-t">
                                 Empezar
                             </a>
                         </div>
@@ -108,7 +108,7 @@
                                 ~20 min
                             </small>
 
-                            <a href="#" class="btn btn-green-btn btngreenLight arriba rounded-3 px-4 text-white btn-t">
+                            <a href="#" class="btn btn-dark-green btngreenLight arriba rounded-3 px-4 text-white btn-t">
                                 Empezar
                             </a>
                         </div>
@@ -141,7 +141,7 @@
                                 ~20 min
                             </small>
 
-                            <a href="#" class="btn btn-green-btn btngreenLight arriba rounded-3 px-4 text-white btn-t">
+                            <a href="#" class="btn btn-dark-green btngreenLight arriba rounded-3 px-4 text-white btn-t">
                                 Empezar
                             </a>
                         </div>

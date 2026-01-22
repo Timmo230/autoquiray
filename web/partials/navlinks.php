@@ -29,9 +29,19 @@
             <a class="nav-link" href="./classes.php">Mis Clases</a>
         </li>
     <?php endif?>
+
+    
+    <?php if($uri == "/PROYECTO/web/contacto.php"): ?>
+        <li class="nav-item">
+            <a class="nav-link active" href="./contacto.php" id="actualPg">Atención al Cliente</a>
+        </li>
+    <?php else: ?>
+        <li class="nav-item">
+            <a class="nav-link" href="./contacto.php">Atención al Cliente</a>
+        </li>
+    <?php endif?>
     
 
 
-    <li class="nav-item"><a class="nav-link" href="#">Atención al Cliente</a></li>
     <li class="nav-item"><a class="nav-link" href="#">Zona Profesores</a></li>
 </ul>

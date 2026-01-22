@@ -2,7 +2,7 @@
     $host = "localhost";
     $database = "autoquiray";
     $user = "root";
-    $password = "";
+    $password = "123";
     
     try{
         $conn = new PDO(
@@ -14,6 +14,6 @@
                 PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION
             ]
         );
-    } catch (PDOExeption $e) {
+    } catch (PDOException $e) {
         die("PDO Connection Error: " . $e->getMessage());
     }

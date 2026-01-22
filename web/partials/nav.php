@@ -14,7 +14,7 @@
 
         <!-- DERECHA: Botón + Toggler -->
         <div class="d-flex align-items-center nav-buttons">
-            <a class="btn btn-green-btn text-white me-3 btngreenLight arriba" href="#">
+            <a class="btn btn-green-btn text-white me-3 btngreenLight arriba" href="./login.php">
                 <i class="fa-regular fa-user me-1"></i> Área Privada
             </a>
             <button class="navbar-toggler" type="button"

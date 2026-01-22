@@ -44,7 +44,7 @@
                         <a class="nav-link <?php if ($uri == "/PROYECTO/web/classes.php"): ?> text-green <?php endif ?>" href="./classes.php">Mis Clases</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Contactos</a>
+                        <a class="nav-link <?php if ($uri == "/PROYECTO/web/contacto.php"): ?> text-green <?php endif ?>" href="./contacto.php">Contactos</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="#">Area Privada</a>
