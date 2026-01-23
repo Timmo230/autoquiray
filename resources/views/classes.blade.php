@@ -1,18 +1,18 @@
+@php
+    $uri = request()->path();
+@endphp
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Reservar Clases</title>
-    <?php
-        require "./partials/links.php";
-    ?>
+    @include("partials.links")
     <link rel="stylesheet" href="./statics/css/classes.css">
 </head>
 <body class="bg-main">
-    <?php
-        require "./partials/nav.php";
-    ?>
+    @include("partials.nav", ["uri" => $uri])
 
     <main class="container-fluid mb-5">
         <article>
@@ -227,9 +227,7 @@
         </form>
     </div>
 
-    <?php
-        require "./partials/footer.php";
-        require "./partials/scripts.php";
-    ?>
+    @include("partials.footer")
+    @include("partials.scripts")
 </body>
 </html>

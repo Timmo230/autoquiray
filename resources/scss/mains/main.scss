@@ -1,10 +1,10 @@
-@import "./../../../node_modules/bootstrap/scss/_functions";
-@import "./../../../node_modules/bootstrap/scss/_variables";
-@import "./../../../node_modules/bootstrap/scss/mixins";
+@import "/autoquiray/public/node_modules/bootstrap/scss/_functions";
+@import "/autoquiray/public/node_modules/bootstrap/scss/_variables";
+@import "/autoquiray/public/node_modules/bootstrap/scss/mixins";
 
-@import "./../variables.scss";
+@import "/autoquiray/resources/scss/variables.scss";
 
-@import "./../../../node_modules/bootstrap/scss/bootstrap";
+@import "/autoquiray/public/node_modules/bootstrap/scss/bootstrap";
 
 .bg-opacity-90 { 
     --bs-bg-opacity: 0.9;

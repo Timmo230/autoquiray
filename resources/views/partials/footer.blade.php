@@ -30,7 +30,7 @@
         <div class="row row-cols-1 row-cols-md-3 mt-2 col footDiv text-center border-bottom border-secondary">
             <div class="col my-1 row row-cols-1">
                 <div class="col mb-3">
-                    <img src="./statics/img/logo/logo.png" alt="" class="footLogo">
+                    <img src="/autoquiray/resources/img/logo/logo.png" alt="" class="footLogo">
                 </div>
                 <p class="">Tu autoescuela digital de confianza. Formación de calidad para obtener tu carnet de conducir.</p>
             </div>
@@ -38,13 +38,13 @@
                 <p class="fw-bold fs-5">Enlaces Rapidos</p>
                 <ul class="navbar-nav mb-2">
                     <li class="nav-item">
-                        <a class="nav-link <?php if ($uri == "/PROYECTO/web/tests.blade.php"): ?> text-green <?php endif ?>" href="./tests.blade.php">Test Online</a>
+                        <a class="nav-link {{ $uri == '/' ? 'text-green' : ''}}" href="{{ url('') }}">Test Online</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link <?php if ($uri == "/PROYECTO/web/classes.blade.php"): ?> text-green <?php endif ?>" href="./classes.blade.php">Mis Clases</a>
+                        <a class="nav-link {{ $uri == 'classes' ? 'text-green' : ''}}" href="{{ url('classes') }}">Mis Clases</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link <?php if ($uri == "/PROYECTO/web/contacto.blade.php"): ?> text-green <?php endif ?>" href="./contacto.blade.php">Contactos</a>
+                        <a class="nav-link {{ $uri == 'contacto' ? 'text-green' : ''}}" href="{{ url('contacto') }}">Contactos</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="#">Area Privada</a>

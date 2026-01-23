@@ -1,14 +1,18 @@
+@php
+    $uri = request()->path();
+@endphp
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tests Online</title>
-    <?php include "./partials/links.php"; ?>
-    <link rel="stylesheet" href="./statics/css/tests.css">
+    @include("partials.links")
+    <link rel="stylesheet" href="/autoquiray/resources/css/tests.css">
 </head>
 <body class="bg-main">
-    <?php include "./partials/nav.php"; ?>
+    @include("partials.nav", ['uri' => $uri])
 
     <main class="container-fluid mb-5">
         <div class="px-1 pt-3 rubik mt-2">
@@ -20,7 +24,7 @@
                 <div class="card border-0 rounded-4 p-4 test-card">
                     <div class="d-flex justify-content-between align-items-start">
                         <div class="d-flex align-items-center">
-                            <img src="./statics/img/tests/senales.png" alt="Icono señales"
+                            <img src="/autoquiray/resources/img/tests/senales.png" alt="Icono señales"
                                 class="rounded-4"
                                 style="width:60px; height:60px; object-fit:cover;">
                         </div>
@@ -53,7 +57,7 @@
                 <div class="card border-0 rounded-4 p-4 test-card">
                     <div class="d-flex justify-content-between align-items-start">
                         <div class="d-flex align-items-center">
-                            <img src="./statics/img/tests/circulacion.png" alt="Icono señales"
+                            <img src="/autoquiray/resources/img/tests/circulacion.png" alt="Icono señales"
                                 class="rounded-4"
                                 style="width:60px; height:60px; object-fit:cover;">
                         </div>
@@ -86,7 +90,7 @@
                 <div class="card border-0 rounded-4 p-4 test-card">
                     <div class="d-flex justify-content-between align-items-start">
                         <div class="d-flex align-items-center">
-                            <img src="./statics/img/tests/seguridad.png" alt="Icono señales"
+                            <img src="/autoquiray/resources/img/tests/seguridad.png" alt="Icono señales"
                                 class="rounded-4"
                                 style="width:60px; height:60px; object-fit:cover;">
                         </div>
@@ -119,7 +123,7 @@
                 <div class="card border-0 rounded-4 p-4 test-card">
                     <div class="d-flex justify-content-between align-items-start">
                         <div class="d-flex align-items-center">
-                            <img src="./statics/img/tests/oficial.png" alt="Icono señales"
+                            <img src="/autoquiray/resources/img/tests/oficial.png" alt="Icono señales"
                                 class="rounded-4"
                                 style="width:60px; height:60px; object-fit:cover;">
                         </div>
@@ -151,9 +155,7 @@
         </div>
     </main>
 
-    <?php 
-        include "./partials/footer.php"; 
-        include "./partials/scripts.php";
-    ?>
+    @include("partials.footer") 
+    @include("partials.scripts")
 </body>
 </html>

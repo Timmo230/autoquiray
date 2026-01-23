@@ -2,13 +2,13 @@
     <div class="container-fluid">
 
         <!-- IZQUIERDA: Logo -->
-        <a class="navbar-brand" href="./index.blade.php">
-            <img src="./statics/img/logo/logo.png" width="250" alt="">
+        <a class="navbar-brand" href="{{ url('/') }}">
+            <img src="/autoquiray/resources/img/logo/logo.png" width="250" alt="">
         </a>
 
         <!-- CENTRO: Menu -->
         <div class="collapse navbar-collapse justify-content-center" id="bigNav">
-            @include('partials.navlinks')
+            @include('partials.navlinks', ['uri' => $uri])
         </div>
 
 
@@ -25,7 +25,7 @@
         </div>
 
         <div class="collapse navbar-collapse justify-content-center" id="smallNav">
-            <?php require "./partials/navlinks.blade.php"; ?>
+            @include('partials.navlinks', ['uri' => $uri])
         </div>
     </div>
 </nav>

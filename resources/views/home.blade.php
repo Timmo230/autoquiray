@@ -9,7 +9,9 @@
     // $statement->execute();
     // $questions_ammount = $statement->fetch(PDO::FETCH_ASSOC)["total"];
 ?>
-
+@php
+    $uri = request()->path();
+@endphp
 
 <!DOCTYPE html>
 <html lang="en">
@@ -18,10 +20,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>AUTOQUIRAY</title>
     @include('partials.links')
-    <link rel="stylesheet" href="./statics/css/index.css">
+    <link rel="stylesheet" href="/autoquiray/resources/css/index.css">
 </head>
 <body class="bg-navbar">   
-    @include('partials.nav')
+    @include('partials.nav', ['uri' => $uri])
 
     <header class="pt-5 position-relative overflow-hidden bg-linear-blue">
         <div class="container pt-5">
@@ -75,7 +77,7 @@
                 <div class="d-flex flex-wrap justify-content-center gap-3 align-items-stretch cards-flex">
                     <div class="card bg-white p-4 rounded-4 card-flex ventajas arriba shadow">
                         <div class="mb-2">
-                            <img src="./statics/img/ventajas/tests.png" alt="">
+                            <img src="/autoquiray/resources/img/ventajas/tests.png" alt="">
                         </div>
                         <h4>Test Online</h4>
                         <p>Miles de preguntas actualizadas según la normativa DGT vigente</p>
@@ -83,7 +85,7 @@
 
                     <div class="card bg-white p-4 rounded-4 card-flex ventajas arriba shadow">
                         <div class="mb-2">
-                            <img src="./statics/img/ventajas/Progreso.png" alt="">
+                            <img src="/autoquiray/resources/img/ventajas/Progreso.png" alt="">
                         </div>
                         <h4>Seguimiento de Progreso</h4>
                         <p>Visualiza tu evolución con estadísticas detalladas y gráficos</p>
@@ -91,7 +93,7 @@
 
                     <div class="card bg-white p-4 rounded-4 card-flex ventajas arriba shadow">
                         <div class="mb-2">
-                            <img src="./statics/img/ventajas/Reserva.png" alt="">
+                            <img src="/autoquiray/resources/img/ventajas/Reserva.png" alt="">
                         </div>
                         <h4>Reserva de Clases</h4>
                         <p>Programa tus clases prácticas fácilmente desde la app</p>
@@ -99,7 +101,7 @@
 
                     <div class="card bg-white p-4 rounded-4 card-flex ventajas arriba shadow">
                         <div class="mb-2">
-                            <img src="./statics/img/ventajas/atencion.png" alt="">
+                            <img src="/autoquiray/resources/img/ventajas/atencion.png" alt="">
                         </div>
                         <h4>Atención al Alumno</h4>
                         <p>Soporte personalizado para resolver todas tus dudas</p>
@@ -131,9 +133,7 @@
         </article>
     </main>
 
-    <?php
-        // require "./partials/footer.php";
-        // require "./partials/scripts.php";
-    ?>
+    @include("partials.footer")
+    @include("partials.scripts")
 </body>
 </html>

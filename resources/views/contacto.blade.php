@@ -1,19 +1,21 @@
+@php
+    $uri = request()->path();
+@endphp
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Contacto</title>
-    <?php 
-        include "./partials/links.php";
-    ?>
-    <link rel="stylesheet" href="./statics/css/icons.css">
-    <link rel="stylesheet" href="./statics/css/contacto.css">
+    @include("partials.links");
+    <link rel="stylesheet" href="/autoquiray/resources/css/icons.css">
+    <link rel="stylesheet" href="/autoquiray/resources/css/contacto.css">
 </head>
 <body class="bg-main">
-    <?php 
-        include "./partials/nav.php";
-    ?>
+     
+    @include("partials.nav", ['uri' => $uri])
+    
     
     <main class="container">
         <article class="row row-cols-1 row-cols-lg-2 p-3">
@@ -101,9 +103,7 @@
         </article>
     </main>
     
-    <?php 
-        include "./partials/footer.php";
-        include "./partials/scripts.php";
-    ?>
+    @include("partials.footer")
+    @include("partials.scripts")
 </body>
 </html>
