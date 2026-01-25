@@ -8,7 +8,7 @@ Route::get('/login', fn() => view('auth.login'))->name('login');
 
 Route::get('/tests', fn() => view('tests'))->name('tests');
 
-Route::get('/login', fn() => view('auth.login'))->name('login');
+Route::get('/auth/login', fn() => view('auth.login'))->name('login');
 
 Route::get('/classes', fn() => view('classes'))->name('classes');
 

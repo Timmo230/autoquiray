@@ -2,31 +2,32 @@
 
 namespace App\Models;
 
-// use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
 class User extends Authenticatable
 {
-    /** @use HasFactory<\Database\Factories\UserFactory> */
     use HasFactory, Notifiable;
 
     /**
-     * The attributes that are mass assignable.
-     *
-     * @var list<string>
+     * Los atributos que se pueden asignar de forma masiva (Mass Assignment).
+     * Debes incluir aquí todos los campos que creaste en tu migración
+     * para que la Factory pueda rellenarlos.
      */
     protected $fillable = [
+        'document_id',
+        'document_type',
         'name',
         'email',
+        'type',
+        'active',
         'password',
+        'administrator_id',
     ];
 
     /**
-     * The attributes that should be hidden for serialization.
-     *
-     * @var list<string>
+     * Los atributos que deben estar ocultos para la serialización (por seguridad).
      */
     protected $hidden = [
         'password',
@@ -34,15 +35,22 @@ class User extends Authenticatable
     ];
 
     /**
-     * Get the attributes that should be cast.
-     *
-     * @return array<string, string>
+     * Relación con el Estudiante (1 a 1).
+     * Esto permite hacer $user->student para obtener sus datos de alumno.
      */
-    protected function casts(): array
+    public function student()
     {
-        return [
-            'email_verified_at' => 'datetime',
-            'password' => 'hashed',
-        ];
+        // 'user_id' es la clave foránea en la tabla students
+        return $this->hasOne(Student::class, 'user_id');
+    }
+
+    public function employees()
+    {
+        // 'user_id' es la clave foránea en la tabla students
+        return $this->hasOne(Employees::class, 'employees_id');
+    }
+
+    public function creator(){
+        return $this->belongsTo(Administrator::class, 'administrator_id');
     }
 }

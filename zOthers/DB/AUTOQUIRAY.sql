@@ -34,7 +34,7 @@ CREATE TABLE examns(
     permission_id INT UNSIGNED NOT NULL,
     date DATE NOT NULL,
     start_time TIME NOT NULL,
-    type ENUM("theorist", "practical"),
+    type ENUM("theorist", "practical") NOT NULL,
     price DECIMAL(8, 2) NOT NULL,
 
     FOREIGN KEY (permission_id) REFERENCES permissions(id)
@@ -49,11 +49,13 @@ CREATE TABLE registers(
 
     FOREIGN KEY (student_id) REFERENCES students(user_id)
         ON UPDATE CASCADE
-        ON DELETE CASCADE,
+        ON DELETE RESTRICT,
     
     FOREIGN KEY (exam_id) REFERENCES examns(id)
         ON UPDATE CASCADE
-        ON DELETE CASCADE
+        ON DELETE RESTRICT,
+    
+    PRIMARY KEY(student_id, exam_id)
 );
 
 CREATE TABLE employees(
