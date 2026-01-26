@@ -17,7 +17,6 @@ class User extends Authenticatable
         'email',
         'type',
         'active',
-        'password',
         'administrator_id',
     ];
     
@@ -32,10 +31,10 @@ class User extends Authenticatable
 
     public function employees()
     {
-        return $this->hasOne(Employees::class, 'employees_id');
+        return $this->hasOne(Employees::class, 'user_id');
     }
 
-    public function creator(){
+    public function administrator(){
         return $this->belongsTo(Administrator::class, 'administrator_id');
     }
 }
