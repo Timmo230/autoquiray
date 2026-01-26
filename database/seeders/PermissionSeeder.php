@@ -12,15 +12,6 @@ class PermissionSeeder extends Seeder
      */
     public function run(): void
     {
-        $a1 = \App\Models\Permission::factory()->create([
-            'name' => 'root',
-            'document_id' => '00000000X',
-            'document_type' => 'DNI',
-            'type' => 'administrator',
-            'administrator_id' => null,
-            'email' => 'root@root.com',
-            'active' => true,
-            'password' => bcrypt('123'),
-        ]);
+        //
     }
 }

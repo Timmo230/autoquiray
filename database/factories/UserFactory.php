@@ -16,7 +16,6 @@ class UserFactory extends Factory
      */
     public function definition(): array
     {
-
         $luck = fake()->numberBetween(1, 100);
 
         $type = match (true) {
