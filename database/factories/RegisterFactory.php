@@ -20,12 +20,8 @@ class RegisterFactory extends Factory
     public function definition(): array
     {
         do{
-            $studentId = Student::inRamdomOrder()->first()?->id;
-            $examId = Exam::inRandomOrder()->first()?->id;;
-
-            if (!$studentId || !$examId) {
-                throw new \Exception("¡Cuidado! Necesitas tener al menos un exam y un student en la base de datos antes de usar este Factory.");
-            }
+            $studentId = Student::inRamdomOrder()->first();
+            $examId = Exam::inRandomOrder()->first();
 
             $exist = Registers::where('student_id', $studentId)
             ->where('exam_id', $examId)->exist();

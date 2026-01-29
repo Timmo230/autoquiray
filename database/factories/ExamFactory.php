@@ -4,6 +4,7 @@ namespace Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
 use App\Models\Exam;
+use App\Models\Permission;
 
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Exam>
@@ -17,8 +18,10 @@ class ExamFactory extends Factory
      */
     public function definition(): array
     {
+        $randomPermission = Permission::inRandomOrder()->first();
+        
         return [
-            'permission_id' => Exam::inRandomOrder()->first(),
+            'permission_id' => $randomPermission->id,
             'date' => $this->faker->date('2025-01-01', '2027-12-31'),
             'start_time' => $this->faker->dateTimeBetween('08:00:00', '23:00:00')->format('H:i:s'),
             'type' => $this->faker->randomElement(['theorist', 'practical']),
