@@ -2,10 +2,16 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Notifications\Notifiable;
 
-class Employees extends Model
+class Employees extends Authenticatable
 {
+    use HasFactory, Notifiable;
+
+    protected $table = 'employees';
     protected $primaryKey = 'user_id';
     public $incrementing = false;
     protected $fillable = [

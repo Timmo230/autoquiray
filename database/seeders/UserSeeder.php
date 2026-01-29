@@ -19,10 +19,22 @@ class UserSeeder extends Seeder
             'type' => 'administrator',
             'administrator_id' => null,
             'email' => 'root@root.com',
-            'active' => true,
             'password' => bcrypt('123'),
         ]);
 
-        \App\Models\User::factory(1000)->create();
+        $administrators = \App\Models\User::factory(3)->create([
+            'type' => 'administrator',
+            'password' => bcrypt('123'),
+        ]);
+
+        $teachers = \App\Models\User::factory(10)->create([
+            'type' => 'teacher',
+            'password' => bcrypt('123'),
+        ]);
+
+        $students = \App\Models\User::factory(1000)->create([
+            'type' => 'student',
+            'password' => bcrypt('123'),
+        ]);
     }
 }

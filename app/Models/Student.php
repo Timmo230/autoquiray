@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
-class Student extends Model
+class Student extends Authenticatable
 {
     use HasFactory, Notifiable;
 
@@ -27,7 +27,7 @@ class Student extends Model
     }
 
     public function register(){
-        return $this->hasmany(StudentRegistersExam::class, 'student_id');
+        return $this->hasmany(Registers::class, 'student_id');
     }
 
     public function completes(){

@@ -9,15 +9,12 @@ use Illuminate\Database\Eloquent\Factories\Factory;
  */
 class PermissionFactory extends Factory
 {
-    /**
-     * Define the model's default state.
-     *
-     * @return array<string, mixed>
-     */
+    protected static $permissions = ['A', 'A1', 'A2', 'B', 'BTP', 'C', 'C1', 'D', 'D1', 'E'];
+
     public function definition(): array
     {
         return [
-            'permission' => fake()->randomElement(['A', 'A1', 'A2', 'B', 'BTP', 'C', 'C1', 'D', 'D1', 'E']),
+            'permission' => array_shift(self::$permissions),
             'created_at' => now(),
             'updated_at' => now(),
         ];

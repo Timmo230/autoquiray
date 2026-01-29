@@ -2,10 +2,15 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Notifications\Notifiable;
 
 class Exam extends Model
 {
+    use HasFactory, Notifiable;
+
     protected $fillable = [
         'permission_id',
         'date',
@@ -15,7 +20,7 @@ class Exam extends Model
     ];
 
     public function register(){
-        return $this->hasmany(StudentRegistersExam::class, 'exam_id');
+        return $this->hasmany(Registers::class, 'exam_id');
     }
 
     public function permission(){

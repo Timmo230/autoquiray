@@ -2,11 +2,15 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Ramsey\Uuid\Type\Time;
+use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Notifications\Notifiable;
 
-class Administrator extends Model
+class Administrator extends Authenticatable
 {
+    use HasFactory, Notifiable;
+    
     protected $primaryKey = 'employees_id';
     public $incrementing = false;
     protected $fillable = [

@@ -3,6 +3,7 @@
 namespace Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
+use App\Models\Teacher;
 use App\Models\Employees;
 
 /**
@@ -10,19 +11,20 @@ use App\Models\Employees;
  */
 class TeacherFactory extends Factory
 {
-    /**
-     * Define the model's default state.
-     *
-     * @return array<string, mixed>
-     */
+    protected $model = Teacher::class;
+    protected static $availableUserIds = null;
+    
     public function definition(): array
     {
-        $employee = Employees::whereHas('user', function ($query){
-            $query->where('type', 'teacher');
-        })->whereDoesntHave('teacher')->first();
-
+        if(is_null(self::$availableUserIds)){
+            self::$availableUserIds = Employees::whereHas('user', function ($query){
+                $query->where('type', 'teacher');
+            })->whereDoesntHave('teacher')->pluck('user_id')->toArray();
+        }
+        
+        $userId = array_shift(self::$availableUserIds);
         return [
-            'employees_id'   => $employee->id,
+            'employees_id'   => $userId,
         ];
     }
 }
