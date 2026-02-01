@@ -116,11 +116,11 @@
                             <p class="text-secondary opacity-75 fs-5">Aprobados a la primera</p>
                         </div>
                         <div class="card-flex data">
-                            <p class="text-blue fs-2 fw-bold m-0"></p>
+                            <p class="text-blue fs-2 fw-bold m-0">{{ $totalQuestions }}</p>
                             <p class="text-secondary opacity-75 fs-5">Preguntas disponibles</p>
                         </div>
                         <div class="card-flex data">
-                            <p class="text-purple fs-2 fw-bold m-0"></p>
+                            <p class="text-purple fs-2 fw-bold m-0">{{ $totalStudentsActives }}</p>
                             <p class="text-secondary opacity-75 fs-5">Alumnos activos</p>
                         </div>
                         <div class="card-flex data">

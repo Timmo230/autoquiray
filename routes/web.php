@@ -1,8 +1,9 @@
 <?php
 
+use App\Http\Controllers\HomeController;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', fn() => view('home'));
+Route::get('/', [HomeController::class, 'index'])->name('home');
 
 Route::get('/login', fn() => view('auth.login'))->name('login');
 
