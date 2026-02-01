@@ -5,10 +5,10 @@ namespace Database\Seeders;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use App\Models\Student;
-use App\Models\Exam;
-use App\Models\Registers;
+use App\Models\Classes;
+use App\Models\StudentReservesClasse;
 
-class registersSeeder extends Seeder
+class StudentReservesClassSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -17,17 +17,14 @@ class registersSeeder extends Seeder
     {
         $created = 0;
 
-        while ($created < 1000) {
+        while ($created < 500) {
             $student = Student::inRandomOrder()->first();
-            $exam    = Exam::inRandomOrder()->first();
+            $class    = Classes::inRandomOrder()->first();
 
-            $register = Registers::firstOrCreate(
+            $register = StudentReservesClasse::firstOrCreate(
                 [
-                    'student_id' => $student->user_id,
-                    'exam_id'    => $exam->id,
-                ],
-                [
-                    'note' => rand(20, 30),
+                    'class_id' => $class->id,
+                    'student_id'    => $student->user_id,
                 ]
             );
 

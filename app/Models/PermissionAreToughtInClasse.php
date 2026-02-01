@@ -10,7 +10,7 @@ use Illuminate\Notifications\Notifiable;
 class PermissionAreToughtInClasse extends Model
 {
     use HasFactory, Notifiable;
-    
+    protected $table = 'permissions_are_tought_in_classes';
     protected $primaryKey = ['class_id', 'permission_id'];
     public $incrementing = false;
     protected $fillable = [

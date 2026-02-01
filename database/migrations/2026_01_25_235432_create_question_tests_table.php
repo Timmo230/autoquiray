@@ -13,12 +13,16 @@ return new class extends Migration
     {
         Schema::create('question_tests', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('test_id')->nullable();
             $table->unsignedBigInteger('teacher_id')->nullable();
             $table->string('title');
-            $table->unsignedBigInteger('correct_option_id');
+            $table->unsignedBigInteger('correct_option_id')->nullable();
 
             $table->foreign('teacher_id')->references('employees_id')
             ->on('teachers')->onUpdate('cascade')->onDelete('set null');
+
+            $table->foreign('test_id')->references('id')
+            ->on('tests')->onUpdate('cascade')->onDelete('cascade');
 
             $table->timestamps();
         });

@@ -19,17 +19,8 @@ class PermissionAreAssociatedTestFactory extends Factory
      */
     public function definition(): array
     {
-        do{
-            $testId = Test::inRamdomOrder()->first()?->id;
-            $permissionId = Permission::inRandomOrder()->first()?->id;;
-
-            if (!$testId || !$permissionId) {
-                throw new \Exception("¡Cuidado! Necesitas tener al menos un Test y un Permission en la base de datos antes de usar este Factory.");
-            }
-
-            $exist = PermissionAreAssociatedTest::where('test_id', $testId)
-            ->where('permission_id', $permissionId)->exist();
-        } while($exist);
+        $testId = Test::inRandomOrder()->first()?->id;
+        $permissionId = Permission::inRandomOrder()->first()?->id;
 
         return [
             'test_id' => $testId->id,

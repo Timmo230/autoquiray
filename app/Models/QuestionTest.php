@@ -12,9 +12,10 @@ class QuestionTest extends Model
     use HasFactory, Notifiable;
     
     protected $fillable = [
+        'test_id',
         'teacher_id',
         'title',
-        'correct_option',
+        'correct_option_id',
     ];
 
     public function teacher(){
@@ -22,7 +23,7 @@ class QuestionTest extends Model
     }
 
     public function test(){
-        return $this->hasMany(TestHaveQuestion::class, 'question_id');
+        return $this->belongsTo(Test::class, 'test_id');
     }
 
     public function option(){

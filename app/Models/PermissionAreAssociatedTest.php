@@ -13,6 +13,7 @@ class PermissionAreAssociatedTest extends Model
     
     protected $primaryKey = ['test_id', 'permission_id'];
     public $incrementing = false;
+    protected $table = 'permissions_are_associated_test';
     protected $fillable = [
         'test_id',
         'permission_id',

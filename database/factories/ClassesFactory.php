@@ -22,7 +22,7 @@ class ClassesFactory extends Factory
             'teacher_id' => Teacher::inRandomOrder()->first(),
             'timetable_id' => Timetable::inRandomOrder()->first(),
             'title' => $this->faker->sentence(6),
-            'maximun_student' => $this->faker->numberBetween(1, 30),
+            'max_students' => $this->faker->numberBetween(1, 30),
         ];
     }
 }

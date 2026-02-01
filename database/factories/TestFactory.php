@@ -18,7 +18,7 @@ class TestFactory extends Factory
     public function definition(): array
     {
         return [
-            'teacher_id' => Teacher::inRandomOrther()->first(),
+            'teacher_id' => Teacher::inRandomOrder()->first(),
             'title' => $this->faker->sentence(),
             'max_note' => $this->faker->randomElement([20, 30]),
         ];

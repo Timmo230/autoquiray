@@ -23,7 +23,7 @@ class AnswerFactory extends Factory
             'teacher_id' => Teacher::inRandomOrder()->first(),
             'question_id' => StudentQuestion::inRandomOrder()->first(),
             'menssage' => $this->faker->paragraph(),
-            'date_sent' => $this->faker->dateTimeBetween('-1 month', 'now'),
+            'date_sent' => $this->faker->dateTimeBetween('-1 month', '+1 month'),
         ];
     }
 }
