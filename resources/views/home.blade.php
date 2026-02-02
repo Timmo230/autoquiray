@@ -112,7 +112,7 @@
                 <div class="container-fluid bg-white pt-4">
                     <div class="d-flex flex-wrap gap-3 align-items-stretch cards-flex justify-content-center text-center">
                         <div class="card-flex data">
-                            <p class="text-green-btn fs-2 fw-bold m-0">98%</p>
+                            <p class="text-green-btn fs-2 fw-bold m-0">{{ $output }}%</p>
                             <p class="text-secondary opacity-75 fs-5">Aprobados a la primera</p>
                         </div>
                         <div class="card-flex data">

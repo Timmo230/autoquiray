@@ -1,32 +1,4 @@
 <footer class="bg-footer text-light pt-4 px-2 row row-cols-1 justify-content-center">
-    <?php if ($uri == "/PROYECTO/web/index.blade.php"): ?>        
-        <div class="row row-cols-1 row-cols-md-3 mb-5 col footDiv">
-            <div class="col d-flex my-1 border-end border-secondary border-md-0">
-                <div class="ms-auto">
-                    <i class="fa-solid fa-shield-halved text-green mx-2 my-auto fs-4"></i> 
-                </div>
-                <div class="me-auto">
-                    <p class="my-auto fs-5-5">Datos protegidor segun RGPD</p>
-                </div>
-            </div>
-            <div class="col d-flex my-1 border-end border-secondary border-md-0">
-                <div class="ms-auto">
-                    <i class="fa-solid fa-lock text-green mx-2 my-auto fs-4"></i>
-                </div>
-                <div class="me-auto">
-                    <p class="my-auto fs-5-5">Acceso seguro con credenciales</p>
-                </div>
-            </div>
-            <div class="col d-flex my-1">            
-                <div class="ms-auto">
-                    <i class="fa-solid fa-server text-green mx-2 my-auto fs-4"></i>
-                </div>
-                <div class="me-auto">
-                    <p class="my-auto fs-5-5">Servidor local Active Directory</p>
-                </div>
-            </div>
-        </div>
-    <?php endif ?>
         <div class="row row-cols-1 row-cols-md-3 mt-2 col footDiv text-center border-bottom border-secondary">
             <div class="col my-1 row row-cols-1">
                 <div class="col mb-3">
@@ -38,7 +10,7 @@
                 <p class="fw-bold fs-5">Enlaces Rapidos</p>
                 <ul class="navbar-nav mb-2">
                     <li class="nav-item">
-                        <a class="nav-link {{ $uri == '/' ? 'text-green' : ''}}" href="{{ url('') }}">Test Online</a>
+                        <a class="nav-link {{ $uri == 'tests' ? 'text-green' : ''}}" href="{{ url('tests') }}">Test Online</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link {{ $uri == 'classes' ? 'text-green' : ''}}" href="{{ url('classes') }}">Mis Clases</a>
