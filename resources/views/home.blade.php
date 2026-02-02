@@ -1,14 +1,3 @@
-<?php
-    // require "./database.php";
-
-    // $statement = $conn->prepare("SELECT count(*) AS total FROM users WHERE active=1 AND type='student'");
-    // $statement->execute();
-    // $user_ammount = $statement->fetch(PDO::FETCH_ASSOC)["total"];
-
-    // $statement = $conn->prepare("SELECT count(*) AS total FROM question_tests");
-    // $statement->execute();
-    // $questions_ammount = $statement->fetch(PDO::FETCH_ASSOC)["total"];
-?>
 @php
     $uri = request()->path();
 @endphp
@@ -49,7 +38,7 @@
                 </div>
 
                 <div class="col-12 col-sm-6">
-                    <a class="btn text-light rounded-4 p-3 border fw-bold fs-5-5 w-100" id="iniciarSesion" href="{{ url('/auth/login') }}">
+                    <a class="btn text-light rounded-4 p-3 border fw-bold fs-5-5 w-100" id="iniciarSesion" href="{{ url('login') }}">
                         <i class="fa-solid fa-arrow-right-from-bracket me-2"></i>Iniciar Sesión
                     </a>
                 </div>

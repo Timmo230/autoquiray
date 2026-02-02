@@ -18,7 +18,7 @@
     
     <main class="bg-linear-blue py-5">
         <section class="p-4 rounded-4 mx-auto" id="login">
-            <form>
+            <form method="POST" action="{{ route('login') }}">
                 <div class="d-flex justify-content-center">
                     <div class="mb-3 d-flex flex-column text-center">
                         <img src="/autoquiray/resources/img/logo/logo.png" alt="logo" class="bg-navbar p-3 rounded-4 bg-opacity-90 mx-auto logo">
