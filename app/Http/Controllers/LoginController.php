@@ -13,21 +13,29 @@ class LoginController extends Controller
     }
 
     public function login(Request $request){
-        $credentials = $request->validate([
+        $request->validate([
             'email' => 'required|email',
             'password' => 'required',
             'type' => 'required'
         ]);
 
-        if (Auth::attempt(['email' => $credentials['email'], 'password' => $credentials['password']])) {
+        $credentials = $request->only(['email', 'password']);
+
+        if (Auth::attempt($credentials)) {
+            $request->session()->regenerate();
+
+            $user = Auth::user();
     
-            if (Auth::user()->type !== $request->type) {
+            if ($user->type !== $request->type) {
                 Auth::logout();
                 return back()->withErrors(['email' => 'El tipo de usuario no coincide con esta cuenta.']);
             }
-
-            $request->session()->regenerate();
-            return redirect()->intended('/dashboard');
+            return match($user->type){
+                'administrator' => redirect()->route('admin.dashboard'),
+                'teacher' => redirect()->route('teacher.dashboard'),
+                'student' => redirect()->route('student.test'),
+                default => redirect('/')
+            };
         }
 
         return back()->withErrors(['email' => 'Credenciales incorrectas.']);

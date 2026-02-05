@@ -5,35 +5,24 @@ use App\Http\Controllers\LoginController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 
+// Rutas publicas
 Route::get('/', [HomeController::class, 'index'])->name('home');
-
-Route::get('/login', [LoginController::class, 'showLoginForm'])->name('login');
-Route::post('/login', [LoginController::class, 'login']);
-Route::post('/logout', [LoginController::class, 'lagout'])->name('logout');
-
-Route::middleware(['auth'])->group(function(){
-    Route::get('/dashboard', function(){
-        $user = Auth::user();
-        
-        if($user->type === 'administrator') return redirect('/admin/panel');
-        if($user->type === 'teacher') return redirect('teacher/panel');
-        return redirect('/student/panel');
-    })->name('dashboard');
-});
-
-Route::get('/tests', fn() => view('tests'))->name('tests');
-
-Route::get('/classes', fn() => view('classes'))->name('classes');
-
 Route::get("/contacto", fn() => view('contacto'))->name('contacto');
 
-Route::get("/teacher/dashboard", fn() => view('teacher/dashboard'))->name('teacher/dashboard');
+// Rutas de autenticacion
+Route::get('/login', [LoginController::class, 'showLoginForm'])->name('login');
+Route::post('/login', [LoginController::class, 'login']);
+Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
 
-// Route::middleware('auth')->group(function () {
-//     Route::get('/classes', fn() => view('classes'));
-//     Route::get('/tests', fn() => view('tests'));
-// });
+Route::middleware(['role:student'])->group(function () {
+    Route::get('/test', fn() => view('student.test'))->name('student.test');
+    Route::get('/classes', fn() => view('student.classes'))->name('student.classes');
+});
 
-// Route::middleware(['auth','role:teacher'])->group(function () {
-//     Route::get('/zona-profesores', fn() => view('teacher.dashboard'));
-// });
+Route::middleware(['role:teacher'])->group(function() {
+    Route::get('/dashboard', fn() => view('teacher.dashboard'))->name('teacher.dashboard');
+});
+
+Route::middleware(['role:administrator'])->group(function() {
+    Route::get('/panel', fn() => view('admin.dashboard'))->name('admin.dashboard');
+});

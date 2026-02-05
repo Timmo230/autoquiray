@@ -1,13 +1,14 @@
 const navGrande = document.getElementById("bigNav");
 const navPequeno = document.getElementById("smallNav");
-const classes = "collapse navbar-collapse justify-content-center";
+const classesColapse = "collapse navbar-collapse justify-content-center";
+const classesOffcanvas = "offcanvas-xl offcanvas-end";
 
 function chequearTamano() {
   if (window.innerWidth < 1200) {
-    navPequeno.className = classes;
+    navPequeno.className = classesOffcanvas;
     navGrande.className = "d-none";
   } else {
-    navGrande.className = classes;
+    navGrande.className = classesColapse;
     navPequeno.className = "d-none";
   }
 }
