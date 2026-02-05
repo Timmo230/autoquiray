@@ -9,18 +9,28 @@
             <div class="col d-flex flex-column my-1">
                 <p class="fw-bold fs-5">Enlaces Rapidos</p>
                 <ul class="navbar-nav mb-2">
-                    <li class="nav-item">
-                        <a class="nav-link {{ $uri == 'tests' ? 'text-green' : ''}}" href="{{ url('tests') }}">Test Online</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link {{ $uri == 'classes' ? 'text-green' : ''}}" href="{{ url('classes') }}">Mis Clases</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link {{ $uri == 'contacto' ? 'text-green' : ''}}" href="{{ url('contacto') }}">Contactos</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Area Privada</a>
-                    </li>
+                    @auth
+                        @if(auth()->user()->type == 'student')
+                            <li class="nav-item">
+                                <a class="nav-link {{ $uri == 'test' ? 'text-green' : ''}}" href="{{ url('test') }}">Test Online</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link {{ $uri == 'classes' ? 'text-green' : ''}}" href="{{ url('classes') }}">Mis Clases</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link {{ $uri == 'contacto' ? 'text-green' : ''}}" href="{{ url('contacto') }}">Contactos</a>
+                            </li>
+                        @elseif(auth()->user()->type == 'teacher')
+                            <li class="nav-item">
+                                <a class="nav-link {{ $uri == 'dashboard' ? 'text-green' : ''}}" href="{{ url('dashboard') }}">Informacion alumnos</a>
+                            </li>
+                        @endif
+                    @endauth
+                    @guest
+                        <li class="nav-item">
+                            <a class="nav-link {{ $uri == 'contacto' ? 'text-green' : ''}}" href="{{ url('contacto') }}">Contactos</a>
+                        </li>
+                    @endguest
                 </ul>
             </div>
             <div class="col d-flex flex-column my-1">

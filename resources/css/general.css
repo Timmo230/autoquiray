@@ -19,6 +19,10 @@ footer li a:hover{
     max-width: 300px;
 }
 
+#user p{
+    font-size: 12px !important;
+}
+
 .btngreenLight:hover{
     box-shadow: 5px 5px 20px #0db07b,
     -5px 5px 20px #0db07b;
@@ -56,12 +60,12 @@ footer li a:hover{
 }
 
 @media (min-width: 1200px) {
-    .navbar .nav-link {
+    .navbar a.nav-link {
         position: relative;
         margin: 0 5px;
     }
 
-    .navbar .nav-link::after {
+    .navbar a.nav-link::after {
         content: "";
         position: absolute;
         left: 0;
@@ -74,7 +78,7 @@ footer li a:hover{
         transition: transform 0.3s ease;
     }
 
-    .navbar .nav-link:hover::after {
+    .navbar a.nav-link:hover::after {
         transform: scaleX(1);
     }
     .nav-buttons{
@@ -88,7 +92,7 @@ footer li a:hover{
         padding-left: 5px;
         border-radius: 10px;
     }
-    .navbar .nav-link:hover{
+    .navbar a.nav-link:hover{
         background-color: rgba(255, 255, 255, .3);
     }
 }

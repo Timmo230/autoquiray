@@ -13,13 +13,20 @@
     <link rel="stylesheet" href="/autoquiray/resources/css/login.css">
 </head>
 <body>
-
     @include('partials.nav')
-    
+    @if ($errors->any())
+        <div class="alert alert-danger m-0">
+            <ul>
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+    @endif
     <main class="bg-linear-blue py-5">
         <section class="p-4 rounded-4 mx-auto" id="login">
             <form method="POST" action="{{ route('login') }}">
-                <div class="d-flex justify-content-center">
+                @csrf <div class="d-flex justify-content-center">
                     <div class="mb-3 d-flex flex-column text-center">
                         <img src="/autoquiray/resources/img/logo/logo.png" alt="logo" class="bg-navbar p-3 rounded-4 bg-opacity-90 mx-auto logo">
                         <h2 class="rubik my-3">Area Privada</h2>
@@ -28,20 +35,20 @@
                 </div>
                 
                 <div class="mb-3">
-                    <label for="tipo" class="form-label">Tipo de usuario</label>
-                    <select class="form-select form-select-lg mb-3" aria-label="Small select example" id="tipo" name="tipo">
-                        <option value="1">Alumno</option>
-                        <option value="2">Profesor</option>
-                        <option value="3">Administrador</option>
+                    <label for="type" class="form-label">Tipo de usuario</label>
+                    <select class="form-select form-select-lg mb-3" aria-label="Small select example" id="type" name="type">
+                        <option value="student">Alumno</option>
+                        <option value="teacher">Profesor</option>
+                        <option value="administrator">Administrador</option>
                     </select>
                 </div>
                 <div class="mb-3">
-                    <label for="user" class="form-label">Usuario</label>
-                    <input type="text" class="form-control" id="user" aria-describedby="emailHelp">
+                    <label for="email" class="form-label">Email</label>
+                    <input type="email" class="form-control" id="email" name="email" aria-describedby="emailHelp">
                 </div>
                 <div class="mb-3">
-                    <label for="passwd" class="form-label">Contraseña</label>
-                    <input type="password" class="form-control" id="passwd">
+                    <label for="password" class="form-label">Contraseña</label>
+                    <input type="password" class="form-control" id="password" name="password">
                 </div>
                 <div class="mb-3 form-check">
                     <input type="checkbox" class="form-check-input" id="check">
