@@ -1,3 +1,9 @@
+@php
+    $type = DB::table('user_is_assigned_types as uat')
+        ->join('types as t', 'uat.type_id', '=', 't.id')
+        ->where('uat.user_id', auth()->id())
+        ->value('t.type');
+@endphp
 <footer class="bg-footer text-light pt-4 px-2 row row-cols-1 justify-content-center">
         <div class="row row-cols-1 row-cols-md-3 mt-2 col footDiv text-center border-bottom border-secondary">
             <div class="col my-1 row row-cols-1">
@@ -10,7 +16,7 @@
                 <p class="fw-bold fs-5">Enlaces Rapidos</p>
                 <ul class="navbar-nav mb-2">
                     @auth
-                        @if(auth()->user()->type == 'student')
+                        @if($type == 'student')
                             <li class="nav-item">
                                 <a class="nav-link {{ $uri == 'test' ? 'text-green' : ''}}" href="{{ url('test') }}">Test Online</a>
                             </li>
@@ -20,7 +26,7 @@
                             <li class="nav-item">
                                 <a class="nav-link {{ $uri == 'contacto' ? 'text-green' : ''}}" href="{{ url('contacto') }}">Contactos</a>
                             </li>
-                        @elseif(auth()->user()->type == 'teacher')
+                        @elseif($type == 'teacher')
                             <li class="nav-item">
                                 <a class="nav-link {{ $uri == 'dashboard' ? 'text-green' : ''}}" href="{{ url('dashboard') }}">Informacion alumnos</a>
                             </li>
