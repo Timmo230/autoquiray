@@ -7,12 +7,19 @@ use App\Models\User;
 use App\Models\QuestionTest;
 use App\Models\Registers;
 use App\Models\Student;
+use App\Models\UserIsAssignedTypes;
+use Illuminate\Support\Facades\DB;
 
 class HomeController extends Controller
 {
     public function index(){
-        $totalStudentsActives = User::where('type', 'student')
-            ->where('active', 1)->count();
+        $sql = "SELECT COUNT(*) 
+            FROM users u 
+            JOIN user_is_assigned_types uat ON u.id = uat.user_id 
+            JOIN types t ON uat.type_id = t.id 
+            WHERE u.active = 1 AND t.type = 'student'";
+
+        $totalStudentsActives = DB::scalar($sql);
         
         $totalQuestions = QuestionTest::count();
 

@@ -13,8 +13,8 @@ return new class extends Migration
     {
         Schema::create('tutions', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('administrator_id')->nullable();
-            $table->unsignedBigInteger('student_id');
+            $table->string('administrator_id', 100)->nullable();
+            $table->string('student_id', 100);
             $table->unsignedBigInteger('permission_id');
             $table->date('date');
             $table->date('start_date');

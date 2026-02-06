@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('timetables', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('administrator_id')->nullable();
+            $table->string('administrator_id',100)->nullable();
             $table->date('date');
             $table->time('start_time');
             $table->time('end_time');

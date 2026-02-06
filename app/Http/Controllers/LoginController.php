@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\DB;
 
 class LoginController extends Controller
 {
@@ -24,12 +25,19 @@ class LoginController extends Controller
         if (Auth::attempt($credentials)) {
             $request->session()->regenerate();
 
-            $user = Auth::user();
+            $user = DB::table('users', 'u')
+            ->join('user_is_assigned_types as aut', 'u.id', '=', 'aut.user_id')
+            ->join('types as t', 't.id', '=', 'aut.type_id')
+            ->where('u.id', '=', Auth::id())
+            ->where('t.type', '=', $request->type)
+            ->select('t.type')
+            ->first();
     
-            if ($user->type !== $request->type) {
+            if (!$user) {
                 Auth::logout();
                 return back()->withErrors(['email' => 'El tipo de usuario no coincide con esta cuenta.']);
             }
+            
             return match($user->type){
                 'administrator' => redirect()->route('admin.dashboard'),
                 'teacher' => redirect()->route('teacher.dashboard'),

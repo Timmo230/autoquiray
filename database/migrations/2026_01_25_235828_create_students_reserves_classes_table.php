@@ -12,7 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('students_reserves_classes', function (Blueprint $table) {
-            $table->unsignedBigInteger('student_id');
+            $table->string('student_id', 100);
             $table->unsignedBigInteger('class_id');
 
             $table->foreign('class_id')->references('id')

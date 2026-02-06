@@ -11,20 +11,10 @@ use App\Models\Student;
  */
 class StudentFactory extends Factory
 {
-    protected $model = Student::class;
-    
-    protected static $availableUserIds =  null;
-
     public function definition(): array
     {
-        if(is_null(self::$availableUserIds)){
-            self::$availableUserIds = User::whereIn('type', ['student'])
-                ->whereDoesntHave('student')->pluck('id')->toArray();
-        }
-
-        $selected = array_shift(self::$availableUserIds);
         return [
-            'user_id' => $selected,
+            'user_id' => '123',
         ];
     }
 }

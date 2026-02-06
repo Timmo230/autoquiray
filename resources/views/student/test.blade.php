@@ -33,7 +33,6 @@
                         </span>
                     </div>
 
-                    <!-- Contenido -->
                     <div class="mt-3">
                         <h5 class="fw-semibold mb-1">Test de Señales</h5>
                         <p class="text-muted mb-3">

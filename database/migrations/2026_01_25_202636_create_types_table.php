@@ -11,12 +11,9 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('administrators', function (Blueprint $table) {
-            $table->string('employees_id', 100)->primary()->unique();
-
-            $table->foreign('employees_id')->references('user_id')
-            ->on('employees')->onUpdate('cascade')->onDelete('cascade');
-            
+        Schema::create('types', function (Blueprint $table) {
+            $table->id();
+            $table->string('type');
             $table->timestamps();
         });
     }
@@ -26,6 +23,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('administrators');
+        Schema::dropIfExists('types');
     }
 };

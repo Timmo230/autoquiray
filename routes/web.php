@@ -7,7 +7,6 @@ use Illuminate\Support\Facades\Auth;
 
 // Rutas publicas
 Route::get('/', [HomeController::class, 'index'])->name('home');
-Route::get("/contacto", fn() => view('contacto'))->name('contacto');
 
 // Rutas de autenticacion
 Route::get('/login', [LoginController::class, 'showLoginForm'])->name('login');
@@ -17,6 +16,7 @@ Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
 Route::middleware(['role:student'])->group(function () {
     Route::get('/test', fn() => view('student.test'))->name('student.test');
     Route::get('/classes', fn() => view('student.classes'))->name('student.classes');
+    Route::get("/contacto", fn() => view('student.contacto'))->name('student.contacto');
 });
 
 Route::middleware(['role:teacher'])->group(function() {

@@ -12,8 +12,8 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('sessions', function (Blueprint $table) {
-            $table->string('id')->primary();
-            $table->foreignId('user_id')->nullable()
+            $table->string('id', 100)->primary();
+            $table->string('user_id', 100)->nullable()
             ->index()->constrained('users')->onDelete('cascade');
             $table->string('ip_address', 45)->nullable();
             $table->text('user_agent')->nullable();
