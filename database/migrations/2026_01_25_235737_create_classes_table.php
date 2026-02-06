@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('classes', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('teacher_id');
+            $table->string('teacher_id', 100);
             $table->unsignedBigInteger('timetable_id');
             $table->string('title');
             $table->integer('max_students', false, true);

@@ -13,9 +13,11 @@ return new class extends Migration
     {
         Schema::create('tests', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('teacher_id')->nullable();
+            $table->string('teacher_id', 100)->nullable();
             $table->string('title');
             $table->integer('max_note', false, true);
+            $table->integer('max_time', false, true);
+            $table->enum('type', ['senales', 'circulacion', 'seguridad', 'dgt']);
 
             $table->foreign('teacher_id')->references('employees_id')
             ->on('teachers')->onUpdate('cascade')->onDelete('set null');

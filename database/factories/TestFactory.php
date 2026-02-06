@@ -21,6 +21,8 @@ class TestFactory extends Factory
             'teacher_id' => Teacher::inRandomOrder()->first(),
             'title' => $this->faker->sentence(),
             'max_note' => $this->faker->randomElement([20, 30]),
+            'max_time' => $this->faker->randomElement([20, 30]),
+            'type' => $this->faker->randomElement(['senales', 'circulacion', 'seguridad', 'dgt']),
         ];
     }
 }

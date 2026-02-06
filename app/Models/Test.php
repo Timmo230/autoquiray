@@ -15,6 +15,8 @@ class Test extends Model
         'teacher_id',
         'title',
         'max_note',
+        'max_time',
+        'type'
     ];
 
     public function teacher(){

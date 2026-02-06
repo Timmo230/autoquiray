@@ -16,24 +16,24 @@ class UserSeeder extends Seeder
             'name' => 'root',
             'document_id' => '00000000X',
             'document_type' => 'DNI',
-            'type' => 'administrator',
             'administrator_id' => null,
             'email' => 'root@root.com',
             'password' => bcrypt('123'),
+            'active' => 1,
         ]);
 
-        $administrators = \App\Models\User::factory(3)->create([
-            'type' => 'administrator',
+        sleep(1);
+        \App\Models\User::factory(3)->create([
             'password' => bcrypt('123'),
         ]);
 
-        $teachers = \App\Models\User::factory(10)->create([
-            'type' => 'teacher',
+        sleep(1);
+        \App\Models\User::factory(10)->create([
             'password' => bcrypt('123'),
         ]);
 
-        $students = \App\Models\User::factory(1000)->create([
-            'type' => 'student',
+        sleep(1);
+        \App\Models\User::factory(1000)->create([
             'password' => bcrypt('123'),
         ]);
     }

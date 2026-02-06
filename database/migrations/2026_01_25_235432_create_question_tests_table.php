@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('question_tests', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('test_id')->nullable();
-            $table->unsignedBigInteger('teacher_id')->nullable();
+            $table->string('teacher_id', 100)->nullable();
             $table->string('title');
             $table->unsignedBigInteger('correct_option_id')->nullable();
 

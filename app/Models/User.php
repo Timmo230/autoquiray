@@ -12,12 +12,14 @@ class User extends Authenticatable
 {
     use HasFactory, Notifiable;
 
+    public $incrementing = false;
+    protected $keyType = 'string';
+
     protected $fillable = [
         'document_id',
         'document_type',
         'name',
         'email',
-        'type',
         'active',
         'administrator_id',
     ];
@@ -38,5 +40,9 @@ class User extends Authenticatable
 
     public function administrator(){
         return $this->belongsTo(Administrator::class, 'administrator_id');
+    }
+
+    public function user_is_assigned_tyops(){
+        return $this->hasMany(UserIsAssignedTypes::class, 'user_id');
     }
 }

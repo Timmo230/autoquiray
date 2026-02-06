@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('answers', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('teacher_id')->nullable();
+            $table->string('teacher_id', 100)->nullable();
             $table->unsignedBigInteger('question_id');
             $table->string('menssage', 512);
             $table->dateTime('date_sent');
