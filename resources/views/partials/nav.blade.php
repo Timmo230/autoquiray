@@ -1,19 +1,23 @@
+@php
+    $type = DB::table('user_is_assigned_types as uat')
+        ->join('types as t', 'uat.type_id', '=', 't.id')
+        ->where('uat.user_id', auth()->id())
+        ->value('t.type');
+@endphp
 <nav class="navbar navbar-expand-xl bg-navbar position-sticky top-0 z-3 bg-opacity-90" id="nav" data-bs-theme="dark">
     <div class="container-fluid">
 
-        <!-- IZQUIERDA: Logo -->
         <a class="navbar-brand" href="{{ url('/') }}">
             <img src="/autoquiray/resources/img/logo/logo.png" width="250" alt="">
         </a>
 
-        <!-- CENTRO: Menu -->
         <div class="collapse navbar-collapse justify-content-center" id="bigNav">
             @auth
-                @if(auth()->user()->type === 'administrator')
+                @if($type === 'administrator')
                     @include('partials.navlinksAdministrator', ['uri' => $uri])
-                @elseif(auth()->user()->type === 'teacher')
+                @elseif($type === 'teacher')
                     @include('partials.navlinksTeacher', ['uri' => $uri])
-                @elseif(auth()->user()->type === 'student')
+                @elseif($type === 'student')
                     @include('partials.navlinksStudent', ['uri' => $uri])
                 @else
                     @include('partials.navlinksDefault', ['uri' => $uri])
@@ -71,11 +75,11 @@
         </div>
         <div class="offcanvas-body">
             @auth
-                @if(auth()->user()->type === 'administrator')
+                @if($type === 'administrator')
                     @include('partials.navlinksAdministrator', ['uri' => $uri])
-                @elseif(auth()->user()->type === 'teacher')
+                @elseif($type === 'teacher')
                     @include('partials.navlinksTeacher', ['uri' => $uri])
-                @elseif(auth()->user()->type === 'student')
+                @elseif($type === 'student')
                     @include('partials.navlinksStudent', ['uri' => $uri])
                 @endif
             @endauth
@@ -102,7 +106,7 @@
                 @auth
                     <div class="nav-link active mx-3 nav-item text-white mt-2 ms-4" id="user">
                         <p class="m-0">{{ auth()->user()->email }}</p>
-                        <p class="m-0">{{  auth()->user()->type }}</p>
+                        <p class="m-0">{{ $type }}</p>
                     </div>
                 @endauth
             </div>
