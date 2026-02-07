@@ -4,7 +4,7 @@
         ->where('uat.user_id', auth()->id())
         ->value('t.type');
 @endphp
-<nav class="navbar navbar-expand-xl bg-navbar position-sticky top-0 z-3 bg-opacity-90" id="nav" data-bs-theme="dark">
+<nav class="navbar navbar-expand-xl bg-navbar position-sticky top-0 z-3 bg-opacity-90" id="nav" data-bs-theme="dark">    
     <div class="container-fluid">
 
         <a class="navbar-brand" href="{{ url('/') }}">
@@ -28,8 +28,6 @@
             @endguest
         </div>
 
-
-        <!-- DERECHA: Botón + Toggler -->
         <div class="d-flex align-items-center nav-buttons">
             <button class="navbar-toggler" type="button" type="button" 
                 data-bs-toggle="offcanvas" 
@@ -57,7 +55,7 @@
                 @auth
                     <div class="nav-link active mx-3 nav-item text-white mt-2 ms-4" id="user">
                         <p class="m-0">{{ auth()->user()->email }}</p>
-                        <p class="m-0">{{  auth()->user()->type }}</p>
+                        <p class="m-0">{{  $type }}</p>
                     </div>
                 @endauth
             </div>
@@ -110,7 +108,6 @@
                     </div>
                 @endauth
             </div>
-            
         </div>
     </div>
 </nav>

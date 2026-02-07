@@ -12,7 +12,7 @@ class RegistersFactory extends Factory
     public function definition(): array
     {
         return [
-            'note' => $this->faker->optional()->numberBetween(20, 30),
+            'note' => $this->faker->optional()->numberBetween(25, 30),
         ];
     }
 }

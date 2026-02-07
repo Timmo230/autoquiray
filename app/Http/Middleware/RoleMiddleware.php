@@ -4,9 +4,9 @@ namespace App\Http\Middleware;
 
 use Closure;
 use Illuminate\Http\Request;
-use Symfony\Component\HttpFoundation\Response;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Auth\Access\Response;
 
 class RoleMiddleware
 {
@@ -26,12 +26,12 @@ class RoleMiddleware
             ->first();
 
         if(!$user){
-            return redirect('login');
+            if(!Auth::check()) return redirect('login');
+
+            abort(418);
         }
 
-        if(!in_array($user->type, $roles)){
-            abort(403, 'No tienes permiso');
-        }
+        
 
         return $next($request);
     }
