@@ -41,7 +41,7 @@ class LoginController extends Controller
             return match($user->type){
                 'administrator' => redirect()->route('admin.dashboard'),
                 'teacher' => redirect()->route('teacher.dashboard'),
-                'student' => redirect()->route('student.test'),
+                'student' => redirect()->route('student.testType'),
                 default => redirect('/')
             };
         }

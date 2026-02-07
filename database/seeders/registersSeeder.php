@@ -27,7 +27,7 @@ class registersSeeder extends Seeder
                     'exam_id'    => $exam->id,
                 ],
                 [
-                    'note' => rand(20, 30),
+                    'note' => rand(25, 30),
                 ]
             );
 
