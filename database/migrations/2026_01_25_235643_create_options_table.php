@@ -12,8 +12,8 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('options', function (Blueprint $table) {
-            $table->id();
-            $table->unsignedBigInteger('question_id');
+            $table->string('id', 100)->primary();
+            $table->string('question_id', 100);
             $table->string('option');
 
             $table->foreign('question_id')->references('id')

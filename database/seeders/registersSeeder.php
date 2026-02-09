@@ -24,7 +24,7 @@ class registersSeeder extends Seeder
             $register = Registers::firstOrCreate(
                 [
                     'student_id' => $student->user_id,
-                    'exam_id'    => $exam->id,
+                    'exam_id'    => $exam->getAttributes()['id'],
                 ],
                 [
                     'note' => rand(25, 30),

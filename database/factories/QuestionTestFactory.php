@@ -18,21 +18,27 @@ class QuestionTestFactory extends Factory
     public function definition(): array
     {
         if (is_null(self::$tests)) {
-            self::$tests = Test::orderBy('id', 'asc')->pluck('id')->toArray();
+            self::$tests = Test::orderBy('id', 'asc')->get(['id', 'max_note'])->toArray();
         }
 
-        if (self::$counter >= 30) {
+        $currentTest = self::$tests[self::$index];
+        $maxQuestions = $currentTest['max_note'];
+
+        if (self::$counter >= $maxQuestions) {
             self::$index++;
             self::$counter = 0;
+
+            $currentTest = self::$tests[self::$index];
         }
 
-        $testId = self::$tests[self::$index];
+        $testId = $currentTest['id'];
         self::$counter++;
 
         return [
+            'id' => fake()->bothify('????????-???????-???????-???????'),
             'test_id' => $testId,
             'teacher_id' => Teacher::inRandomOrder()->first()->employees_id,
-            'title' => rtrim($this->faker->sentence(), '.'),
+            'title' => rtrim($this->faker->sentence(3), '.'),
             'correct_option_id' => null,
         ];
     }

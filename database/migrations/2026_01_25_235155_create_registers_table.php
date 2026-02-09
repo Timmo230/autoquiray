@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('registers', function (Blueprint $table) {
             $table->string('student_id', 100);
-            $table->unsignedBigInteger('exam_id');
+            $table->string('exam_id', 100);
             $table->integer('note', false, true)->nullable();
 
             $table->primary(['student_id', 'exam_id']);

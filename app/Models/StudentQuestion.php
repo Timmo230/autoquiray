@@ -10,7 +10,8 @@ use Illuminate\Notifications\Notifiable;
 class StudentQuestion extends Model
 {
     use HasFactory, Notifiable;
-    
+    public $incrementing = false;
+    protected $keyType = 'string';
     protected $fillable = [
         'student_id',
         'menssage',

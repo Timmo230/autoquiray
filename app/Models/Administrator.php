@@ -10,6 +10,7 @@ class Administrator extends Model
 {
     use HasFactory, Notifiable;
     
+    protected $keyType = 'string';
     protected $primaryKey = 'employees_id';
     public $incrementing = false;
     protected $fillable = [

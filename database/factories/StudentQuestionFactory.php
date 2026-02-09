@@ -18,6 +18,7 @@ class StudentQuestionFactory extends Factory
     public function definition(): array
     {
         return [
+            'id' => fake()->bothify('????????-???????-???????-???????'),
             'student_id' => Student::inRandomOrder()->first(),
             'menssage' => $this->faker->sentence(10),
             'date_sent' => $this->faker->dateTimeBetween('2025-1-1', '2027-12-31'),

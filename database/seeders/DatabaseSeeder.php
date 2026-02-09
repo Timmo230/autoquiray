@@ -39,6 +39,7 @@ class DatabaseSeeder extends Seeder
             PermissionsAreToughtInClassesTableSeeder::class,
             StudentReservesClassSeeder::class,
             TutionSeeder::class,
+            AddCoorectOptionSeeder::class,
         ]);
     
     }

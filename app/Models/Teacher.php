@@ -12,6 +12,7 @@ class Teacher extends Model
     
     protected $primaryKey = 'employees_id';
     public $incrementing = false;
+    protected $keyType = 'string';
     protected $fillable = [
         'employees_id',
         'salary',

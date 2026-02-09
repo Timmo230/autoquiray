@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('student_completes_tests', function (Blueprint $table) {
             $table->string('student_id', 100);
-            $table->unsignedBigInteger('test_id');
+            $table->string('test_id', 100);
             $table->integer('last_note', false, true);
 
             $table->foreign('student_id')->references('user_id')

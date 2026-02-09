@@ -20,6 +20,7 @@ class AnswerFactory extends Factory
     public function definition(): array
     {
         return [
+            'id' => fake()->bothify('????????-???????-???????-???????'),
             'teacher_id' => Teacher::inRandomOrder()->first(),
             'question_id' => StudentQuestion::inRandomOrder()->first(),
             'menssage' => $this->faker->paragraph(),

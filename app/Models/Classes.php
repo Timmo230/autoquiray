@@ -10,7 +10,6 @@ use Illuminate\Notifications\Notifiable;
 class Classes extends Model
 {
     use HasFactory, Notifiable;
-    
     protected $fillable = [
         'teacher_id',
         'timetable_id',

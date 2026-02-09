@@ -84,11 +84,11 @@
             @guest
                 @include('partials.navlinksDefault', ['uri' => $uri])
             @endguest
-            <div class="d-flex">
+            <div class="d-flex row">
                 @auth
-                    <form action="{{ route('logout') }}" method="POST" id="logout-form">
+                    <form action="{{ route('logout') }}" method="POST" id="logout-form" class="col-6">
                         @csrf
-                        <button type="submit" class="btn btn-green-btn text-white me-3 btngreenLight arriba mt-2 ms-4" style="border: none; background: none; cursor: pointer;">
+                        <button type="submit" class="btn btn-green-btn text-white btngreenLight arriba mt-2" style="border: none; background: none; cursor: pointer;">
                             <i class="fa-solid fa-right-from-bracket me-1"></i> Cerrar Sesión
                         </button>
                     </form>
@@ -96,13 +96,13 @@
                 @guest
                     <form action="{{ route('login') }}" method="GET" id="login-form">
                         @csrf
-                        <button type="submit" class="btn bg-green-btn text-white me-3 btngreenLight arriba mt-2 ms-4" style="border: none; background: none; cursor: pointer;">
+                        <button type="submit" class="btn bg-green-btn text-white btngreenLight arriba mt-2" style="border: none; background: none; cursor: pointer;">
                             <i class="fa-solid fa-right-from-bracket me-1"></i> Iniciar sesion
                         </button>
                     </form>
                 @endguest
                 @auth
-                    <div class="nav-link active mx-3 nav-item text-white mt-2 ms-4" id="user">
+                    <div class="nav-link active nav-item text-white mt-3 col" id="user">
                         <p class="m-0">{{ auth()->user()->email }}</p>
                         <p class="m-0">{{ $type }}</p>
                     </div>

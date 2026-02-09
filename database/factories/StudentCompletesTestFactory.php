@@ -20,7 +20,7 @@ class StudentCompletesTestFactory extends Factory
     public function definition(): array
     {
         return [
-            'last_note' => $this->faker->numberBetween(1, 30),
+            'last_note' => $this->faker->numberBetween(24, 30),
         ];
     }
 }

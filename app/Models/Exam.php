@@ -10,7 +10,8 @@ use Illuminate\Notifications\Notifiable;
 class Exam extends Model
 {
     use HasFactory, Notifiable;
-
+    public $incrementing = false;
+    protected $keyType = 'string';
     protected $fillable = [
         'permission_id',
         'date',
