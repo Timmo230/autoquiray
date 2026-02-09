@@ -12,11 +12,11 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('question_tests', function (Blueprint $table) {
-            $table->id();
-            $table->unsignedBigInteger('test_id')->nullable();
+            $table->string('id', 100)->primary();
+            $table->string('test_id', 100);
             $table->string('teacher_id', 100)->nullable();
             $table->string('title');
-            $table->unsignedBigInteger('correct_option_id')->nullable();
+            $table->string('correct_option_id', 100)->nullable();
 
             $table->foreign('teacher_id')->references('employees_id')
             ->on('teachers')->onUpdate('cascade')->onDelete('set null');

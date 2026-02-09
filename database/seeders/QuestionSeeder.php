@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use App\Models\Test;
 
 class QuestionSeeder extends Seeder
 {
@@ -12,6 +13,8 @@ class QuestionSeeder extends Seeder
      */
     public function run(): void
     {
-        \App\Models\QuestionTest::factory(3000)->create();
+        $tests = Test::sum('max_note');
+
+        \App\Models\QuestionTest::factory($tests)->create();
     }
 }

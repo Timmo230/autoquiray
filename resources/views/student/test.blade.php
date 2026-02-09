@@ -74,7 +74,7 @@
                                     {{ $test->max_note }} min
                                 </small>
 
-                                <a href="#" class="btn btn-dark-green btngreenLight arriba rounded-3 px-4 text-white btn-t">
+                                <a href="{{ route('student.complete_test', ['id'=> $test->id]) }}" class="btn btn-dark-green btngreenLight arriba rounded-3 px-4 text-white btn-t">
                                     Empezar
                                 </a>
                             </div>

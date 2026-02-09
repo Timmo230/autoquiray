@@ -3,6 +3,7 @@
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\hacerTestController;
+use App\Http\Controllers\haciendoTestController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 
@@ -19,6 +20,7 @@ Route::middleware(['role:student'])->group(function () {
     Route::get('/classes', fn() => view('student.classes'))->name('student.classes');
     Route::get("/contacto", fn() => view('student.contacto'))->name('student.contacto');
     Route::get('/hacer_tests', [hacerTestController::class, 'showTests'])->name('student.test');
+    Route::get('/haciendo_test', [haciendoTestController::class, 'showquestions'])->name('student.complete_test');
 });
 
 Route::middleware(['role:teacher'])->group(function() {

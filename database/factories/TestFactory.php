@@ -17,11 +17,13 @@ class TestFactory extends Factory
      */
     public function definition(): array
     {
+        $questions = $this->faker->randomElement([20, 30]);
         return [
+            'id' => fake()->bothify('????????-???????-???????-???????'),
             'teacher_id' => Teacher::inRandomOrder()->first(),
             'title' => $this->faker->sentence(),
-            'max_note' => $this->faker->randomElement([20, 30]),
-            'max_time' => $this->faker->randomElement([20, 30]),
+            'max_note' => $questions,
+            'max_time' => $questions,
             'type' => $this->faker->randomElement(['senales', 'circulacion', 'seguridad', 'dgt']),
         ];
     }

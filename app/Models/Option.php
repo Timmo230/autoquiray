@@ -10,7 +10,8 @@ use Illuminate\Notifications\Notifiable;
 class Option extends Model
 {
     use HasFactory, Notifiable;
-    
+    public $incrementing = false;
+    protected $keyType = 'string';
     protected $fillable = [
         'question_id',
         'option',

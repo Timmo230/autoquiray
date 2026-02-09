@@ -12,7 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('permissions_are_associated_test', function (Blueprint $table) {
-            $table->unsignedBigInteger('test_id');
+            $table->string('test_id', 100);
             $table->unsignedBigInteger('permission_id');
 
             $table->foreign('test_id')->references('id')

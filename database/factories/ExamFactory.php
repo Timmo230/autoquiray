@@ -21,6 +21,7 @@ class ExamFactory extends Factory
         $randomPermission = Permission::inRandomOrder()->first();
         
         return [
+            'id' => fake()->bothify('????????-???????-???????-???????'),
             'permission_id' => $randomPermission->id,
             'date' => $this->faker->date('2025-01-01', '2027-12-31'),
             'start_time' => $this->faker->dateTimeBetween('08:00:00', '23:00:00')->format('H:i:s'),

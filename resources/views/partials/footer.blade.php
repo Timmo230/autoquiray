@@ -18,7 +18,7 @@
                     @auth
                         @if($type == 'student')
                             <li class="nav-item">
-                                <a class="nav-link {{ $uri == 'test' ? 'text-green' : ''}}" href="{{ url('test') }}">Test Online</a>
+                                <a class="nav-link {{ $uri == 'tipos_de_test' ? 'text-green' : ''}}" href="{{ url('tipos_de_test') }}">Test Online</a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link {{ $uri == 'classes' ? 'text-green' : ''}}" href="{{ url('classes') }}">Mis Clases</a>
