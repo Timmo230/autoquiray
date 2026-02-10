@@ -97,6 +97,64 @@
                     </div>
                 </div>
             </section>
+            <section class="my-3">
+                <div>
+                    <h2 class="fs-1 fw-bolder text-center">Vehiculos de Autoquiray</h2>
+                </div>
+
+                <div id="carouselExample" class="carousel slide">
+                    <div class="carousel-inner">
+                        <div class="carousel-item active">
+                            <model-viewer 
+                                src="{{ asset('storage/models/motorbike1.glb') }}" 
+                                ar 
+                                camera-controls 
+                                touch-action="pan-y" 
+                                alt="Un modelo 3D de Autoquiray"
+                                style="width: 100%; height: 400px; background-color: #f8f9fa;">
+                            </model-viewer>
+                        </div>
+                        <div class="carousel-item">
+                            <model-viewer 
+                                src="{{ asset('storage/models/motorbike2.glb') }}" 
+                                ar 
+                                camera-controls 
+                                touch-action="pan-y" 
+                                alt="Un modelo 3D de Autoquiray"
+                                style="width: 100%; height: 400px; background-color: #f8f9fa;">
+                            </model-viewer>
+                        </div>
+                        <div class="carousel-item">
+                            <model-viewer 
+                                src="{{ asset('storage/models/Untitled.glb') }}" 
+                                ar 
+                                camera-controls 
+                                touch-action="pan-y" 
+                                alt="Un modelo 3D de Autoquiray"
+                                style="width: 100%; height: 400px; background-color: #f8f9fa;">
+                            </model-viewer>
+                        </div>
+                        <div class="carousel-item">
+                            <model-viewer 
+                                src="{{ asset('storage/models/car1.glb') }}" 
+                                ar 
+                                camera-controls 
+                                touch-action="pan-y" 
+                                alt="Un modelo 3D de Autoquiray"
+                                style="width: 100%; height: 400px; background-color: #f8f9fa;">
+                            </model-viewer>
+                        </div>
+                    </div>
+                    <button class="carousel-control-prev bg-secondary" type="button" data-bs-target="#carouselExample" data-bs-slide="prev">
+                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Previous</span>
+                    </button>
+                    <button class="carousel-control-next bg-secondary" type="button" data-bs-target="#carouselExample" data-bs-slide="next">
+                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Next</span>
+                    </button>
+                </div>
+            </section>
             <section class="mt-5">
                 <div class="container-fluid bg-white pt-4">
                     <div class="d-flex flex-wrap gap-3 align-items-stretch cards-flex justify-content-center text-center">
@@ -124,5 +182,6 @@
 
     @include("partials.footer")
     @include("partials.scripts")
+    <script type="module" src="https://ajax.googleapis.com/ajax/libs/model-viewer/4.0.0/model-viewer.min.js"></script>
 </body>
 </html>
