@@ -8,4 +8,4 @@
 <link rel="stylesheet" href="/autoquiray/resources/css/main.min.css">
 <link rel="stylesheet" href="/autoquiray/resources/css/cards.min.css">
 <link rel="stylesheet" href="/autoquiray/resources/css/general.css">
-<link rel="icon" href="/autoquiray/resources/img/logo/favicon.png') }}">
+<link rel="icon" href="\autoquiray\resources\img\logo\favicon.png">
