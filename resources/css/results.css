@@ -1,0 +1,53 @@
+/* Estilos para el componente de resultados Autoquiray */
+
+.results-card {
+    border-radius: 20px;
+    background-color: #ffffff;
+}
+
+/* Simulación del progreso circular */
+.progress-circle {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.red{
+    background: radial-gradient(closest-side, white 85%, transparent 86% 100%),
+                conic-gradient(#ff4d4d 3%, #e9ecef 0);
+}
+
+.yellow{
+    background: radial-gradient(closest-side, white 85%, transparent 86% 100%),
+                conic-gradient(#FFC107 3%, #e9ecef 0);
+}
+
+.green{
+    background: radial-gradient(closest-side, white 85%, transparent 86% 100%),
+                conic-gradient(#198754 3%, #e9ecef 0);
+}
+
+.progress-value {
+    text-align: center;
+}
+
+/* Personalización de las cajas de estadísticas */
+.stat-box {
+    transition: transform 0.2s ease;
+}
+
+.stat-box:hover {
+    transform: translateY(-5px);
+}
+
+/* Ajustes de colores Bootstrap para mayor fidelidad al diseño original */
+.bg-success-subtle { background-color: #e8f5e9 !important; }
+.bg-danger-subtle { background-color: #ffebee !important; }
+.bg-primary-subtle { background-color: #e3f2fd !important; }
+
+.text-success { color: #2e7d32 !important; }
+.text-danger { color: #d32f2f !important; }
+.text-primary { color: #1976d2 !important; }
