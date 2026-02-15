@@ -1,0 +1,29 @@
+# --- Carpetas de Dependencias (No se suben) ---
+/node_modules/
+/vendor/
+
+# --- Estructura de Bootstrap ---
+/bootstrap/cache/
+
+# --- Configuración Sensible y Entorno ---
+.env
+.env.backup
+.env.production
+# Ignorar bases de datos locales si las guardas en la carpeta del proyecto
+*.sql
+*.sqlite
+
+# --- Gestión de Almacenamiento (Storage) ---
+# Ignoramos el contenido de las carpetas pero no las carpetas en sí
+/storage/*.key
+/storage/framework/cache/data/*
+/storage/framework/sessions/*
+/storage/framework/testing/*
+/storage/framework/views/*
+/storage/logs/*
+
+# --- Archivos del Sistema Operativo y Editores ---
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
