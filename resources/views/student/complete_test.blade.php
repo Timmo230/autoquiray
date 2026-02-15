@@ -7,6 +7,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=`, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>Haciendo test...</title>
     @include("partials.links")
     <link rel="stylesheet" href="/autoquiray/resources/css/complete_test.css">

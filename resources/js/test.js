@@ -1,7 +1,11 @@
+const paramsDeLaUrl = new URLSearchParams(window.location.search);
+const idDetectado = paramsDeLaUrl.get('id');
+
 const quizApp = {
     currentStep: 0,
     totalSteps: 0,
     userAnswers: {},
+    testId: idDetectado,
 
     init: function(total) {
         this.totalSteps = total;
@@ -20,18 +24,36 @@ const quizApp = {
         console.log("Guardado:", quizApp.userAnswers);
     },
 
-    finishTest: function() {
-        const respondidas = Object.keys(this.userAnswers).length;
+    finishTest: async function(qId){
+        const respondidas = Object.keys(quizApp.userAnswers).length;
+
         if (respondidas < quizApp.totalSteps) {
-            if (!confirm(`Solo has respondido ${respondidas} de ${this.totalSteps}. ¿Quieres finalizar?`)) {
+            if (!confirm(`Solo has respondido ${respondidas} de ${quizApp.totalSteps}. ¿Quieres finalizar?`)) {
                 return;
             }
         }
         
-        // Aquí puedes hacer el envío final
-        console.log("Enviando respuestas:", this.userAnswers);
+        const post = await fetch('/autoquiray/resultados', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content
+            },
+            body: JSON.stringify({
+                responds: quizApp.userAnswers,
+                testId: this.testId
+            })
+        });
+        
+        console.log("Enviando respuestas:", quizApp.userAnswers);
+        if(post.ok){
+            window.location.href = `/autoquiray/resultados?id="${this.testId}"`;
+        }
+        else alert('Error al guardar el test');
     }
+
 };
 
 window.saveAnswer = (qId, oId) => quizApp.saveAnswer(qId, oId);
 window.finishTest = () => quizApp.finishTest();
+window.changeStep = (n) => quizApp.changeStep(n);

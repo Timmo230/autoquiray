@@ -4,12 +4,12 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\hacerTestController;
 use App\Http\Controllers\haciendoTestController;
+use App\Http\Controllers\ResultsController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 
 // Rutas publicas
 Route::get('/', [HomeController::class, 'index'])->name('home');
-Route::get('/resultados', fn() => view('student.result'))->name('student.result');
 
 // Rutas de autenticacion
 Route::get('/login', [LoginController::class, 'showLoginForm'])->name('login');
@@ -22,6 +22,8 @@ Route::middleware(['role:student'])->group(function () {
     Route::get("/contacto", fn() => view('student.contacto'))->name('student.contacto');
     Route::get('/hacer_tests', [hacerTestController::class, 'showTests'])->name('student.test');
     Route::get('/haciendo_test', [haciendoTestController::class, 'showquestions'])->name('student.complete_test');
+    Route::get('/resultados', [ResultsController::class, 'get'])->name('student.result');
+    Route::post('/resultados', [ResultsController::class, 'upload'])->name('student.result');
 });
 
 Route::middleware(['role:teacher'])->group(function() {
