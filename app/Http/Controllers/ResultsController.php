@@ -59,14 +59,15 @@ class ResultsController extends Controller
                 }
             }
             
-            $correctas = DB::table('question_tests', 'qt')
+            $correctas = DB::table('question_tests as qt')
                 ->join('tests as t', 't.id', '=', 'qt.test_id')
                 ->where('t.id', '=', $test_id)
                 ->pluck('qt.correct_option_id');
 
-            $note = DB::table('question_tests')
-                    ->whereIn('correct_option_id', $correctas)
-                    ->count();
+            $note = DB::table('student_selects_options')
+                ->where('student_id', '=', $user_id)
+                ->whereIn('option_id', $correctas)
+                ->count();
 
             if (!empty($data)) {
                 DB::table('student_selects_options')->insert($data);
@@ -86,7 +87,8 @@ class ResultsController extends Controller
         }
     }
 
-    public function get(Request $request){
+    public function get(Request $request)
+    {
         $testId = $request->query('id');
         $userId = Auth::id();
 
@@ -94,22 +96,26 @@ class ResultsController extends Controller
             ->where('student_id', '=', $userId)
             ->where('test_id', '=', $testId)
             ->first();
-        
+
         if (!$row) return redirect('/home')->with('error', 'No hay resultados para este test.');
-        
-        $testMaxNote = DB::table('tests')
+
+        $testData = DB::table('tests')
             ->where('id', '=', $testId)
             ->first();
+
+        $max_note_value = $testData->max_note; 
         
         $successes = $row->last_note;
-        $failed = $testMaxNote - $successes;
-        $time  = $row->time;
+        
+        $failed = $max_note_value - $successes;
+        
+        //$time = $row->time;
 
         return view('student.result', [
             'successes' => $successes,
-            'time' => $time,
+            //'time' => $time,
             'failed' => $failed,
-            'max_note' => $testMaxNote,
+            'max_note' => $max_note_value,
         ]);
     }
 }

@@ -47,7 +47,7 @@ const quizApp = {
         
         console.log("Enviando respuestas:", quizApp.userAnswers);
         if(post.ok){
-            window.location.href = `/autoquiray/resultados?id="${this.testId}"`;
+            window.location.href = `/autoquiray/resultados?id=${this.testId}`;
         }
         else alert('Error al guardar el test');
     }

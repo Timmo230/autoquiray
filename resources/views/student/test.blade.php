@@ -42,8 +42,8 @@
                         $nota = $registroCompletado->last_note;
                         
                         $clase = match (true) {
-                            $nota == 30 => 'bg-success-subtle',
-                            $nota >= 27 => 'bg-warning-subtle',
+                            $nota == $test->max_note => 'bg-success-subtle',
+                            $nota >= $test->max_note - 3 => 'bg-warning-subtle',
                             default     => 'bg-danger-subtle',
                         };
                     }

@@ -35,13 +35,13 @@
                     <div class="row g-3 mb-5">
                         <div class="col-4">
                             <div class="stat-box bg-success-subtle p-3 rounded-4">
-                                <h4 class="fw-bold text-success mb-0">1</h4>
+                                <h4 class="fw-bold text-success mb-0">{{ $successes }}</h4>
                                 <small class="text-success d-block">Aciertos</small>
                             </div>
                         </div>
                         <div class="col-4">
                             <div class="stat-box bg-danger-subtle p-3 rounded-4">
-                                <h4 class="fw-bold text-danger mb-0">29</h4>
+                                <h4 class="fw-bold text-danger mb-0">{{ $failed }}</h4>
                                 <small class="text-danger d-block">Fallos</small>
                             </div>
                         </div>
