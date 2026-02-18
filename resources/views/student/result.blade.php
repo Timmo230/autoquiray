@@ -19,9 +19,9 @@
                 <div class="card border-0 shadow-sm p-4 text-center results-card">
                     
                     <div class="position-relative d-inline-block mx-auto mb-4">
-                        <div class="progress-circle green shadow-sm">
+                        <div class="progress-circle shadow-sm" id="porcentage">
                             <div class="progress-value">
-                                <h2 class="fw-bold mb-0">3%</h2>
+                                <h2 class="fw-bold mb-0" id="porcentage_text">3%</h2>
                                 <small class="text-muted">Aciertos</small>
                             </div>
                         </div>
@@ -54,8 +54,8 @@
                     </div>
 
                     <div class="d-flex justify-content-center gap-3">
-                        <a href="#" class="btn btn-dark btn-lg px-4 fw-semibold rounded-3">Nuevo Test</a>
-                        <a href="#" class="btn btn-light btn-lg px-4 fw-semibold rounded-3 text-secondary border">Ver Historial</a>
+                        <a href="{{ route('student.testType') }}" class="btn btn-dark btn-lg px-4 fw-semibold rounded-3">Nuevo Test</a>
+                        <a href="{{ route('student.showCorrectedTest') }}" class="btn btn-light btn-lg px-4 fw-semibold rounded-3 text-secondary border">Test corregido</a>
                     </div>
 
                 </div>
@@ -65,5 +65,12 @@
 
     @include("partials.footer")
     @include("partials.scripts")
+    <script src="\autoquiray\resources\js\result.js"></script>
+    <script>
+        const successes = {{ $successes }};
+        const max_note = {{ $max_note }};
+        
+        assignStyle(successes, max_note);
+    </script>
 </body>
 </html>

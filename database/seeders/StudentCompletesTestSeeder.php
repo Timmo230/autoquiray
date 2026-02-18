@@ -28,6 +28,7 @@ class StudentCompletesTestSeeder extends Seeder
                 ],
                 [
                     'last_note' => rand(20, 30),
+                    'time' => rand(0, $test->max_time * 60),
                 ]
             );
 

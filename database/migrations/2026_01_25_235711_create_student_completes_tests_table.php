@@ -15,6 +15,7 @@ return new class extends Migration
             $table->string('student_id', 100);
             $table->string('test_id', 100);
             $table->integer('last_note', false, true);
+            $table->integer('time', false, false);
 
             $table->foreign('student_id')->references('user_id')
             ->on('students')->onUpdate('cascade')->onDelete('cascade');
