@@ -47,7 +47,7 @@
                         </div>
                         <div class="col-4">
                             <div class="stat-box bg-primary-subtle p-3 rounded-4">
-                                <h4 class="fw-bold text-primary mb-0">0:10</h4>
+                                <h4 class="fw-bold text-primary mb-0" id="time">0:10</h4>
                                 <small class="text-primary d-block">Tiempo</small>
                             </div>
                         </div>
@@ -55,9 +55,8 @@
 
                     <div class="d-flex justify-content-center gap-3">
                         <a href="{{ route('student.testType') }}" class="btn btn-dark btn-lg px-4 fw-semibold rounded-3">Nuevo Test</a>
-                        <a href="{{ route('student.showCorrectedTest') }}" class="btn btn-light btn-lg px-4 fw-semibold rounded-3 text-secondary border">Test corregido</a>
+                        <a href="{{ route('student.showCorrectedTest', ['id' => $testId]) }}" class="btn btn-light btn-lg px-4 fw-semibold rounded-3 text-secondary border">Test corregido</a>
                     </div>
-
                 </div>
             </div>
         </div>
@@ -71,6 +70,7 @@
         const max_note = {{ $max_note }};
         
         assignStyle(successes, max_note);
+        time({{ $time }});
     </script>
 </body>
 </html>
