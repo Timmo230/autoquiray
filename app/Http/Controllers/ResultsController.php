@@ -47,7 +47,14 @@ class ResultsController extends Controller
                     ->where('test_id', '=', $test_id)
                     ->delete();
             }
-            
+
+            $correctas = DB::table('question_tests')
+                ->where('test_id', '=', $test_id)
+                ->pluck('correct_option_id')
+                ->toArray();
+
+            $note = 0;
+
             foreach ($respuestas as $questionId => $optionId) {
                 if ($optionId) {
                     $data[] = [
@@ -57,17 +64,11 @@ class ResultsController extends Controller
                         'updated_at' => $now 
                     ];
                 }
+
+                if(in_array($optionId, $correctas)) $note++;
             }
             
-            $correctas = DB::table('question_tests as qt')
-                ->join('tests as t', 't.id', '=', 'qt.test_id')
-                ->where('t.id', '=', $test_id)
-                ->pluck('qt.correct_option_id');
-
-            $note = DB::table('student_selects_options')
-                ->where('student_id', '=', $user_id)
-                ->whereIn('option_id', $correctas)
-                ->count();
+            
 
             if (!empty($data)) {
                 DB::table('student_selects_options')->insert($data);
@@ -97,7 +98,7 @@ class ResultsController extends Controller
             ->where('test_id', '=', $testId)
             ->first();
 
-        if (!$row) return redirect('/home')->with('error', 'No hay resultados para este test.');
+        if (!$row) return redirect('/')->with('error', 'No hay resultados para este test.');
 
         $testData = DB::table('tests')
             ->where('id', '=', $testId)
