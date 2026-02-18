@@ -1,0 +1,54 @@
+main div.container-fluid, main.container-fluid{
+    max-width: 1200px;
+}
+
+.custom-radio {
+    width: 20px;
+    height: 20px;
+    border: 2px solid #cbd5e1;
+    border-radius: 50%;
+    display: inline-block;
+    position: relative;
+}
+
+.btn-check:disabled + .btn, 
+.btn-check[disabled] + .btn {
+    opacity: 1 !important;
+    pointer-events: none;
+}
+
+.btn-check.btn-correcto + .btn {
+    background-color: #d1e7dd !important;
+    border-color: #a3cfbb !important;
+    color: #0f5132 !important;
+}
+
+.btn-check.btn-incorrecto:checked + .btn {
+    background-color: #f8d7da !important;
+    border-color: #f1aeb5 !important;
+    color: #842029 !important;
+}
+
+.btn-check.btn-correcto + .btn .bi-check-circle-fill {
+    color: #198754 !important;
+}
+
+.btn-check.btn-incorrecto:checked + .btn .bi-x-circle-fill {
+    color: #dc3545 !important;
+}
+
+.btn-check.btn-correcto + .btn .text-dark,
+.btn-check.btn-incorrecto:checked + .btn .text-dark {
+    color: inherit !important; 
+    font-weight: 600;
+}
+
+.btn-check.btn-correcto + .btn .custom-radio {
+    border-color: #198754 !important;
+    background-color: white;
+}
+
+.btn-check.btn-incorrecto:checked + .btn .custom-radio {
+    border-color: #dc3545 !important;
+    background-color: white;
+}

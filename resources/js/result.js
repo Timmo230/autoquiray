@@ -12,3 +12,11 @@ function assignStyle(successes, max_note){
                                    conic-gradient(${color} ${porcentage}%, #e9ecef 0)`;
     porcentageText.textContent = porcentage + '%';
 }
+
+function time(seconds){
+    const cociente = Math.floor(seconds / 60);
+    const resto = seconds % 60;
+    const timeObject = document.getElementById('time');
+
+    timeObject.textContent = cociente + ':' + resto;
+}

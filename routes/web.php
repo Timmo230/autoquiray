@@ -24,7 +24,7 @@ Route::middleware(['role:student'])->group(function () {
     Route::get('/haciendo_test', [haciendoTestController::class, 'showquestions'])->name('student.complete_test');
     Route::get('/resultados', [ResultsController::class, 'get'])->name('student.result');
     Route::post('/resultados', [ResultsController::class, 'upload'])->name('student.result');
-    Route::get('/test_corregido', fn() => view('student.showCorrectedTest'))->name('student.showCorrectedTest');
+    Route::get('/test_corregido', [ResultsController::class, 'coorectTests'])->name('student.showCorrectedTest');
 });
 
 Route::middleware(['role:teacher'])->group(function() {
