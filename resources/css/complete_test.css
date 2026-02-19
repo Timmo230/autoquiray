@@ -31,3 +31,25 @@ main div.container-fluid, main.container-fluid{
     left: 50%;
     transform: translate(-50%, -50%);
 }
+
+.bg-green-light {
+    background-color: #e8f5e9 !important;
+}
+
+.border-green-soft {
+    border-color: #c8e6c9 !important;
+}
+
+.text-green-dark {
+    color: #2e7d32 !important;
+}
+
+#timer-display {
+    font-variant-numeric: tabular-nums;
+    letter-spacing: 0.5px;
+}
+
+#time{
+    width: 130px;
+    height: 40px;
+}

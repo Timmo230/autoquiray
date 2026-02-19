@@ -47,7 +47,7 @@
                         </div>
                         <div class="col-4">
                             <div class="stat-box bg-primary-subtle p-3 rounded-4">
-                                <h4 class="fw-bold text-primary mb-0" id="time">0:10</h4>
+                                <h4 class="fw-bold text-primary mb-0" id="time">00:10</h4>
                                 <small class="text-primary d-block">Tiempo</small>
                             </div>
                         </div>

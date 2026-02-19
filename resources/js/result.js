@@ -17,6 +17,8 @@ function time(seconds){
     const cociente = Math.floor(seconds / 60);
     const resto = seconds % 60;
     const timeObject = document.getElementById('time');
+    const add01 = cociente < 10 ? '0' : '';
+    const add02 = resto < 10 ? '0' : '';
 
-    timeObject.textContent = cociente + ':' + resto;
+    timeObject.textContent = add01 + cociente + ':' + resto + add02;
 }

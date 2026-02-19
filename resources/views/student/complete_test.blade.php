@@ -29,12 +29,16 @@
                 
                 <div class="question-step" id="{{ $index }}" style="display: {{ $index == 0 ? 'block' : 'none' }}">
                     <div class="card shadow border-0 rounded-4">
-                        <div class="card-header bg-transparent border-0 p-4 pb-0">
-                            <div class="d-flex justify-content-between align-items-center">
+                        <div class="card-header bg-transparent border-0 p-4 pb-0 row row-cols-lg-2 row-cols-1">
+                            <div class="d-flex justify-content-between align-items-center col-lg-10">
                                 <div>
                                     <h1 class="h4 fw-bold text-navbar mb-0">{{ $test->title }}</h1>
                                     <small class="text-grey">Pregunta {{ $index + 1 }} de {{ $test->max_note }}</small>
                                 </div>
+                            </div>
+                            <div class="d-flex align-items-center justify-content-center bg-green-light px-3 py-1 rounded-pill border border-green-soft col-lg-2" id="time">
+                                <i class="fa-regular fa-clock me-2 text-green-dark"></i>
+                                <span id="timer-display" class="fw-bold text-green-dark rubik" style="min-width: 50px;">{{ $time }}</span>
                             </div>
                         </div>
 
@@ -90,6 +94,14 @@
 
     <script>
         quizApp.init({{ $test->max_note }});
+
+        const max_time = {{ $time }};
+        let time_transcurred = 0; 
+        
+        let timerInterval = setInterval(() => {
+            time_transcurred++;
+            quizApp.time(time_transcurred, max_time); 
+        }, 1000);
     </script>
     @include("partials.footer") 
     @include("partials.scripts")

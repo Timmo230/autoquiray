@@ -21,10 +21,12 @@ class haciendoTestController extends Controller
             ->get();
         
         $questions = $results->groupBy('question_id')->values();
+        $time = $testInfo->max_time * 60;
 
         return view('student.complete_test', [
             'questions' => $questions,
             'test' => $testInfo,
+            'time' => $time
         ]);
     }
 }
