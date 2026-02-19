@@ -49,7 +49,20 @@ main div.container-fluid, main.container-fluid{
     letter-spacing: 0.5px;
 }
 
-#time{
-    width: 130px;
+#title{
+    width: calc(100% - 120px);
+}
+
+#question {
+    position: relative;
+    padding-top: 20px;
+}
+
+#time {
+    position: absolute;
+    top: 30px;
+    right: 20px;
+    width: 110px;
     height: 40px;
+    z-index: 100;
 }
