@@ -50,8 +50,19 @@ const quizApp = {
             window.location.href = `/autoquiray/resultados?id=${this.testId}`;
         }
         else alert('Error al guardar el test');
-    }
+    },
 
+    time: function(seconds, totalSeconds){
+        actualTime = totalSeconds - seconds;
+        const timeObject = document.getElementById('timer-display');
+        const cociente = Math.floor(actualTime / 60);
+        const resto = actualTime % 60;
+        const add01 = cociente < 10 ? '0' : '';
+        const add02 = resto < 10 ? '0' : '';
+
+        timeObject.textContent = add01 + cociente + ':' + resto + add02;
+        return;
+    }
 };
 
 window.saveAnswer = (qId, oId) => quizApp.saveAnswer(qId, oId);
