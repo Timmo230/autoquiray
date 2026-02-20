@@ -24,10 +24,10 @@ const quizApp = {
         console.log("Guardado:", quizApp.userAnswers);
     },
 
-    finishTest: async function(qId){
+    finishTest: async function(time){
         const respondidas = Object.keys(quizApp.userAnswers).length;
 
-        if (respondidas < quizApp.totalSteps) {
+        if (respondidas < quizApp.totalSteps && !time) {
             if (!confirm(`Solo has respondido ${respondidas} de ${quizApp.totalSteps}. ¿Quieres finalizar?`)) {
                 return;
             }
@@ -41,7 +41,8 @@ const quizApp = {
             },
             body: JSON.stringify({
                 responds: quizApp.userAnswers,
-                testId: this.testId
+                testId: this.testId,
+                time: time_transcurred
             })
         });
         
@@ -54,13 +55,19 @@ const quizApp = {
 
     time: function(seconds, totalSeconds){
         actualTime = totalSeconds - seconds;
+        
+        if(totalSeconds <= seconds){
+            quizApp.finishTest(true);
+            return;
+        }
+
         const timeObject = document.getElementById('timer-display');
         const cociente = Math.floor(actualTime / 60);
         const resto = actualTime % 60;
         const add01 = cociente < 10 ? '0' : '';
         const add02 = resto < 10 ? '0' : '';
 
-        timeObject.textContent = add01 + cociente + ':' + resto + add02;
+        timeObject.textContent = add01 + cociente + ':' + add02 + resto;
         return;
     }
 };

@@ -19,6 +19,7 @@ class ResultsController extends Controller
 
             $respuestas = $request->input('responds');
             $test_id = $request->input('testId');
+            $time = $request->input('time');
 
             $data = [];
             $now = now();
@@ -76,7 +77,7 @@ class ResultsController extends Controller
                     'student_id' => $user_id,
                     'test_id' => $test_id,
                     'last_note' => $note,
-                    'time' => 600,
+                    'time' => $time,
                     'created_at' => $now,
                     'updated_at' => $now
                 ]);
