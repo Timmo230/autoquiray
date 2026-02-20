@@ -24,7 +24,7 @@
             <form action="">
                 <div class="d-flex align-items-center justify-content-center bg-green-light px-3 py-1 rounded-pill border border-green-soft col-lg-2" id="time">
                     <i class="fa-regular fa-clock me-2 text-green-dark"></i>
-                    <span id="timer-display" class="fw-bold text-green-dark rubik" style="min-width: 50px;">{{ $time }}</span>
+                    <span id="timer-display" class="fw-bold text-green-dark rubik" style="min-width: 50px;">30:00</span>
                 </div>
                 @foreach($questions as $index => $group)
                     @php 
@@ -80,7 +80,7 @@
                                         Siguiente <i class="bi bi-chevron-right ms-1"></i>
                                     </button>
                                 @else
-                                    <button type="button" class="btn btn-primary px-4 py-2 fw-bold rounded-3" onclick="finishTest()">
+                                    <button type="button" class="btn btn-primary px-4 py-2 fw-bold rounded-3" onclick="finishTest(false)">
                                         Finalizar Test <i class="bi bi-check2-all ms-1"></i>
                                     </button>
                                 @endif
