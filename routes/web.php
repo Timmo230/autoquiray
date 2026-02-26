@@ -1,10 +1,6 @@
 <?php
 
-use App\Http\Controllers\HomeController;
-use App\Http\Controllers\LoginController;
-use App\Http\Controllers\hacerTestController;
-use App\Http\Controllers\haciendoTestController;
-use App\Http\Controllers\ResultsController;
+namespace App\Http\Controllers;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 
@@ -20,6 +16,7 @@ Route::middleware(['role:student'])->group(function () {
     Route::get('/tipos_de_test', fn() => view('student.testTypes'))->name('student.testType');
     Route::get('/classes', fn() => view('student.classes'))->name('student.classes');
     Route::get("/contacto", fn() => view('student.contacto'))->name('student.contacto');
+    Route::post("/contacto", [ContactController::class, 'uploadMessage'])->name('student.contacto');
     Route::get('/hacer_tests', [hacerTestController::class, 'showTests'])->name('student.test');
     Route::get('/haciendo_test', [haciendoTestController::class, 'showquestions'])->name('student.complete_test');
     Route::get('/resultados', [ResultsController::class, 'get'])->name('student.result');
@@ -28,7 +25,7 @@ Route::middleware(['role:student'])->group(function () {
 });
 
 Route::middleware(['role:teacher'])->group(function() {
-    Route::get('/dashboard', fn() => view('teacher.dashboard'))->name('teacher.dashboard');
+    Route::get('/dashboard', [TeacherPlaceController::class, 'getstudents'])->name('teacher.dashboard');
 });
 
 Route::middleware(['role:administrator'])->group(function() {

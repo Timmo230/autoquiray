@@ -2,6 +2,16 @@
     $uri = request()->path();
 @endphp
 
+@if ($errors->any())
+    <div class="alert alert-danger">
+        <ul>
+            @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    </div>
+@endif
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -25,21 +35,24 @@
                         <h4>Atención al Cliente</h2>
                         <h5 class="opacity-50">¿Tienes alguna duda? Estamos aquí para ayudarte</h5>
                     </div>
-                    <form>
-                        <div class="mb-3 mt-4">
+                    <form action="{{ route('student.contacto') }}" method="POST">
+                        @csrf <div class="mb-3 mt-4">
                             <label for="tipo" class="form-label">Asunto</label>
                             <select class="form-select form-select mb-3" aria-label="Small select example" id="tipo" name="tipo">
-                                <option value="1">Matrícula y documentación</option>
-                                <option value="2">Clases teóricas o prácticas</option>
-                                <option value="3">Fechas de examen</option>
-                                <option value="4">Pagos y facturación</option>
-                                <option value="5">Problema técnico</option>
-                                <option value="6">Otro</option>
+                                <option value="matricula">Matrícula y documentación</option>
+                                <option value="clases">Clases teóricas o prácticas</option>
+                                <option value="examenes">Fechas de examen</option>
+                                <option value="pagos">Pagos y facturación</option>
+                                <option value="tecnico">Problema técnico</option>
+                                <option value="otro">Otro</option>
                             </select>
                         </div>
+                        <div class="mb-3" id="otroAsunto">
+
+                        </div>
                         <div class="mb-3">
-                            <label for="exampleFormControlTextarea1" class="form-label">Mensaje</label>
-                            <textarea class="form-control" id="exampleFormControlTextarea1" rows="6" placeholder="Escribe tu mensaje aquí"></textarea>
+                            <label for="menssage" class="form-label">Mensaje</label>
+                            <textarea class="form-control" id="menssage" name="menssage" rows="6" placeholder="Escribe tu mensaje aquí"></textarea>
                         </div>
                         <div class="mb-3 d-flex flex-column">
                             <button type="submit" class="bg-dark-green btngreenLight arriba border-0 p-3 rounded-4 text-white">Enviar Mensaje</button>
@@ -105,5 +118,6 @@
     
     @include("partials.footer")
     @include("partials.scripts")
+    <script src="\autoquiray\resources\js\contacto.js"></script>
 </body>
 </html>

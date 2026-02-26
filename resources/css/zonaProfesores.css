@@ -19,6 +19,9 @@
 
 .progress-wrapper {
   height: 8px;
+  width: 140px;
+  background-color: #eee;
+  overflow: hidden;
 }
 
 .progress-bar-custom {
