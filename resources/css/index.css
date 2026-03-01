@@ -1,35 +1,204 @@
-:root {
-  --bp-sm: 576px;
-  --bp-md: 768px;
-  --bp-lg: 992px;
-  --bp-xl: 1200px;
+/* ==========================================================
+   AUTOQUIRAY - INDEX.CSS (VERSIÓN MAESTRA FINAL)
+   ========================================================== */
+
+/* 1. HEADER SUPREMO (ALTO CONTRASTE Y DISTINCIÓN) */
+.bg-linear-blue {
+    /* Triple capa de color para máxima distinción respecto al MAIN */
+    background: 
+        radial-gradient(circle at 50% 20%, rgba(37, 99, 235, 0.4) 0%, transparent 70%),
+        linear-gradient(180deg, #1e293b 0%, #1e1b4b 40%, #0f172a 100%) !important;
+    position: relative;
+    padding-bottom: 150px !important;
+    border: none;
+    overflow: hidden;
 }
 
-svg{
-    display:block; 
-    width:100%; 
-    height:100px;
+/* Efecto Premium para el título de la marca */
+.brand-title {
+    font-size: clamp(3.5rem, 8vw, 5.5rem);
+    font-weight: 900;
+    letter-spacing: -3px;
+    background: linear-gradient(to bottom, #ffffff 40%, #94a3b8 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    filter: drop-shadow(0 10px 20px rgba(16, 185, 129, 0.3));
+    margin-bottom: 0.5rem;
 }
 
-.footDiv:first-child{
-    max-width: 1000px;
+.ls-2 {
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    font-size: 1.1rem;
+    font-weight: 300;
 }
 
-.footDiv:nth-child(2){
-    max-width: 1300px;
+/* 2. BOTONES DEL HEADER (SIMETRÍA TOTAL) */
+.btn-green-btn, 
+#iniciarSesion {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    height: 64px; /* Altura fija para que sean idénticos píxel a píxel */
+    min-width: 250px;
+    max-width: 300px;
+    border-radius: 50px !important; /* Estilo rounded-pill */
+    transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    line-height: 1;
+    box-sizing: border-box; /* El borde no suma altura extra */
+    white-space: nowrap;
 }
 
-.card img{
-    height: 70px;
+/* Botón Verde (Acceder) */
+.btn-green-btn {
+    border: 1px solid transparent; /* Compensación para medir igual que el de borde */
 }
 
-#iniciarSesion{
-    background-color: rgba(62, 68, 84, .5);
-}
-#iniciarSesion:hover{
-    background-color: rgba(62, 68, 84, 1);
+/* Botón Outline (Iniciar Sesión) */
+#iniciarSesion {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.3) !important;
+    color: #ffffff !important;
 }
 
-.container{
-    max-width: 600px;
+#iniciarSesion:hover {
+    background: rgba(255, 255, 255, 0.15);
+    border-color: #ffffff !important;
+}
+
+.badge-status {
+    background: rgba(15, 23, 42, 0.6);
+    border: 1px solid rgba(16, 185, 129, 0.3);
+    padding: 0.6rem 1.5rem;
+    border-radius: 50px;
+    font-size: 0.85rem;
+    backdrop-filter: blur(8px);
+}
+
+/* 3. EL SEPARADOR (OLA SVG) */
+.wave-divider {
+    position: absolute;
+    bottom: -1px;
+    left: 0;
+    width: 100%;
+    line-height: 0;
+    z-index: 10;
+}
+
+.wave-divider svg {
+    display: block;
+    width: 100%;
+    height: 100px;
+}
+
+.wave-divider svg path {
+    fill: #0f172a !important; /* Debe ser igual al main del general.css */
+}
+
+/* 4. LÓGICA DE PROPORCIONES (Tu SCSS Original) */
+.cards-flex {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1.5rem;
+    width: 100%;
+}
+
+.card-flex {
+    flex: 0 0 100%;
+    max-width: 100%;
+}
+
+@media (min-width: 768px) {
+    .card-flex.ventajas {
+        flex: 0 0 calc(50% - 1.5rem);
+        max-width: calc(50% - 1.5rem);
+    }
+}
+
+@media (min-width: 1200px) {
+    .card-flex.ventajas {
+        flex: 0 0 calc(25% - 1.5rem);
+        max-width: calc(25% - 1.5rem);
+    }
+}
+
+@media (min-width: 768px) {
+    .card-flex.data {
+        flex: 0 0 calc(50% - 1.5rem);
+        max-width: calc(50% - 1.5rem);
+    }
+}
+
+@media (min-width: 1200px) {
+    .card-flex.data {
+        flex: 0 0 calc(25% - 1.5rem);
+        max-width: calc(25% - 1.5rem);
+    }
+}
+
+/* 5. TARJETAS DE VENTAJAS */
+.ventajas {
+    background-color: #1e293b !important;
+    border: 1px solid rgba(255, 255, 255, 0.1) !important;
+    border-radius: 2rem !important;
+    padding: 3rem 1.5rem !important;
+    text-align: center;
+}
+
+.icon-container {
+    background: #ffffff;
+    width: 85px;
+    height: 85px;
+    margin: 0 auto 1.5rem;
+    border-radius: 1.25rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 15px;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+}
+
+.icon-container img {
+    max-width: 100%;
+    height: auto;
+}
+
+/* 6. ESTADÍSTICAS (GLASSMORPHISM) */
+.glass-stat {
+    background: rgba(30, 41, 59, 0.6) !important;
+    backdrop-filter: blur(12px);
+    border-radius: 1.5rem !important;
+    padding: 2.5rem 1rem !important;
+    border: 1px solid rgba(255, 255, 255, 0.08) !important;
+    height: 100%;
+}
+
+.border-green { border-bottom: 5px solid #10b981 !important; }
+.border-blue { border-bottom: 5px solid #3b82f6 !important; }
+.border-purple { border-bottom: 5px solid #8b5cf6 !important; }
+.border-orange { border-bottom: 5px solid #f97316 !important; }
+
+/* 7. VEHÍCULOS 3D */
+model-viewer {
+    width: 100%;
+    height: 450px;
+    background-color: transparent !important;
+}
+
+.carousel-inner {
+    background: rgba(30, 41, 59, 0.3);
+    border-radius: 2rem;
+    padding: 1rem;
+}
+
+/* 8. UTILIDADES */
+.fs-5-5 { font-size: 1.125rem; }
+
+@media (max-width: 575px) {
+    .btn-green-btn, #iniciarSesion {
+        max-width: 100%;
+        min-width: 100%;
+    }
+    .wave-divider svg { height: 50px; }
+    .brand-title { font-size: 2.8rem; }
 }

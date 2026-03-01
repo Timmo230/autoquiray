@@ -26,6 +26,7 @@ Route::middleware(['role:student'])->group(function () {
 
 Route::middleware(['role:teacher'])->group(function() {
     Route::get('/dashboard', [TeacherPlaceController::class, 'getstudents'])->name('teacher.dashboard');
+    Route::get('/crear_tests', fn() => view('teacher.createTests'))->name('teacher.createTests');
 });
 
 Route::middleware(['role:administrator'])->group(function() {

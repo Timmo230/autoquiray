@@ -1,13 +1,44 @@
 #login {
-    background-color: #f3f4f6;
+    background: #1e293b !important; /* Slate 800 */
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
     width: 90%;
     max-width: 420px;
+    color: #f8fafc;
 }
 
 #login .logo {
     max-width: 75%;
+    filter: drop-shadow(0 0 10px rgba(16, 185, 129, 0.2));
 }
 
-#login img{
-    max-width: 98%;
+/* Forzar que los labels se vean bien */
+#login .form-label {
+    color: #cbd5e1;
+    font-weight: 500;
+    margin-bottom: 0.5rem;
+}
+
+#login img {
+    max-width: 100%;
+    height: auto;
+}
+
+/* Ajuste para el checkbox */
+.form-check-input {
+    background-color: #0f172a;
+    border-color: #334155;
+}
+
+.form-check-input:checked {
+    background-color: #10b981;
+    border-color: #10b981;
+}
+
+/* Contenedor principal para centrar */
+main {
+    min-height: calc(100vh - 160px); /* Ajuste para que no baile entre nav y footer */
+    display: flex;
+    align-items: center;
+    background-color: #0f172a !important;
 }

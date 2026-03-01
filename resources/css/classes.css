@@ -1,38 +1,194 @@
-button[data-bs-target="#reserves"]{
-    height: 50px;
+/* ===================================================
+   FONDO GENERAL
+=================================================== */
+body.bg-main {
+    background: #0f172a !important;
+    color: #e2e8f0;
 }
 
-.modal-content {
-    background-color: #f3f4f6;
-    width: 100%;
-    min-width: 400px;
-    width: 420px;
+/* Separación debajo del navbar */
+.main-spacing {
+    padding-top: 100px; /* Ajusta si tu navbar es más alto */
 }
 
-.container-fluid{
+.container-fluid {
     max-width: 1500px;
 }
 
-.badge{
-    font-size: 16px !important;
+/* ===================================================
+   TIPOGRAFÍA
+=================================================== */
+h1, h2, h3, h4, h5, h6 {
+    color: #f1f5f9;
 }
 
-.card.green{
-    box-shadow: 1px 1px 0px var(--bs-green-btn),
-    1px -1px 0px var(--bs-green-btn),
-    -4px 1px 0px var(--bs-green-btn),
-    -4px -1px 0px var(--bs-green-btn);
+p, span, small {
+    color: #cbd5e1;
 }
 
-.card.yellow{
-    box-shadow: 1px 1px 0px var(--bs-yellow),
-    1px -1px 0px var(--bs-yellow),
-    -4px 1px 0px var(--bs-yellow),
-    -4px -1px 0px var(--bs-yellow);
+/* ===================================================
+   TARJETAS (CLASES DISPONIBLES)
+=================================================== */
+.class-card {
+    background: #1e293b !important;
+    border: 1px solid rgba(255,255,255,0.05);
+    border-radius: 18px;
+    color: #e2e8f0;
+    transition: all 0.25s ease;
 }
 
+.class-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 30px rgba(0,0,0,0.6);
+}
+
+.card.green {
+    border-left: 6px solid var(--bs-green-btn);
+}
+
+.card.yellow {
+    border-left: 6px solid var(--bs-yellow);
+}
+
+.class-card .card-body {
+    padding: 1.4rem;
+}
+
+.class-card .card-title {
+    font-weight: 600;
+    color: #f8fafc;
+}
+
+.class-card .card-text {
+    color: #94a3b8;
+}
+
+/* Meta info */
+.class-meta i {
+    width: 18px;
+    color: #94a3b8;
+}
+
+/* Avatar profesor */
+.avatar-placeholder {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background: #334155;
+}
+
+/* ===================================================
+   BOTÓN RESERVAR
+=================================================== */
+.reserve-card-btn {
+    border-radius: 14px;
+    padding: 6px 18px;
+    font-size: 14px;
+    font-weight: 500;
+}
+
+/* ===================================================
+   BADGES
+=================================================== */
+.badge {
+    font-size: 13px !important;
+    letter-spacing: 0.3px;
+}
+
+/* ===================================================
+   TABLA - PRÓXIMAS CLASES RESERVADAS
+=================================================== */
+.reserved-table-card {
+    background: #1e293b !important;
+    border: 1px solid rgba(255,255,255,0.05);
+    border-radius: 18px;
+    overflow: hidden;
+}
+
+.reserved-table {
+    background: transparent !important;
+    color: #e2e8f0;
+}
+
+.reserved-table thead {
+    background: #273449 !important;
+}
+
+.reserved-table thead th {
+    color: #94a3b8 !important;
+    font-weight: 600;
+    border-bottom: 1px solid rgba(255,255,255,0.05);
+}
+
+.reserved-table tbody tr {
+    border-top: 1px solid rgba(255,255,255,0.05);
+    transition: background 0.2s ease;
+}
+
+.reserved-table tbody tr:hover {
+    background: #243041;
+}
+
+.reserved-table td {
+    vertical-align: middle;
+}
+
+/* Forzar Bootstrap a no poner fondo blanco */
+.table,
+.table tbody,
+.table tr,
+.table td,
+.table th {
+    background-color: transparent !important;
+    color: #e2e8f0 !important;
+}
+
+/* ===================================================
+   MODAL OSCURO
+=================================================== */
+.modal-content {
+    background: #1e293b !important;
+    border-radius: 20px;
+    border: 1px solid rgba(255,255,255,0.05);
+    color: #e2e8f0;
+}
+
+.modal-header,
+.modal-footer {
+    border-color: rgba(255,255,255,0.05);
+}
+
+.modal-title {
+    color: #f1f5f9;
+}
+
+.form-select,
+.form-control {
+    background: #0f172a;
+    color: #e2e8f0;
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 12px;
+}
+
+.form-select:focus,
+.form-control:focus {
+    background: #0f172a;
+    color: #ffffff;
+    border-color: var(--bs-green-btn);
+    box-shadow: none;
+}
+
+/* ===================================================
+   RESPONSIVE
+=================================================== */
 @media (max-width: 768px) {
-    button[data-bs-target="#reserves"]{
+
+    .reserve-card-btn {
         width: 100%;
+        margin-top: 10px;
+    }
+
+    .main-spacing {
+        padding-top: 85px;
     }
 }

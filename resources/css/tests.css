@@ -1,37 +1,184 @@
-main div.container-fluid, main.container-fluid{
-    max-width: 1200px;
+main.container-xl{ max-width:1200px; }
+
+.test-img{
+  width:60px;
+  height:60px;
+  object-fit:cover;
 }
 
-.btngreenLight:hover{
-    box-shadow: 5px 5px 20px #068057,
-    -5px 5px 20px #068057;
+/* ==========================================================
+   COLORES POR CARD (variable heredada por wrapper)
+   ========================================================== */
+.senales    { --card-accent: rgba(239, 68, 68, .95); }   /* rojo */
+.circulacion{ --card-accent: rgba(59, 130, 246, .95); }  /* azul */
+.seguridad  { --card-accent: rgba(16, 185, 129, .98); }  /* verde */
+.oficial    { --card-accent: rgba(16, 185, 129, 1.00); } /* verde fuerte */
+
+/* ==========================================================
+   BASE CARD
+   ========================================================== */
+.test-card{
+  position: relative;
+  overflow: hidden;
+
+  background: #0b1220;
+  border: 1px solid rgba(255,255,255,.16);
+
+  box-shadow:
+    0 0 0 1px rgba(255,255,255,.05) inset,
+    0 10px 26px rgba(0,0,0,.55),
+    0 0 55px rgba(255,255,255,.06);
+
+  transition: transform .20s ease,
+              box-shadow .20s ease,
+              border-color .20s ease;
 }
 
-.col, .row {
-    overflow: visible;
+/* Borde interior */
+.test-card::before{
+  content:"";
+  position:absolute;
+  inset: 10px;
+  border-radius: inherit;
+  border: 1px solid rgba(255,255,255,.07);
+  pointer-events:none;
 }
 
-.test-card {
-    transition: transform .25s ease, box-shadow .25s ease;
+/* Línea superior HUD con fallback correcto */
+.test-card::after{
+  content:"";
+  position:absolute;
+  left: 16px;
+  right: 16px;
+  top: 12px;
+  height: 2px;
+  border-radius: 999px;
+
+  background: linear-gradient(
+    90deg,
+    transparent,
+    var(--card-accent, rgba(16,185,129,.95)),
+    transparent
+  );
+
+  opacity: .75;
+  transform: scaleX(.55);
+  transform-origin: center;
+  transition: transform .25s ease, opacity .25s ease;
+  pointer-events:none;
 }
 
-.test-card:hover {
-    transform: translateY(-6px);
-    box-shadow: 0 30px 60px rgba(0,0,0,.25);
+/* Hover */
+.test-card:hover{
+  transform: translateY(-5px);
+  border-color: rgba(255,255,255,.22);
+
+  box-shadow:
+    0 0 0 1px rgba(255,255,255,.06) inset,
+    0 16px 38px rgba(0,0,0,.65),
+    0 0 70px rgba(255,255,255,.07);
 }
 
-.senales:hover .test-card{
-    outline: 2px solid #e23636;
+.test-card:hover::after{
+  transform: scaleX(1);
+  opacity: 1;
 }
 
-.circulacion:hover .test-card{
-    outline: 2px solid #3372ef;
+.test-card:active{
+  transform: translateY(-3px) scale(.995);
 }
 
-.seguridad:hover .test-card{
-    outline: 2px solid var(--bs-green-btn);
+/* ==========================================================
+   HALO DE COLOR POR CATEGORÍA (SIN color-mix)
+   ========================================================== */
+.senales .test-card{
+  box-shadow:
+    0 0 0 1px rgba(255,255,255,.05) inset,
+    0 10px 26px rgba(0,0,0,.55),
+    0 0 55px rgba(255,255,255,.06),
+    0 0 30px rgba(239,68,68,.12);
 }
 
-.oficial:hover .test-card{
-    outline: 2px solid var(--bs-dark-green);
+.circulacion .test-card{
+  box-shadow:
+    0 0 0 1px rgba(255,255,255,.05) inset,
+    0 10px 26px rgba(0,0,0,.55),
+    0 0 55px rgba(255,255,255,.06),
+    0 0 30px rgba(59,130,246,.12);
+}
+
+.seguridad .test-card{
+  box-shadow:
+    0 0 0 1px rgba(255,255,255,.05) inset,
+    0 10px 26px rgba(0,0,0,.55),
+    0 0 55px rgba(255,255,255,.06),
+    0 0 30px rgba(16,185,129,.12);
+}
+
+.oficial .test-card{
+  box-shadow:
+    0 0 0 1px rgba(255,255,255,.05) inset,
+    0 10px 26px rgba(0,0,0,.55),
+    0 0 55px rgba(255,255,255,.06),
+    0 0 35px rgba(16,185,129,.16);
+}
+
+/* ==========================================================
+   BADGES
+   ========================================================== */
+.test-card .badge{
+  background: rgba(255,255,255,.06) !important;
+  border: 1px solid rgba(255,255,255,.12);
+  color: rgba(248,250,252,.95) !important;
+  box-shadow: 0 8px 18px rgba(0,0,0,.35);
+}
+
+/* Badge preguntas */
+.questions-badge{
+  background: rgba(255,255,255,.06) !important;
+  border: 1px solid rgba(255,255,255,.10);
+  color: rgba(248,250,252,.92) !important;
+}
+
+/* ==========================================================
+   ESTADOS (segunda página)
+   ========================================================== */
+.status-new .status-badge{
+  border-color: rgba(148,163,184,.30) !important;
+  color: rgba(226,232,240,.90) !important;
+}
+
+.status-perfect .status-badge{
+  border-color: rgba(16,185,129,.35) !important;
+  color: rgba(16,185,129,.95) !important;
+}
+
+.status-good .status-badge{
+  border-color: rgba(245,158,11,.35) !important;
+  color: rgba(245,158,11,.95) !important;
+}
+
+.status-bad .status-badge{
+  border-color: rgba(239,68,68,.35) !important;
+  color: rgba(239,68,68,.95) !important;
+}
+
+/* ==========================================================
+   BOTÓN
+   ========================================================== */
+.btn-t{
+  transition: transform .15s ease,
+              box-shadow .15s ease,
+              filter .15s ease;
+}
+
+.btn-t:hover{
+  transform: translateY(-2px);
+  filter: brightness(1.05);
+  box-shadow: 0 10px 22px rgba(0,0,0,.35);
+}
+
+.btn-t:active{
+  transform: translateY(0) scale(.98);
+  box-shadow: 0 6px 14px rgba(0,0,0,.30);
 }

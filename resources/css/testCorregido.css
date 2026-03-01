@@ -1,54 +1,155 @@
-main div.container-fluid, main.container-fluid{
-    max-width: 1200px;
+main div.container-fluid,
+main.container-fluid{
+  max-width:1200px;
 }
 
-.custom-radio {
-    width: 20px;
-    height: 20px;
-    border: 2px solid #cbd5e1;
-    border-radius: 50%;
-    display: inline-block;
-    position: relative;
+/* =========================
+   CARD oscura tipo panel
+   ========================= */
+.question-step .card{
+  background:#0b1220 !important;
+  border:1px solid rgba(255,255,255,.16) !important;
+  border-radius:1.25rem !important;
+  box-shadow:
+    0 0 0 1px rgba(255,255,255,.05) inset,
+    0 18px 46px rgba(0,0,0,.70),
+    0 0 70px rgba(255,255,255,.06) !important;
+  position:relative;
+  overflow:hidden;
 }
 
-.btn-check:disabled + .btn, 
-.btn-check[disabled] + .btn {
-    opacity: 1 !important;
-    pointer-events: none;
+.question-step .card::before{
+  content:"";
+  position:absolute;
+  inset:12px;
+  border-radius:inherit;
+  border:1px solid rgba(255,255,255,.08);
+  pointer-events:none;
 }
 
-.btn-check.btn-correcto + .btn {
-    background-color: #d1e7dd !important;
-    border-color: #a3cfbb !important;
-    color: #0f5132 !important;
+/* textos dentro */
+.question-step .text-navbar,
+.question-step .text-dark{
+  color:#f8fafc !important;
+}
+.question-step .text-grey{
+  color:#94a3b8 !important;
 }
 
-.btn-check.btn-incorrecto:checked + .btn {
-    background-color: #f8d7da !important;
-    border-color: #f1aeb5 !important;
-    color: #842029 !important;
+/* Progress */
+.question-step .progress{
+  height:6px !important;
+  background:rgba(255,255,255,.06) !important;
+  border-radius:999px;
+  overflow:hidden;
+}
+.question-step .progress .progress-bar{
+  box-shadow:0 0 18px rgba(16,185,129,.18);
 }
 
-.btn-check.btn-correcto + .btn .bi-check-circle-fill {
-    color: #198754 !important;
+/* =========================
+   Opciones (label)
+   ========================= */
+.custom-option{
+  background:rgba(255,255,255,.04) !important;
+  border:1px solid rgba(255,255,255,.12) !important;
+  color:#f8fafc !important;
+  transition:transform .15s ease, border-color .15s ease, background .15s ease;
 }
 
-.btn-check.btn-incorrecto:checked + .btn .bi-x-circle-fill {
-    color: #dc3545 !important;
+/* aunque esté disabled, mantenemos aspecto */
+.btn-check:disabled + .custom-option,
+.btn-check[disabled] + .custom-option{
+  opacity:1 !important;
+  pointer-events:none;
 }
 
-.btn-check.btn-correcto + .btn .text-dark,
-.btn-check.btn-incorrecto:checked + .btn .text-dark {
-    color: inherit !important; 
-    font-weight: 600;
+/* Hover sutil (aunque estén disabled no se aplicará) */
+.custom-option:hover{
+  transform:translateY(-2px);
+  background:rgba(255,255,255,.06) !important;
+  border-color:rgba(255,255,255,.18) !important;
 }
 
-.btn-check.btn-correcto + .btn .custom-radio {
-    border-color: #198754 !important;
-    background-color: white;
+/* el texto interno no debe volverse negro */
+.custom-option .text-dark{
+  color:inherit !important;
+  font-weight:600;
 }
 
-.btn-check.btn-incorrecto:checked + .btn .custom-radio {
-    border-color: #dc3545 !important;
-    background-color: white;
+/* =========================
+   Radio
+   ========================= */
+.custom-radio{
+  width:20px;
+  height:20px;
+  border:2px solid rgba(203,213,225,.85);
+  border-radius:50%;
+  display:inline-block;
+  position:relative;
+  flex:0 0 auto;
+  background:transparent;
+}
+
+/* =========================
+   Estados correcto/incorrecto (dark)
+   ========================= */
+.btn-check.btn-correcto + .custom-option{
+  background:rgba(16,185,129,.08) !important;
+  border-color:rgba(16,185,129,.40) !important;
+  box-shadow:0 0 0 1px rgba(16,185,129,.12) inset, 0 0 22px rgba(16,185,129,.12);
+  color:#f8fafc !important;
+}
+
+.btn-check.btn-incorrecto:checked + .custom-option{
+  background:rgba(239,68,68,.08) !important;
+  border-color:rgba(239,68,68,.40) !important;
+  box-shadow:0 0 0 1px rgba(239,68,68,.12) inset, 0 0 22px rgba(239,68,68,.12);
+  color:#f8fafc !important;
+}
+
+/* Iconos */
+.btn-check.btn-correcto + .custom-option .bi-check-circle-fill{
+  color:#10b981 !important;
+}
+.btn-check.btn-incorrecto:checked + .custom-option .bi-x-circle-fill{
+  color:#ef4444 !important;
+}
+
+/* Radio coloreado */
+.btn-check.btn-correcto + .custom-option .custom-radio{
+  border-color:#10b981 !important;
+}
+.btn-check.btn-incorrecto:checked + .custom-option .custom-radio{
+  border-color:#ef4444 !important;
+}
+
+/* Punto interno del radio solo si está checked */
+.btn-check:checked + .custom-option .custom-radio::after{
+  content:"";
+  position:absolute;
+  width:10px;
+  height:10px;
+  border-radius:50%;
+  top:50%;
+  left:50%;
+  transform:translate(-50%,-50%);
+  background:rgba(255,255,255,.75);
+}
+.btn-check.btn-correcto:checked + .custom-option .custom-radio::after{ background:#10b981; }
+.btn-check.btn-incorrecto:checked + .custom-option .custom-radio::after{ background:#ef4444; }
+
+/* =========================
+   Footer buttons (simple press)
+   ========================= */
+.question-step .btn.bg-green-btn{
+  transition:transform .14s ease, box-shadow .14s ease;
+}
+.question-step .btn.bg-green-btn:hover{
+  transform:translateY(-2px);
+  box-shadow:0 12px 26px rgba(0,0,0,.40);
+}
+.question-step .btn.bg-green-btn:active{
+  transform:translateY(0) scale(.98);
+  box-shadow:0 8px 18px rgba(0,0,0,.35);
 }

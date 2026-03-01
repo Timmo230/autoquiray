@@ -4,109 +4,122 @@
         ->where('uat.user_id', auth()->id())
         ->value('t.type');
 @endphp
-<nav class="navbar navbar-expand-xl bg-navbar position-sticky top-0 z-3 bg-opacity-90" id="nav" data-bs-theme="dark">    
-    <div class="container-fluid">
 
-        <a class="navbar-brand" href="{{ url('/') }}">
-            <img src="/autoquiray/resources/img/logo/logo.png" width="250" alt="">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+<nav class="navbar navbar-expand-xl fixed-top z-3" id="nav">
+    <div class="container-fluid px-md-4">
+
+        <a class="navbar-brand me-4" href="{{ url('/') }}">
+            <img src="/autoquiray/resources/img/logo/logo.png"
+                 width="220"
+                 alt="Autoquiray Logo"
+                 class="arriba nav-logo">
         </a>
 
-        <div class="collapse navbar-collapse justify-content-center" id="bigNav">
-            @auth
-                @if($type === 'administrator')
-                    @include('partials.navlinksAdministrator', ['uri' => $uri])
-                @elseif($type === 'teacher')
-                    @include('partials.navlinksTeacher', ['uri' => $uri])
-                @elseif($type === 'student')
-                    @include('partials.navlinksStudent', ['uri' => $uri])
-                @else
+        <div id="bigNav" class="collapse navbar-collapse">
+            <ul class="navbar-nav mx-auto">
+                @auth
+                    @if($type === 'administrator') @include('partials.navlinksAdministrator', ['uri' => $uri])
+                    @elseif($type === 'teacher') @include('partials.navlinksTeacher', ['uri' => $uri])
+                    @elseif($type === 'student') @include('partials.navlinksStudent', ['uri' => $uri])
+                    @else @include('partials.navlinksDefault', ['uri' => $uri])
+                    @endif
+                @endauth
+                @guest
                     @include('partials.navlinksDefault', ['uri' => $uri])
-                @endif
-            @endauth
-            @guest
-                @include('partials.navlinksDefault', ['uri' => $uri])
-            @endguest
+                @endguest
+            </ul>
         </div>
 
         <div class="d-flex align-items-center nav-buttons">
-            <button class="navbar-toggler" type="button" type="button" 
-                data-bs-toggle="offcanvas" 
-                data-bs-target="#smallNav" 
-                aria-controls="offcanvasResponsive">
-                <span class="navbar-toggler-icon"></span>
+
+            @auth
+                <div class="d-none d-xl-block text-end me-4 border-end border-secondary border-opacity-25 pe-4">
+                    <p class="m-0 fw-bold text-white small nav-user-email">{{ auth()->user()->email }}</p>
+                    <p class="m-0 text-success small fw-bold text-uppercase nav-user-type">{{ $type }}</p>
+                </div>
+
+                <div class="d-none d-xl-flex align-items-center">
+                    <form action="{{ route('logout') }}" method="POST" class="m-0">
+                        @csrf
+                        <button type="submit" class="btn btn-success d-flex align-items-center px-3 nav-action-btn">
+                            <i class="fa-solid fa-right-from-bracket fs-5"></i>
+                        </button>
+                    </form>
+                </div>
+            @endauth
+
+            @guest
+                <div class="d-none d-xl-flex align-items-center">
+                    <a href="{{ route('login') }}" class="btn btn-success d-flex align-items-center px-4 py-2 nav-action-btn">
+                        <i class="fa-solid fa-circle-user me-2"></i> Acceder
+                    </a>
+                </div>
+            @endguest
+
+            <button class="navbar-toggler border-0 ms-3 p-2 nav-toggler"
+                    type="button"
+                    data-bs-toggle="offcanvas"
+                    data-bs-target="#smallNav"
+                    aria-controls="smallNav">
+                <i class="fa-solid fa-bars-staggered text-success fs-1"></i>
             </button>
-            <div class="d-none d-xl-flex">
-                @auth
-                    <form action="{{ route('logout') }}" method="POST" id="logout-form">
-                        @csrf
-                        <button type="submit" class="btn btn-green-btn text-white me-3 btngreenLight arriba mt-2 ms-4" style="border: none; background: none; cursor: pointer;">
-                            <i class="fa-solid fa-right-from-bracket me-1"></i> Cerrar Sesión
-                        </button>
-                    </form>
-                @endauth
-                @guest
-                    <form action="{{ route('login') }}" method="GET" id="login-form">
-                        @csrf
-                        <button type="submit" class="btn bg-green-btn text-white me-3 btngreenLight arriba mt-2 ms-4" style="border: none; background: none; cursor: pointer;">
-                            <i class="fa-solid fa-right-from-bracket me-1"></i> Iniciar sesion
-                        </button>
-                    </form>
-                @endguest
-                @auth
-                    <div class="nav-link active mx-3 nav-item text-white mt-2 ms-4" id="user">
-                        <p class="m-0">{{ auth()->user()->email }}</p>
-                        <p class="m-0">{{  $type }}</p>
-                    </div>
-                @endauth
-            </div>
         </div>
     </div>
 
+    <div class="offcanvas offcanvas-end" tabindex="-1" id="smallNav" aria-labelledby="smallNavLabel">
 
-
-    <div class="offcanvas-lg offcanvas-end" tabindex="-1" id="smallNav" aria-labelledby="offcanvasResponsiveLabel">
-        <div class="offcanvas-header">
-            <a class="navbar-brand" href="{{ url('/') }}">
-                <img src="/autoquiray/resources/img/logo/logo.png" width="250" alt="logo" class="ms-4">
+        <div class="offcanvas-header border-bottom border-secondary border-opacity-10">
+            <a href="{{ url('/') }}">
+                <img src="/autoquiray/resources/img/logo/logo.png" width="160" alt="logo" class="nav-logo-sm">
             </a>
-            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" data-bs-target="#smallNav" aria-label="Close"></button>
+            <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas" aria-label="Close"></button>
         </div>
+
         <div class="offcanvas-body">
-            @auth
-                @if($type === 'administrator')
-                    @include('partials.navlinksAdministrator', ['uri' => $uri])
-                @elseif($type === 'teacher')
-                    @include('partials.navlinksTeacher', ['uri' => $uri])
-                @elseif($type === 'student')
-                    @include('partials.navlinksStudent', ['uri' => $uri])
-                @endif
-            @endauth
-            @guest
-                @include('partials.navlinksDefault', ['uri' => $uri])
-            @endguest
-            <div class="d-flex row">
+
+            <div class="mobile-nav-links">
+                <ul class="navbar-nav w-100">
+                    @auth
+                        @if($type === 'administrator') @include('partials.navlinksAdministrator', ['uri' => $uri])
+                        @elseif($type === 'teacher') @include('partials.navlinksTeacher', ['uri' => $uri])
+                        @elseif($type === 'student') @include('partials.navlinksStudent', ['uri' => $uri])
+                        @endif
+                    @endauth
+                    @guest
+                        @include('partials.navlinksDefault', ['uri' => $uri])
+                    @endguest
+                </ul>
+            </div>
+
+            <div class="offcanvas-footer-fix mt-auto">
                 @auth
-                    <form action="{{ route('logout') }}" method="POST" id="logout-form" class="col-6">
-                        @csrf
-                        <button type="submit" class="btn btn-green-btn text-white btngreenLight arriba mt-2" style="border: none; background: none; cursor: pointer;">
-                            <i class="fa-solid fa-right-from-bracket me-1"></i> Cerrar Sesión
-                        </button>
-                    </form>
-                @endauth
-                @guest
-                    <form action="{{ route('login') }}" method="GET" id="login-form">
-                        @csrf
-                        <button type="submit" class="btn bg-green-btn text-white btngreenLight arriba mt-2" style="border: none; background: none; cursor: pointer;">
-                            <i class="fa-solid fa-right-from-bracket me-1"></i> Iniciar sesion
-                        </button>
-                    </form>
-                @endguest
-                @auth
-                    <div class="nav-link active nav-item text-white mt-3 col" id="user">
-                        <p class="m-0">{{ auth()->user()->email }}</p>
-                        <p class="m-0">{{ $type }}</p>
+                    <div class="d-flex align-items-center gap-3 mb-4 p-3 rounded-4 nav-user-card">
+                        <div class="bg-success rounded-circle d-flex align-items-center justify-content-center nav-user-avatar">
+                            <i class="fa-solid fa-user text-dark fs-4"></i>
+                        </div>
+                        <div class="overflow-hidden">
+                            <p class="m-0 text-white small fw-bold text-truncate">{{ auth()->user()->email }}</p>
+                            <span class="text-success fw-bold nav-user-type-sm">{{ strtoupper($type) }}</span>
+                        </div>
                     </div>
+
+                    <form action="{{ route('logout') }}" method="POST" class="w-100">
+                        @csrf
+                        <button type="submit"
+                                class="btn btn-outline-danger w-100 rounded-pill py-3 fw-bold border-2 d-flex align-items-center justify-content-center gap-2 nav-logout-btn">
+                            <i class="fa-solid fa-right-from-bracket fs-5"></i> Cerrar Sesión
+                        </button>
+                    </form>
                 @endauth
+
+                @guest
+                    <a href="{{ route('login') }}"
+                       class="btn btn-success w-100 py-3 fw-bold d-flex align-items-center justify-content-center gap-2 nav-login-btn">
+                        <i class="fa-solid fa-circle-user fs-5"></i> Iniciar Sesión
+                    </a>
+                @endguest
             </div>
         </div>
     </div>

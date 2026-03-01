@@ -1,24 +1,79 @@
-h5{
-    font-size: 14px;
+h5{font-size:14px}
+.box{padding:36px 24px}
+.container{max-width:1200px}
+
+/* Tokens */
+:root{
+  --aq-panel:#0b1220;
+  --aq-border:rgba(255,255,255,.16);
+  --aq-border2:rgba(255,255,255,.08);
+  --aq-text:#f8fafc;
+  --aq-muted:#94a3b8;
+  --aq-green:#10b981;
+  --aq-blue:#3b82f6;
+  --aq-purple:#8b5cf6;
 }
 
-.box{
-    padding: 36px 24px;
+/* Panel oscuro */
+.aq-panel{
+  background:var(--aq-panel);
+  border:1px solid var(--aq-border);
+  box-shadow:
+    0 0 0 1px rgba(255,255,255,.05) inset,
+    0 18px 46px rgba(0,0,0,.70),
+    0 0 70px rgba(255,255,255,.06);
+  position:relative;
+  overflow:hidden;
+}
+.aq-panel::before{
+  content:"";
+  position:absolute;
+  inset:12px;
+  border-radius:inherit;
+  border:1px solid var(--aq-border2);
+  pointer-events:none;
 }
 
+/* Texto */
+.aq-muted{color:var(--aq-muted)!important}
+
+/* Inputs (aprovecha tus estilos de general si existen, esto solo asegura contraste) */
+.aq-input{
+  background:rgba(2,6,23,.55)!important;
+  border:1px solid rgba(255,255,255,.12)!important;
+  color:var(--aq-text)!important;
+  border-radius:.75rem!important;
+}
+.aq-input:focus{
+  border-color:rgba(16,185,129,.55)!important;
+  box-shadow:0 0 0 .25rem rgba(16,185,129,.15)!important;
+}
+.aq-input::placeholder{color:var(--aq-muted)!important;opacity:1}
+
+/* Items */
+.aq-item{
+  background:rgba(255,255,255,.02);
+  border:1px solid rgba(255,255,255,.08);
+  padding:12px;
+}
+
+/* Chips icono */
+.aq-chip{
+  color:var(--aq-text);
+  border:1px solid rgba(255,255,255,.10);
+  background:rgba(255,255,255,.04);
+}
+.aq-chip-green{box-shadow:0 0 0 1px rgba(16,185,129,.18) inset}
+.aq-chip-blue{box-shadow:0 0 0 1px rgba(59,130,246,.18) inset}
+.aq-chip-purple{box-shadow:0 0 0 1px rgba(139,92,246,.18) inset}
+
+/* Separadores */
+.aq-hr{border-color:rgba(255,255,255,.10)!important}
+
+/* Botón: hover simple (sube) */
+.btngreenLight{transition:transform .14s ease, box-shadow .14s ease}
 .btngreenLight:hover{
-    box-shadow: 5px 5px 10px #29916e,
-    -5px 5px 10px #29916e;
+  transform:translateY(-2px);
+  box-shadow:0 12px 26px rgba(0,0,0,.40), 0 0 22px rgba(16,185,129,.12);
 }
-
-.container{
-    max-width: 1200px;
-}
-
-.urgente{
-    background-color: #0ba875;
-}
-
-.urgente div h5{
-    font-size: 16px;
-}
+.btngreenLight:active{transform:translateY(0) scale(.98)}

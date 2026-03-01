@@ -19,45 +19,64 @@
 </head>
 <body class="bg-main">
     @include("partials.nav", ['uri' => $uri])
-    <main class="container-fluid mb-5">
-        <div class="px-1 pt-3 rubik mt-2">
+
+    <main class="container-xl mb-5">
+        <div class="pt-4 mt-2">
             @if($categoria == 'senales')
-                <h2>Tests sobre señales de trafico</h2>
+                <h2 class="fw-bold mb-2">Tests sobre señales de trafico</h2>
             @elseif($categoria == 'circulacion')
-                <h2>Tests sobre circulacion vial</h2>
+                <h2 class="fw-bold mb-2">Tests sobre circulacion vial</h2>
             @elseif($categoria == 'seguridad')
-                <h2>Tests sobre seguridad vial</h2>
+                <h2 class="fw-bold mb-2">Tests sobre seguridad vial</h2>
             @elseif($categoria == 'dgt')
-                <h2>Tests Oficiales de la DGT</h2>
+                <h2 class="fw-bold mb-2">Tests Oficiales de la DGT</h2>
             @endif
-            <p class="fs-5-5 opacity-50 fw-normal">Prepárate para el examen teórico de la DGT con nuestros tests actualizados</p>
+
+            <p class="text-muted fs-5 opacity-75 fw-normal mb-0">
+                Prepárate para el examen teórico de la DGT con nuestros tests actualizados
+            </p>
         </div>
-        <div class="row row-cols-1 row-cols-md-2 p-1 container-fluid">
+
+        <div class="row row-cols-1 row-cols-md-2 gx-4 gy-4 mt-3">
             @foreach ($tests as $test)
                 @php
                     $registroCompletado = $testsOfStudent->firstWhere('id', $test->id);
-                    $clase = 'bg-white text-dark'; 
+
+                    // ✅ En vez de clases bg-* claras, usamos clases de estado propias (CSS)
+                    $statusClass = 'status-new';
+                    $statusLabel = 'Sin hacer';
 
                     if ($registroCompletado) {
                         $nota = $registroCompletado->last_note;
-                        
-                        $clase = match (true) {
-                            $nota == $test->max_note => 'bg-success-subtle',
-                            $nota >= $test->max_note - 3 => 'bg-warning-subtle',
-                            default     => 'bg-danger-subtle',
-                        };
+
+                        if ($nota == $test->max_note) {
+                            $statusClass = 'status-perfect';
+                            $statusLabel = 'Perfecto';
+                        } elseif ($nota >= $test->max_note - 3) {
+                            $statusClass = 'status-good';
+                            $statusLabel = 'Bien';
+                        } else {
+                            $statusClass = 'status-bad';
+                            $statusLabel = 'A mejorar';
+                        }
                     }
                 @endphp
-                <div class="col my-2 {{ $iconos[$categoria] }} px-2" id="{{ $test->id }}">
-                    <div class="card border-0 rounded-4 p-4 test-card shadow {{ $clase }}">
+
+                <div class="col my-2 {{ $iconos[$categoria] }}" id="{{ $test->id }}">
+                    <div class="card test-card rounded-4 p-4 h-100 border-0 {{ $statusClass }}">
                         <div class="d-flex justify-content-between align-items-start">
-                            <div class="d-flex align-items-center">
-                                <img src="/autoquiray/resources/img/tests/{{ $iconos[$categoria] }}.png" 
-                                alt="Icono {{ $categoria }}" alt="Icono señales"
-                                class="rounded-4"
-                                style="width:60px; height:60px; object-fit:cover;">
+                            <div class="d-flex align-items-center gap-3">
+                                <img src="/autoquiray/resources/img/tests/{{ $iconos[$categoria] }}.png"
+                                     alt="Icono {{ $categoria }}"
+                                     class="rounded-4 test-img">
+
+                                <!-- Estado del test (badge) -->
+                                <span class="badge rounded-pill px-3 py-2 status-badge">
+                                    {{ $statusLabel }}
+                                </span>
                             </div>
-                            <span class="badge rounded-pill bg-success-subtle text-success px-3 py-2">
+
+                            <span class="badge rounded-pill px-3 py-2 questions-badge">
                                 {{ $test->max_note }} preguntas
                             </span>
                         </div>
@@ -74,18 +93,20 @@
                                     {{ $test->max_note }} min
                                 </small>
 
-                                <a href="{{ route('student.complete_test', ['id'=> $test->id]) }}" class="btn btn-dark-green btngreenLight arriba rounded-3 px-4 text-white btn-t">
+                                <a href="{{ route('student.complete_test', ['id'=> $test->id]) }}"
+                                   class="btn btn-green-aq btngreenLight rounded-3 px-4 text-white btn-t">
                                     Empezar
                                 </a>
                             </div>
                         </div>
+
                     </div>
                 </div>
             @endforeach
         </div>
     </main>
 
-    @include("partials.footer") 
+    @include("partials.footer")
     @include("partials.scripts")
 </body>
 </html>

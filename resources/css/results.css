@@ -1,38 +1,114 @@
-/* Estilos para el componente de resultados Autoquiray */
-
-.results-card {
-    border-radius: 20px;
-    background-color: #ffffff;
+:root{
+  --aq-bg:#0b1220;
+  --aq-bd:rgba(255,255,255,.16);
+  --aq-bd2:rgba(255,255,255,.08);
+  --aq-w:#f8fafc;
+  --aq-muted:#94a3b8;
+  --aq-core:#0f172a;
 }
 
-/* Simulación del progreso circular */
-.progress-circle {
-    width: 150px;
-    height: 150px;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+/* Card */
+.results-card{
+  background:var(--aq-bg);
+  border:1px solid var(--aq-bd);
+  border-radius:20px;
+  box-shadow:0 18px 46px rgba(0,0,0,.70);
+  position:relative;
+  overflow:hidden;
+}
+.results-card::before{
+  content:"";
+  position:absolute;
+  inset:12px;
+  border-radius:inherit;
+  border:1px solid var(--aq-bd2);
+  pointer-events:none;
 }
 
-.progress-value {
-    text-align: center;
+.progress-circle{
+  width:150px;
+  height:150px;
+  border-radius:50%;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  position:relative;
 }
 
-/* Personalización de las cajas de estadísticas */
-.stat-box {
-    transition: transform 0.2s ease;
+.progress-circle::before{
+  content:"";
+  position:absolute;
+  inset:22px;
+  border-radius:50%;
+  background:var(--aq-core);
+  z-index:1;
 }
 
-.stat-box:hover {
-    transform: translateY(-5px);
+.progress-value{
+  position:relative;
+  z-index:2;
+  text-align:center;
 }
 
-/* Ajustes de colores Bootstrap para mayor fidelidad al diseño original */
-.bg-success-subtle { background-color: #e8f5e9 !important; }
-.bg-danger-subtle { background-color: #ffebee !important; }
-.bg-primary-subtle { background-color: #e3f2fd !important; }
+#porcentage_text{ color:var(--aq-w); }
+.progress-value small{ color:var(--aq-muted)!important; }
 
-.text-success { color: #2e7d32 !important; }
-.text-danger { color: #d32f2f !important; }
-.text-primary { color: #1976d2 !important; }
+/* Títulos */
+.results-card h3{ color:var(--aq-w); }
+.results-card p{ color:var(--aq-muted); }
+
+/* Stats: base */
+.stat-box{
+  position: relative;
+  background: rgba(255,255,255,.03);
+  border: 1px solid rgba(255,255,255,.10);
+  border-radius: 1rem; /* respeta rounded-4 */
+  box-shadow: 0 10px 22px rgba(0,0,0,.45);
+  transition: transform .18s ease, box-shadow .18s ease;
+}
+.stat-box:hover{
+  transform: translateY(-4px);
+  box-shadow: 0 14px 30px rgba(0,0,0,.55);
+}
+
+.stat-box::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  border-radius: inherit;
+  border: 1px solid var(--stat-accent, rgba(255,255,255,.14));
+  opacity: .65;
+  pointer-events:none;
+}
+
+.stat-box::after{
+  content:"";
+  position:absolute;
+  inset:-1px;
+  border-radius: inherit;
+  box-shadow: 0 0 22px color-mix(in srgb, var(--stat-accent, rgba(255,255,255,.14)) 22%, transparent);
+  opacity: .55;
+  pointer-events:none;
+}
+
+.stat-success{ --stat-accent: rgba(16,185,129,.95); }
+.stat-fail{    --stat-accent: rgba(239,68,68,.95); }
+.stat-time{    --stat-accent: rgba(59,130,246,.95); }
+
+@supports not (color: color-mix(in srgb, white, black)) {
+  .stat-box::after{ display:none; }
+}
+
+/* Botón secundario */
+.btn-ghost{
+  border-color:rgba(255,255,255,.18)!important;
+  color:rgba(248,250,252,.90)!important;
+  background:rgba(255,255,255,.04)!important;
+  transition:transform .14s ease,background-color .14s ease,border-color .14s ease;
+}
+.btn-ghost:hover{
+  transform:translateY(-2px);
+  background:rgba(255,255,255,.06)!important;
+  border-color:rgba(255,255,255,.26)!important;
+}
+.btn-ghost:active{ transform:translateY(0) scale(.98); }

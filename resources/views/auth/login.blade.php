@@ -3,62 +3,72 @@
 @endphp
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login</title>
+    <title>Login | AUTOQUIRAY</title>
     
     @include('partials.links')
     <link rel="stylesheet" href="/autoquiray/resources/css/login.css">
 </head>
-<body>
+<body class="bg-main">
     @include('partials.nav')
+
     @if ($errors->any())
-        <div class="alert alert-danger m-0">
-            <ul>
-                @foreach ($errors->all() as $error)
-                    <li>{{ $error }}</li>
-                @endforeach
-            </ul>
+        <div class="alert alert-danger border-0 rounded-0 m-0">
+            <div class="container">
+                <ul class="m-0">
+                    @foreach ($errors->all() as $error)
+                        <li><i class="fa-solid fa-triangle-exclamation me-2"></i>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
         </div>
     @endif
-    <main class="bg-linear-blue py-5">
-        <section class="p-4 rounded-4 mx-auto" id="login">
+
+    <main class="py-5">
+        <section class="p-4 p-md-5 rounded-4 mx-auto" id="login">
             <form method="POST" action="{{ route('login') }}">
-                @csrf <div class="d-flex justify-content-center">
-                    <div class="mb-3 d-flex flex-column text-center">
-                        <img src="/autoquiray/resources/img/logo/logo.png" alt="logo" class="bg-navbar p-3 rounded-4 bg-opacity-90 mx-auto logo">
-                        <h2 class="rubik my-3">Area Privada</h2>
-                        <p class="fs-5 opacity-50 rubik">Accede a tu cuenta de AUTOQUIRAY</p>
-                    </div>
+                @csrf 
+                
+                <div class="text-center mb-4">
+                    <img src="/autoquiray/resources/img/logo/logo.png" alt="logo" class="mb-3 logo">
+                    <p class="small text-secondary">Accede a tu cuenta de AUTOQUIRAY</p>
                 </div>
                 
                 <div class="mb-3">
                     <label for="type" class="form-label">Tipo de usuario</label>
-                    <select class="form-select form-select-lg mb-3" aria-label="Small select example" id="type" name="type">
+                    <select class="form-select form-select-lg" id="type" name="type">
                         <option value="student">Alumno</option>
                         <option value="teacher">Profesor</option>
                         <option value="administrator">Administrador</option>
                     </select>
                 </div>
+
                 <div class="mb-3">
                     <label for="email" class="form-label">Email</label>
-                    <input type="email" class="form-control" id="email" name="email" aria-describedby="emailHelp">
+                    <input type="email" class="form-control form-control-lg" id="email" name="email" placeholder="nombre@ejemplo.com" required>
                 </div>
+
                 <div class="mb-3">
                     <label for="password" class="form-label">Contraseña</label>
-                    <input type="password" class="form-control" id="password" name="password">
+                    <input type="password" class="form-control form-control-lg" id="password" name="password" placeholder="••••••••" required>
                 </div>
-                <div class="mb-3 form-check">
+
+                <div class="mb-4 form-check">
                     <input type="checkbox" class="form-check-input" id="check">
-                    <label class="form-check-label" for="check">Recuerdame</label>
+                    <label class="form-check-label text-secondary small" for="check">Recordarme en este equipo</label>
                 </div>
-                <div class="mb-3">
-                    <button type="submit" class="btn btn-green-btn rounded-4 p-3 text-light fs-5-5 fw-bold w-100 btngreenLight">Iniciar sesion</button>
+
+                <div class="mb-4">
+                    <button type="submit" class="btn btn-green-aq w-100 py-3 fs-5 fw-bold">
+                        <i class="fa-solid fa-right-to-bracket me-2"></i> Iniciar sesión
+                    </button>
                 </div>
-                <div class="mb-3">
-                    <img src="/autoquiray/resources/img/login/conexionSegura.png" alt="" width="400px" class="rounded-2">
+
+                <div class="text-center">
+                    <img src="/autoquiray/resources/img/login/conexionSegura.png" alt="Conexión Segura" class="rounded-2">
                 </div>
             </form>
         </section>

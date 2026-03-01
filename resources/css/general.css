@@ -1,98 +1,288 @@
-footer li a{
-    color: var(--bs-grey) !important;
+/* ==========================================================
+   CUERPO (ESTRUCTURA GLOBAL Y FORMULARIOS)
+   ========================================================== */
+html, body {
+    background-color: #0f172a !important; 
+    color: #f8fafc !important;
+    min-height: 100vh;
+    margin: 0;
+    padding: 0;
+    font-family: "Rubik", sans-serif;
+    display: flex;
+    flex-direction: column;
+    overflow-x: hidden;
+    padding-top: 30px;
 }
 
-footer li a:hover{
-    color: var(--bs-green) !important;
+/* Limpieza de fondos */
+.bg-navbar, .bg-main, .bg-footer, .container, .container-fluid, .table-responsive {
+    background-color: transparent !important;
 }
 
-.bg-linear-blue{
-    background: linear-gradient(135deg, #0f172a 0%, #1e3a5f 50%, #0f172a 100%);
+/* --- FIX DE CABECERAS (h4 Y OTROS) --- */
+h1, h2, h3, h4, h5, h6, .h4, .h5 {
+    color: #ffffff !important;
+    font-weight: 700 !important;
+    opacity: 1 !important;
 }
 
-.nav-item, .rubik {
-  font-family: "Rubik", sans-serif;
+/* --- FIX DE SUBTÍTULOS (ALTA VISIBILIDAD) --- */
+.text-grey, 
+.text-muted, 
+.text-secondary, 
+.opacity-50, 
+.small, 
+small, 
+p.text-light.opacity-50, 
+.fs-5-5.opacity-50, 
+.footDiv p {
+    color: #e2e8f0 !important;
+    opacity: 1 !important;
+    font-weight: 400;
 }
 
-.footLogo{
-    width: 100%;
-    max-width: 300px;
+/* Colores Neón y Acentos (sin glow fuerte) */
+.text-green, .text-green-btn {
+    color: #10b981 !important;
 }
 
-#user p{
-    font-size: 12px !important;
-}
-
-.btngreenLight:hover{
-    box-shadow: 5px 5px 20px #0db07b,
-    -5px 5px 20px #0db07b;
+/* Formularios y Placeholders */
+.form-control, .form-select {
+    background-color: rgba(2, 6, 23, 0.55) !important;
+    border: 1px solid #475569 !important;
+    color: #f8fafc !important;
+    border-radius: 0.75rem !important;
+    transition: border-color .2s ease, box-shadow .2s ease, background-color .2s ease;
 }
 
 .form-control:focus, .form-select:focus {
-  border-color: var(--bs-green-btn);
-  box-shadow: 0 0 0 0.2rem rgba(40, 167, 69, 0.25);
+    border-color: #10b981 !important;
+    background-color: rgba(2, 6, 23, 0.75) !important;
+    box-shadow: 0 0 0 0.2rem rgba(16, 185, 129, 0.15) !important;
+    outline: none !important;
 }
 
-.arriba {
-  transition: transform 0.3s ease;
+::placeholder { 
+    color: #94a3b8 !important; 
+    opacity: 1 !important; 
 }
 
-.arriba:hover {
-  transform: translateY(-5px);
+/* ==========================================================
+   BOTONES (simple: hover lift + press)
+   ========================================================== */
+.btn,
+.btn-green-btn, .btn-green-aq, .btngreenLight,
+.btn-outline-danger, .btn-outline-success, .btn-outline-warning, .btn-outline-info {
+    transition: transform .15s ease, opacity .15s ease;
+    will-change: transform;
 }
 
-#bigNav #actualPg::after{
+.btn:hover,
+.btn-green-btn:hover, .btn-green-aq:hover, .btngreenLight:hover,
+.btn-outline-danger:hover, .btn-outline-success:hover, .btn-outline-warning:hover, .btn-outline-info:hover {
+    transform: translateY(-1px);
+}
+
+.btn:active,
+.btn-green-btn:active, .btn-green-aq:active, .btngreenLight:active,
+.btn-outline-danger:active, .btn-outline-success:active, .btn-outline-warning:active, .btn-outline-info:active {
+    transform: translateY(0) scale(0.98);
+}
+
+.btn:focus-visible,
+.btn-green-btn:focus-visible, .btn-green-aq:focus-visible, .btngreenLight:focus-visible {
+    outline: none !important;
+    box-shadow: 0 0 0 0.2rem rgba(16, 185, 129, 0.15) !important;
+}
+
+/* Botones verdes (como antes) */
+.btn-green-btn, .btn-green-aq, .btngreenLight {
+    background-color: #10b981 !important;
+    color: #0f172a !important;
+    font-weight: 700 !important;
+    border: none !important;
+    border-radius: 0.75rem !important;
+    padding: 0.6rem 1.5rem !important;
+}
+
+/* ==========================================================
+   NAV (SISTEMA DE NAVEGACIÓN Y OFFCANVAS)
+   ========================================================== */
+nav {
+    background-color: rgba(15, 23, 42, 0.95) !important;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    top: 0;
+    width: 100%;
+}
+
+/* Links nav: underline simple */
+.navbar a.nav-link {
+    position: relative;
+    color: #cbd5e1 !important;
+    padding-bottom: 8px;
+    transition: color 0.2s ease;
+}
+
+#actualPg, .nav-link.active {
+    color: #f8fafc !important;
+    font-weight: 600 !important;
+}
+
+#actualPg::after, .nav-link.active::after {
     content: "";
     position: absolute;
     left: 0;
     bottom: 0;
+    width: 100%;
     height: 3px;
-    background-color: var(--bs-green-btn);
-    transform: none;
-    transform-origin: none;
-    transition: none;
+    background-color: #10b981;
+    transform: scaleX(1) !important;
 }
 
-@media (max-width: 600px){
-    nav img{
-        width: 150px;
-    }
-}
-
+/* Animación de subrayado en Desktop */
 @media (min-width: 1200px) {
-    .navbar a.nav-link {
-        position: relative;
-        margin: 0 5px;
-    }
-
     .navbar a.nav-link::after {
         content: "";
         position: absolute;
-        left: 0;
-        bottom: 0;
-        width: 100%;
-        height: 3px;
-        background-color: var(--bs-green-btn);
+        left: 0; bottom: 0;
+        width: 100%; height: 3px;
+        background-color: #10b981;
         transform: scaleX(0);
-        transform-origin: left;
-        transition: transform 0.3s ease;
+        transform-origin: right;
+        transition: transform 0.35s cubic-bezier(0.165, 0.84, 0.44, 1);
     }
-
     .navbar a.nav-link:hover::after {
         transform: scaleX(1);
-    }
-    .nav-buttons{
-        min-width: 250px;
+        transform-origin: left;
     }
 }
 
-@media (max-width: 1200px) {
-    .navbar .nav-link{
-        margin-left: 20px;
-        padding-left: 5px;
-        border-radius: 10px;
+/* FIX OFFCANVAS (MENÚ LATERAL) */
+#smallNav {
+    background-color: #0f172a !important;
+    border-left: 1px solid rgba(16, 185, 129, 0.2) !important;
+    width: 320px !important;
+    height: 100vh !important;
+    min-height: 100vh !important;
+    position: fixed !important;
+    top: 0 !important;
+    right: 0 !important;
+    z-index: 10001 !important;
+    display: flex;
+    flex-direction: column;
+}
+
+/* La 'X' de cierre blindada */
+.btn-close-white {
+    filter: invert(1) brightness(200%) !important;
+    opacity: 1 !important;
+    z-index: 10002 !important;
+    cursor: pointer !important;
+    pointer-events: auto !important;
+    padding: 1.5rem !important;
+}
+
+.offcanvas-body {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    overflow-y: auto;
+}
+
+/* Links dentro del Offcanvas */
+#smallNav .nav-link {
+    width: 100%;
+    padding: 1rem 1.5rem !important;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+/* Hover simple en offcanvas (sin mover nada) */
+#smallNav .nav-link:hover {
+    background: rgba(255,255,255,0.03) !important;
+}
+
+.offcanvas-backdrop {
+    z-index: 10000 !important;
+    background-color: #000 !important;
+    opacity: 0.7 !important;
+}
+
+/* --- REFUERZO DE VISIBILIDAD SEGÚN PANTALLA --- */
+
+/* MODO ESCRITORIO (XL) */
+@media (min-width: 1200px) {
+    #smallNav {
+        display: none !important;
+        visibility: hidden !important;
     }
-    .navbar a.nav-link:hover{
-        background-color: rgba(255, 255, 255, .3);
+    .offcanvas-backdrop {
+        display: none !important;
     }
+    #bigNav {
+        display: flex !important;
+    }
+}
+
+/* MODO MÓVIL/TABLET */
+@media (max-width: 1199.98px) {
+    #bigNav { 
+        display: none !important; 
+    }
+    #smallNav {
+        display: flex !important;
+    }
+}
+
+/* ==========================================================
+   HEADER (TÍTULOS Y CABECERA)
+   ========================================================== */
+h1, .brand-title {
+    font-size: clamp(2.5rem, 8vw, 4.5rem);
+    font-weight: 900;
+}
+
+/* Mantengo tu animación de logo (simple) */
+.arriba {
+    transition: transform 0.2s ease;
+}
+.arriba:hover {
+    transform: translateY(-6px);
+}
+.arriba:active {
+    transform: translateY(-3px) scale(0.99);
+}
+
+@media (max-width: 600px) {
+    nav img { width: 140px; }
+    h1 { font-size: 2.5rem; }
+}
+
+/* ==========================================================
+   FOOTER (PIE DE PÁGINA)
+   ========================================================== */
+footer {
+    background-color: #020617 !important;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    margin-top: auto;
+    width: 100%;
+    padding: 3rem 0;
+}
+
+.footLogo {
+    width: 100%;
+    max-width: 180px !important;
+    height: auto;
+    filter: drop-shadow(0 0 8px rgba(16, 185, 129, 0.2));
+}
+
+footer li a {
+    color: #cbd5e1 !important;
+    text-decoration: none;
+    transition: all 0.3s ease;
+}
+
+footer li a:hover {
+    color: #10b981 !important;
+    padding-left: 8px;
 }

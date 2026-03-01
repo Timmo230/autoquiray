@@ -1,16 +1,24 @@
 function assignStyle(successes, max_note){
-    color = null;
-    porcentage = Math.floor((successes * 100) / max_note);
+  const porcentage = Math.floor((successes * 100) / max_note);
 
-    color = successes >= (max_note - 3) && successes < max_note ? '#FFC107'
-        : successes == max_note ? '#198754' : '#ff4d4d';
-    
-    const circle = document.getElementById('porcentage');
-    const porcentageText = document.getElementById('porcentage_text');
+  const color =
+    successes >= (max_note - 3) && successes < max_note ? '#FFC107'
+    : successes == max_note ? '#10b981'
+    : '#ef4444';
 
-    circle.style.background = `radial-gradient(closest-side, white 85%, transparent 86% 100%),
-                                   conic-gradient(${color} ${porcentage}%, #e9ecef 0)`;
-    porcentageText.textContent = porcentage + '%';
+  const circle = document.getElementById('porcentage');
+  const porcentageText = document.getElementById('porcentage_text');
+
+  // Track oscuro (resto) + progreso (fill) + centro oscuro
+  const track = 'rgba(255,255,255,.14)';
+  const core  = '#0f172a';
+
+  circle.style.background = `
+    radial-gradient(closest-side, ${core} 79%, transparent 80% 100%),
+    conic-gradient(${color} ${porcentage}%, ${track} 0)
+  `;
+
+  porcentageText.textContent = porcentage + '%';
 }
 
 function time(seconds){

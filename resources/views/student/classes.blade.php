@@ -3,228 +3,208 @@
 @endphp
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Reservar Clases</title>
+    <title>Mis Clases</title>
+
     @include("partials.links")
-    <link rel="stylesheet" href="./statics/css/classes.css">
+    <link rel="stylesheet" href="/autoquiray/resources/css/classes.css">
 </head>
+
 <body class="bg-main">
     @include("partials.nav", ["uri" => $uri])
 
-    <main class="container-fluid mb-5">
+    <main class="container-fluid main-spacing mb-5">
         <article>
-            <section class="row row-cols-1 row-cols-md-2 align-items-center mb-4">
-                <div class="col px-5">
-                    <h3 class="h-50 rubik pt-2 fs-2">Mis clases</h3>
-                    <p class="rubik pt-2 fs-5-5">Gestiona tus clases practicas  de conduccion</p>
-                </div>
-                <div class="col px-5 d-flex">
-                    <button type="button" 
-                        class="btn arriba btngreenLight bg-green-btn text-white fs-5 ms-auto"
-                        data-bs-toggle="modal"
-                        data-bs-target="#reserves">
-                        <i class="fa-solid fa-plus fs-5 pe-2"></i>Reservar Clase
-                    </button>
-                </div>
-            </section>
+
+            {{-- HEADER SIN BOTÓN GRANDE --}}
             <section class="px-5 mb-4">
-                <div class="d-flex align-items-center">
+                <h3 class="rubik fs-2 mb-1">Mis clases</h3>
+                <p class="rubik fs-5-5 opacity-75">
+                    Reserva nuevas clases y revisa tu historial.
+                </p>
+            </section>
+
+            {{-- CLASES DISPONIBLES --}}
+            <section class="px-5 mb-5">
+                <div class="d-flex align-items-center mb-3">
                     <i class="fa-regular fa-calendar fs-5 text-green-btn me-2"></i>
-                    <h3 class="h-50 rubik pt-2 fs-3">Proximas clases</h3>
+                    <h3 class="rubik fs-3 mb-0">Clases disponibles</h3>
                 </div>
+
                 <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3">
+
                     <div class="col p-2">
-                        <div class="card rounded-4 green">
+                        <div class="card rounded-4 class-card green">
                             <div class="card-body">
-                                <span class="badge rounded-pill bg-green-btn text-light bg-opacity-75 my-1">Confirmada</span>
-                                <h5 class="card-title">Clase Practica #12</h5>
-                                <p class="card-text">Maniobras en rotondas</p>
-                                <div>
+
+                                <span class="badge bg-green-btn text-white mb-2">
+                                    Disponible
+                                </span>
+
+                                <h5 class="card-title mb-1">
+                                    Clase Práctica #12
+                                </h5>
+
+                                <p class="card-text opacity-75">
+                                    Maniobras en rotondas
+                                </p>
+
+                                <div class="class-meta mt-3">
                                     <div class="d-flex align-items-center mb-2">
-                                        <i class="fa-regular fa-calendar text-secondary"></i>
-                                        <p class="my-auto mx-2 opacity-75">Mañana</p>
+                                        <i class="fa-regular fa-calendar me-2"></i>
+                                        <span>18/05/2026</span>
                                     </div>
-                                    <div class="d-flex align-items-center mb-2">
-                                        <i class="fa-regular fa-clock"></i>
-                                        <p class="my-auto mx-2 opacity-75">10:00 - 11:00</p>
+                                    <div class="d-flex align-items-center">
+                                        <i class="fa-regular fa-clock me-2"></i>
+                                        <span>10:00 - 11:00</span>
                                     </div>
                                 </div>
-                                <hr>
-                                <div class="d-flex">
-                                    <img src="" alt="" class="rounded-50">
-                                    <p class="my-auto mx-2 opacity-75">Prof. Juan Martinez</p>
+
+                                <hr class="my-3">
+
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <div class="d-flex align-items-center">
+                                        <div class="avatar-placeholder"></div>
+                                        <span class="ms-2 opacity-75">
+                                            Prof. Juan Martínez
+                                        </span>
+                                    </div>
+
+                                    {{-- BOTÓN EN LA TARJETA (SE MANTIENE) --}}
+                                    <button
+                                        class="btn bg-green-btn text-white reserve-card-btn"
+                                        data-bs-toggle="modal"
+                                        data-bs-target="#reserves">
+                                        Reservar
+                                    </button>
                                 </div>
+
                             </div>
                         </div>
                     </div>
-                    <div class="col p-2">
-                        <div class="card rounded-4 yellow">
-                            <div class="card-body">
-                                <span class="badge rounded-pill bg-yellow text-light bg-opacity-75 my-1">Confirmada</span>
-                                <h5 class="card-title">Clase Practica #12</h5>
-                                <p class="card-text">Maniobras en rotondas</p>
-                                <div>
-                                    <div class="d-flex align-items-center mb-2">
-                                        <i class="fa-regular fa-calendar text-secondary"></i>
-                                        <p class="my-auto mx-2 opacity-75">Mañana</p>
-                                    </div>
-                                    <div class="d-flex align-items-center mb-2">
-                                        <i class="fa-regular fa-clock"></i>
-                                        <p class="my-auto mx-2 opacity-75">10:00 - 11:00</p>
-                                    </div>
-                                </div>
-                                <hr>
-                                <div class="d-flex">
-                                    <img src="" alt="" class="rounded-50">
-                                    <p class="my-auto mx-2 opacity-75">Prof. Juan Martinez</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col p-2">
-                        <div class="card rounded-4 green">
-                            <div class="card-body">
-                                <span class="badge rounded-pill bg-green-btn text-light bg-opacity-75 my-1">Confirmada</span>
-                                <h5 class="card-title">Clase Practica #12</h5>
-                                <p class="card-text">Maniobras en rotondas</p>
-                                <div>
-                                    <div class="d-flex align-items-center mb-2">
-                                        <i class="fa-regular fa-calendar text-secondary"></i>
-                                        <p class="my-auto mx-2 opacity-75">Mañana</p>
-                                    </div>
-                                    <div class="d-flex align-items-center mb-2">
-                                        <i class="fa-regular fa-clock"></i>
-                                        <p class="my-auto mx-2 opacity-75">10:00 - 11:00</p>
-                                    </div>
-                                </div>
-                                <hr>
-                                <div class="d-flex">
-                                    <img src="" alt="" class="rounded-50">
-                                    <p class="my-auto mx-2 opacity-75">Prof. Juan Martinez</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+
                 </div>
             </section>
-            <section class="">
-                <div class="d-flex align-items-center px-5">
-                    <i class="fa-regular fa-clock fs-5 me-2"></i>
-                    <h3 class="h-50 rubik pt-2 fs-3">Clases Pasadas</h3>
+
+            {{-- PRÓXIMAS CLASES RESERVADAS --}}
+            <section>
+                <div class="d-flex align-items-center px-5 mb-3">
+                    <i class="fa-regular fa-calendar-check fs-5 me-2 text-green-btn"></i>
+                    <h3 class="rubik fs-3 mb-0">
+                        Próximas clases reservadas
+                    </h3>
                 </div>
+
                 <div class="container-fluid my-4">
-                    <div class="card shadow-sm border-0 rounded-4">
+                    <div class="card reserved-table-card rounded-4">
                         <div class="card-body p-0 table-responsive">
-                            <table class="table mb-0 align-middle table-hover">
-                                <thead class="table-light">
+                            <table class="table mb-0 align-middle reserved-table">
+                                <thead>
                                     <tr>
-                                        <th class="ps-4 opacity-50">Clase</th>
-                                        <th class="opacity-50">Fecha</th>
-                                        <th class="opacity-50">Profesor</th>
-                                        <th class="pe-4 opacity-50">Estado</th>
+                                        <th class="ps-4">Clase</th>
+                                        <th>Fecha</th>
+                                        <th>Hora</th>
+                                        <th>Profesor</th>
+                                        <th class="pe-4">Estado</th>
                                     </tr>
                                 </thead>
                                 <tbody>
+
                                     <tr>
                                         <td class="ps-4">
-                                            <div class="fw-semibold">Clase #11</div>
-                                            <small class="text-muted">Aparcamiento en batería</small>
+                                            <div class="fw-semibold">
+                                                Clase #13
+                                            </div>
+                                            <small class="text-muted">
+                                                Conducción urbana
+                                            </small>
                                         </td>
-                                        <td>12/01/2025</td>
+                                        <td>20/05/2026</td>
+                                        <td>12:30 - 13:30</td>
                                         <td>Juan Martínez</td>
                                         <td class="pe-4">
-                                            <span class="badge rounded-pill bg-green-btn text-white px-3 py-2">
-                                                Completada
+                                            <span class="badge bg-warning text-dark px-3 py-2">
+                                                Confirmada
                                             </span>
                                         </td>
                                     </tr>
 
                                     <tr>
                                         <td class="ps-4">
-                                            <div class="fw-semibold">Clase #10</div>
-                                            <small class="text-muted">Conducción urbana</small>
+                                            <div class="fw-semibold">
+                                                Clase #14
+                                            </div>
+                                            <small class="text-muted">
+                                                Aparcamiento en batería
+                                            </small>
                                         </td>
-                                        <td>10/01/2025</td>
+                                        <td>22/05/2026</td>
+                                        <td>10:00 - 11:00</td>
                                         <td>Ana López</td>
                                         <td class="pe-4">
-                                            <span class="badge rounded-pill bg-green-btn text-white px-3 py-2">
-                                                Completada
+                                            <span class="badge bg-green-btn text-white px-3 py-2">
+                                                Reservada
                                             </span>
                                         </td>
                                     </tr>
 
-                                    <tr>
-                                        <td class="ps-4">
-                                            <div class="fw-semibold">Clase #9</div>
-                                            <small class="text-muted">Cambio de marchas</small>
-                                        </td>
-                                        <td>08/01/2025</td>
-                                        <td>Juan Martínez</td>
-                                        <td class="pe-4">
-                                            <span class="badge rounded-pill bg-green-btn text-white px-3 py-2">
-                                                Completada
-                                            </span>
-                                        </td>
-                                    </tr>
                                 </tbody>
                             </table>
                         </div>
                     </div>
                 </div>
             </section>
+
         </article>
     </main>
 
-    <div class="modal fade" id="reserves" tabindex="-1" aria-labelledby="exampleModalCenterTitle" aria-modal="true">
-        
-    <div class="modal-dialog modal-dialog-centered">
-        <form action="#">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h1 class="modal-title fs-5" id="exampleModalCenterTitle">Reservar Clase</h1>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <div>
-                        <p class="fs-5-5">Fecha</p>
-                        <div class="input-group mb-3">
-                            <select class="form-select" id="selectDate">
-                                <option selected>dd/mm/yyyy</option>
-                                <option value="18/5/26">18/5/26</option>
-                                <option value="19/5/26">19/5/26</option>
-                                <option value="20/5/26">20/5/26</option>
+    {{-- MODAL --}}
+    <div class="modal fade" id="reserves" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered">
+            <form>
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Reservar Clase</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                    </div>
+
+                    <div class="modal-body">
+                        <div class="mb-3">
+                            <label class="form-label">Fecha</label>
+                            <select class="form-select">
+                                <option>18/05/2026</option>
+                                <option>19/05/2026</option>
                             </select>
-                            <label class="input-group-text" for="inputGroupSelect02"><i class="fa-regular fa-calendar"></i></label>
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label">Hora</label>
+                            <select class="form-select">
+                                <option>10:00 - 11:00</option>
+                                <option>12:30 - 13:30</option>
+                            </select>
+                        </div>
+
+                        <div>
+                            <label class="form-label">Profesor</label>
+                            <select class="form-select">
+                                <option>Juan Martínez</option>
+                                <option>Ana López</option>
+                            </select>
                         </div>
                     </div>
-                    <div>
-                        <p class="fs-5-5">Hora</p>
-                        <select class="form-select form-select-lg mb-3" aria-label="Large select example">
-                            <option selected>Elije la hora</option>
-                            <option value="1">11:30 - 12:30</option>
-                            <option value="2">12:30 - 13:30</option>
-                            <option value="3">13:30 - 14:30</option>
-                        </select>
-                    </div>
-                    <div>
-                        <p class="fs-5-5">Profesor</p>
-                        <select class="form-select form-select-lg mb-3" aria-label="Large select example">
-                            <option selected>Selecciona el profesor</option>
-                            <option value="1">Juan Martinez</option>
-                            <option value="2">Yeray Sampalo</option>
-                            <option value="3">Sidelly Ciruela</option>
-                        </select>
+
+                    <div class="modal-footer">
+                        <button class="btn bg-green-btn text-white w-100">
+                            Confirmar reserva
+                        </button>
                     </div>
                 </div>
-                <div class="modal-footer p-4">
-                    <button type="submit" class="btn btn-green-btn btngreenLight arriba text-white w-100 fs-5">Confirmar reserva</button>
-                </div>
-                </div>
-            </div>
-        </form>
+            </form>
+        </div>
     </div>
 
     @include("partials.footer")
