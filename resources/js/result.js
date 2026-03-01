@@ -28,5 +28,5 @@ function time(seconds){
     const add01 = cociente < 10 ? '0' : '';
     const add02 = resto < 10 ? '0' : '';
 
-    timeObject.textContent = add01 + cociente + ':' + resto + add02;
+    timeObject.textContent = add01 + cociente + ':' + add02 + resto;
 }
