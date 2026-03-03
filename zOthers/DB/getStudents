@@ -1,0 +1,3 @@
+use autoquiray;
+
+select email from students join users on id = user_id limit 10;

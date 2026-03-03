@@ -14,7 +14,8 @@ Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
 
 Route::middleware(['role:student'])->group(function () {
     Route::get('/tipos_de_test', fn() => view('student.testTypes'))->name('student.testType');
-    Route::get('/classes', fn() => view('student.classes'))->name('student.classes');
+    Route::get('/classes', [ClassesController::class, 'get'])->name('student.classes');
+    Route::post('/classes', [ClassesController::class, 'reservesClass'])->name('student.classes');
     Route::get("/contacto", fn() => view('student.contacto'))->name('student.contacto');
     Route::post("/contacto", [ContactController::class, 'uploadMessage'])->name('student.contacto');
     Route::get('/hacer_tests', [hacerTestController::class, 'showTests'])->name('student.test');

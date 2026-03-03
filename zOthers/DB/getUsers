@@ -1,0 +1,5 @@
+use autoquiray;
+
+select email from students join users on id = user_id limit 10;
+select email from employees join users on id = user_id join teachers on user_id = employees_id;
+select email from employees join users on id = user_id join administrators on user_id = employees_id;

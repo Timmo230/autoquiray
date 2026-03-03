@@ -1,0 +1,3 @@
+use autoquiray;
+
+select email from employees join users on id = user_id join teachers on user_id = employees_id;
