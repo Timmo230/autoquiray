@@ -9,7 +9,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>AUTOQUIRAY | Tu Autoescuela Digital</title>
     @include('partials.links')
-    <link rel="stylesheet" href="/autoquiray/resources/css/general.css">
     <link rel="stylesheet" href="/autoquiray/resources/css/index.css">
 </head>
 <body class="bg-navbar">   

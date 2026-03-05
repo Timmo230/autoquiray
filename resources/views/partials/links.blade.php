@@ -1,5 +1,5 @@
 @php
-    $uri = request()->path();  // solo el path, ej: 'classes' o 'login'
+    $uri = request()->path();
 @endphp
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>

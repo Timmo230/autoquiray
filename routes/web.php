@@ -33,4 +33,5 @@ Route::middleware(['role:teacher'])->group(function() {
 
 Route::middleware(['role:administrator'])->group(function() {
     Route::get('/panel', fn() => view('admin.dashboard'))->name('admin.dashboard');
+    Route::get('/create_user', [CreateUserController::class, 'get'])->name('admin.createUser');
 });
