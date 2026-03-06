@@ -8,6 +8,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>Crear usuario</title>
 
     @include('partials.links')
@@ -53,6 +54,7 @@
                         <input
                             type="text"
                             name="name"
+                            id="name"
                             class="form-control form-control-lg"
                             value="{{ old('name') }}"
                             placeholder="Nombre y apellidos"
@@ -65,6 +67,7 @@
                         <input
                             type="email"
                             name="email"
+                            id="email"
                             class="form-control form-control-lg"
                             value="{{ old('email') }}"
                             placeholder="usuario@correo.com"
@@ -74,9 +77,9 @@
 
                     <div class="col-12 col-lg-4">
                         <label class="form-label">Tipo de documento</label>
-                        <select name="document_type" class="form-select form-select-lg" required>
+                        <select name="documentType" id="documentType" class="form-select form-select-lg" required>
                             <option value="" {{ old('document_type') ? '' : 'selected' }} disabled>Selecciona...</option>
-                            <option value="PASSPORT" {{ old('document_type') === 'PASSPORT' ? 'selected' : '' }}>Pasaporte</option>
+                            <option value="passport" {{ old('document_type') === 'PASSPORT' ? 'selected' : '' }}>Pasaporte</option>
                             <option value="DNI" {{ old('document_type') === 'DNI' ? 'selected' : '' }}>DNI</option>
                         </select>
                     </div>
@@ -85,7 +88,8 @@
                         <label class="form-label">Documento</label>
                         <input
                             type="text"
-                            name="document_value"
+                            name="documentValue"
+                            id="documentValue"
                             class="form-control form-control-lg"
                             value="{{ old('document_value') }}"
                             placeholder="Número de documento"

@@ -1,14 +1,20 @@
 let tuitionCountInput = null;
 let hiddenCount = null;
 let container = null;
+
 let userType = null;
+let form = null;
+let nameUser = null;
+let email = null;
+let documentType = null;
+let documentValue = null;
 
 let permissionsGot = '';
 let types = '';
 
 function tuitionCard(i){
     return `
-        <div class="border rounded-4 p-4 mb-3">
+        <div class="border rounded-4 p-4 mb-3 tution">
             <div class="d-flex align-items-center justify-content-between mb-3">
                 <div class="rubik">Matrícula #${i+1}</div>
                 <span class="badge bg-primary-subtle text-primary rounded-pill">Tuition</span>
@@ -102,19 +108,81 @@ function prepareArrays(perms, typesGot){
     renderTuitions();
 }
 
+async function uploadData(e){
+    e.preventDefault();
+
+    let tutions = container.getElementsByClassName('tution');
+
+    let userTypeInput = userType.value;
+    let nameUserInput = nameUser.value;
+    let emailInput = email.value;
+    let documentTypeInput = documentType.value;
+    let documentValueInput = documentValue.value;
+
+    let amountTutions = parseInt(tuitionCountInput.value);
+
+    let tuitionsData = [];
+
+    for (let i = 0; i < tutions.length; i++) {
+
+        const t = tutions[i];
+
+        const permission = t.querySelector('select[name^="tuitions"][name$="[permission_id]"]').value;
+        const start = t.querySelector('input[name$="[starts_at]"]').value;
+        const end = t.querySelector('input[name$="[ends_at]"]').value;
+        const price = t.querySelector('input[name$="[price]"]').value;
+        const paid = t.querySelector('input[name$="[is_paid]"]').checked;
+
+        tuitionsData.push({
+            permission_id: permission,
+            starts_at: start,
+            ends_at: end,
+            price: price,
+            is_paid: paid
+        });
+    }
+
+    const post = await fetch('/autoquiray/create_user', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content
+        },
+        body: JSON.stringify({
+            userType: userTypeInput,
+            nameUser: nameUserInput,
+            email: emailInput,
+            documentType: documentTypeInput,
+            documentValue: documentValueInput,
+            amountTutions: amountTutions,
+            tuitions: tuitionsData
+        })
+    });
+    
+    if(post.ok) window.location.href = `/autoquiray/create_user`;
+    else alert('Error al guardar el test');
+}
+
 document.addEventListener('DOMContentLoaded', () => {
     tuitionCountInput = document.getElementById('tuitionCount');
     hiddenCount = document.getElementById('tuitions_count_hidden');
     container = document.getElementById('tuitionsContainer');
+    
+    form = document.getElementById('createUserForm');
     userType = document.getElementById('userType');
+    nameUser = document.getElementById('name');
+    email = document.getElementById('email');
+    documentType = document.getElementById('documentType');
+    documentValue = document.getElementById('documentValue');
+    
 
     if (tuitionCountInput) {
         tuitionCountInput.addEventListener('input', renderTuitions);
     }
 
+    form.addEventListener('submit', uploadData);
     userType.innerHTML = types;
     renderTuitions();
 });
 
-window.permissions = permissions;
 window.renderTuitions = renderTuitions;
