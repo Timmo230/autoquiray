@@ -5,6 +5,8 @@ namespace Database\Seeders;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use App\Models\User;
+use Illuminate\Support\Facades\DB;
+
 
 class StudentSeeder extends Seeder
 {
@@ -12,13 +14,17 @@ class StudentSeeder extends Seeder
     public function run(): void
     {
         if(is_null(self::$users)){
-            self::$users = User::orderBy('created_at', 'asc')
-                ->pluck('id')->toArray();
+            self::$users = DB::table('users as u')
+                ->join('user_is_assigned_types as uat', 'u.id', '=', 'uat.user_id')
+                ->join('types','uat.type_id','=','types.id')
+                ->where('type', '=', 'student')
+                ->pluck('u.id')
+                ->toArray();
         }
 
-        for($index = 13; $index < 1014; $index++){
+        foreach(self::$users as $user){
             \App\Models\Student::factory()->create([
-                'user_id' => self::$users[$index],
+                'user_id' => $user,
             ]);
         }
     }

@@ -33,8 +33,6 @@ class CreateUserController extends Controller
         $email =  $request->input('email');
         $documentType = $request->input('documentType');
         $documentValue =  $request->input('documentValue');
-        $amountTutions = $request->input('amountTutions');
-        $tutions = $request->input('tuitions');
 
         $userID = Auth::id();
         $newUserID = (string) Str::uuid();
@@ -42,7 +40,7 @@ class CreateUserController extends Controller
         $now = now();
 
         DB::transaction(function() use ($userType, $nameUser, $email,
-        $documentType, $documentValue, $amountTutions, $tutions, 
+        $documentType, $documentValue, $request,
         $userID, $newUserID, $now){
             DB::table('users')
             ->insert([
@@ -67,6 +65,9 @@ class CreateUserController extends Controller
             ]);
 
             if($userType ==  1){
+                
+                $amountTutions = $request->input('amountTutions');
+                $tutions = $request->input('tuitions');
                 DB::table('students')
                 ->insert([
                     'user_id' => $newUserID,
@@ -95,36 +96,32 @@ class CreateUserController extends Controller
                     ]);
                 }
             }
-            else if($userType ==  2){
+            else{
+                $salary = $request->input('salary');
                 DB::table('employees')
                 ->insert([
                     'user_id' => $newUserID,
-                    'salary' => 1200,
+                    'salary' => $salary,
                     'created_at' => $now,
                     'updated_at' => $now
                 ]);
 
-                DB::table('teachers')
-                ->insert([
-                    'employees_id' => $newUserID,
-                    'created_at' => $now,
-                    'updated_at' => $now
-                ]);
-            }else if($userType ==  3){
-                DB::table('employees')
-                ->insert([
-                    'user_id' => $newUserID,
-                    'salary' => 1200,
-                    'created_at' => $now,
-                    'updated_at' => $now
-                ]);
-
-                DB::table('administrators')
-                ->insert([
-                    'employees_id' => $newUserID,
-                    'created_at' => $now,
-                    'updated_at' => $now
-                ]);
+                if($userType ==  2){
+                    DB::table('teachers')
+                    ->insert([
+                        'employees_id' => $newUserID,
+                        'created_at' => $now,
+                        'updated_at' => $now
+                    ]);
+                }
+                else{
+                    DB::table('administrators')
+                    ->insert([
+                        'employees_id' => $newUserID,
+                        'created_at' => $now,
+                        'updated_at' => $now
+                    ]);
+                }
             }
         }, 10);
 
