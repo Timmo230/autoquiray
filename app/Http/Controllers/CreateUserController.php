@@ -51,7 +51,7 @@ class CreateUserController extends Controller
                 'name' => $nameUser,
                 'email' => $email,
                 'active' => true,
-                'password' => Hash::make('123'),
+                'password' => null,
                 'created_at' => $now,
                 'updated_at' => $now
             ]);

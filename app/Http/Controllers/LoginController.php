@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
 
 class LoginController extends Controller
 {
@@ -16,9 +17,22 @@ class LoginController extends Controller
     public function login(Request $request){
         $request->validate([
             'email' => 'required|email',
-            'password' => 'required',
+            'password' => 'nullable',
             'type' => 'required'
         ]);
+
+        $user = DB::table('users')
+            ->where('email', $request->email)
+            ->first();
+
+        if (!$user) return back()->withErrors(['email' => 'El tipo de usuario no coincide con esta cuenta.']);
+
+        if($user->password == null && $request->password == null){
+            return view('auth.changePasswd', [
+                'email' => $request->email,
+                'type' => $request->type
+            ]);
+        }
 
         $credentials = $request->only(['email', 'password']);
 
@@ -55,5 +69,13 @@ class LoginController extends Controller
         $request->session()->invalidate();
         $request->session()->regenerateToken();
         return redirect('/');
+    }
+
+    public function changePassword(Request $request){
+        DB::table('users')
+            ->where('email','=', $request->email)
+            ->update([
+                'password'=> Hash::make($request->password),
+            ]);
     }
 }

@@ -12,6 +12,8 @@ Route::get('/login', [LoginController::class, 'showLoginForm'])->name('login');
 Route::post('/login', [LoginController::class, 'login']);
 Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
 
+Route::post('/cambiar_contraseña', [LoginController::class, 'changePassword'])->name('changePassword');
+
 Route::middleware(['role:student'])->group(function () {
     Route::get('/tipos_de_test', fn() => view('student.testTypes'))->name('student.testType');
     Route::get('/classes', [ClassesController::class, 'get'])->name('student.classes');
