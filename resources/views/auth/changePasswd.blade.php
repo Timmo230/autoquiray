@@ -1,7 +1,3 @@
-@php
-    $uri = request()->path();
-@endphp
-
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -14,8 +10,6 @@
     <link rel="stylesheet" href="/autoquiray/resources/css/changePassword.css">
 </head>
 <body class="bg-main">
-
-    @include('partials.nav', ['uri' => $uri])
 
     <main class="change-password-page">
         <section class="password-box animate__animated animate__fadeInUp">
@@ -62,7 +56,6 @@
         </section>
     </main>
 
-    @include('partials.footer')
     @include('partials.scripts')
 
     <script src="/autoquiray/resources/js/changePassword.js"></script>

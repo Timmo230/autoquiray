@@ -286,3 +286,24 @@ footer li a:hover {
     color: #10b981 !important;
     padding-left: 8px;
 }
+
+
+/*=================================
+    SCROLL
+===================================*/
+::-webkit-scrollbar {
+    width: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+    background: rgba(148, 163, 184, 0.35);
+    border-radius: 999px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: rgba(148, 163, 184, 0.5);
+}

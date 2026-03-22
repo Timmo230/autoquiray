@@ -28,13 +28,15 @@ Route::middleware(['role:student'])->group(function () {
 });
 
 Route::middleware(['role:teacher'])->group(function() {
-    Route::get('/dashboard', [TeacherPlaceController::class, 'getstudents'])->name('teacher.dashboard');
+    Route::get('/teacher/dashboard', [EmployeesPlaceController::class, 'getstudents'])->name('teacher.dashboard');
     Route::get('/crear_tests', fn() => view('teacher.createTests'))->name('teacher.createTests');
     Route::post('/crear_tests', [CrearTestsController::class, 'crear_tests'])->name('teacher.createTests');
 });
 
 Route::middleware(['role:administrator'])->group(function() {
-    Route::get('/panel', fn() => view('admin.dashboard'))->name('admin.dashboard');
+    Route::get('/admin/dashboard', [EmployeesPlaceController::class, 'getTeachers'])->name('admin.dashboard');
+    Route::post('/admin/dashboard/stats', [EmployeesPlaceController::class, 'getStats'])->name('admin.dashboard');
+    Route::post('/admin/dashboard/details', [EmployeesPlaceController::class, 'getDetails'])->name('admin.dashboard');
     Route::get('/create_user', [CreateUserController::class, 'get'])->name('admin.createUser');
     Route::post('/create_user', [CreateUserController::class, 'upload'])->name('admin.createUser');
 });
