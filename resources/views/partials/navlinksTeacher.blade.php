@@ -8,9 +8,9 @@
     </li>
 
     <li class="nav-item mx-1">
-        <a class="nav-link px-3 fw-medium {{ $uri == 'dashboard' ? 'active' : '' }}" 
+        <a class="nav-link px-3 fw-medium {{ $uri == 'teacher/dashboard' ? 'active' : '' }}" 
            href="{{ route('teacher.dashboard') }}" 
-           id="{{ $uri == 'dashboard' ? 'actualPg' : '' }}">
+           id="{{ $uri == 'teacher/dashboard' ? 'actualPg' : '' }}">
             <i class="fa-solid fa-chart-line me-1 small opacity-75"></i> Panel de Gestión
         </a>
     </li>

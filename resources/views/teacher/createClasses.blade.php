@@ -146,10 +146,6 @@
                                 <div class="aq-divider my-4"></div>
 
                                 <div class="d-grid d-md-flex justify-content-md-end gap-3">
-                                    <a href="{{ url()->previous() }}" class="btn aq-btn-secondary btn-lg px-4">
-                                        <i class="fa-solid fa-xmark me-2"></i>Cancelar
-                                    </a>
-
                                     <button type="submit" class="btn aq-btn-primary btn-lg px-5">
                                         <i class="fa-solid fa-floppy-disk me-2"></i>Asignar clase
                                     </button>
@@ -355,37 +351,6 @@
     @include('partials.footer')
     @include('partials.scripts')
 
-    <script>
-        const timetableRadios = document.querySelectorAll('input[name="timetable_id"]');
-        const selectedTimetableText = document.getElementById('selectedTimetableText');
-        const selectedTimetableBadge = document.getElementById('selectedTimetableBadge');
-
-        function updateSelectedTimetable() {
-            const checked = document.querySelector('input[name="timetable_id"]:checked');
-
-            if (!checked) {
-                selectedTimetableBadge.textContent = 'Ninguno';
-                selectedTimetableText.textContent = 'Aún no has seleccionado ningún horario.';
-                return;
-            }
-
-            const date = checked.dataset.date;
-            const start = checked.dataset.start;
-            const end = checked.dataset.end;
-
-            selectedTimetableBadge.textContent = '1 seleccionado';
-            selectedTimetableText.innerHTML = `
-                <strong>Fecha:</strong> ${date}<br>
-                <strong>Hora de entrada:</strong> ${start}<br>
-                <strong>Hora de salida:</strong> ${end}
-            `;
-        }
-
-        timetableRadios.forEach(radio => {
-            radio.addEventListener('change', updateSelectedTimetable);
-        });
-
-        updateSelectedTimetable();
-    </script>
+    <script src="/autoquiray/resources/js/createClasses.js"></script>
 </body>
 </html>
