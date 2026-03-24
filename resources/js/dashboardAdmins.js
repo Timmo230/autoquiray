@@ -78,127 +78,12 @@ async function openDetail(elementID, action) {
         return;
     }
 
-
     detailsContent.innerHTML = '';
-    if(action == answers){
-        setAnswersDetails(result);
-        return;
-    }
-    alert("fallo");
+    if(action == answers) setAnswersDetails(result);
+    else if(action == tests) setTestsDetails(result);
+    else if(action == classes) setClassesDetails(result);
+    else alert("fallo");
 }
-
-`<div class="details-card">
-
-    <div class="details-card-header">
-        <span class="details-badge">Test</span>
-        <h5 class="details-subject">Título: Test de circulación básica</h5>
-    </div>
-
-    <div class="details-chat-wrapper">
-
-        <!-- DATOS GENERALES -->
-        <div class="details-message-row details-message-row-left">
-            <div class="details-message-block w-100">
-
-                <div class="details-user-header">
-                    <div class="details-avatar details-avatar-teacher">JP</div>
-
-                    <div>
-                        <div class="details-user-name">Juan Pérez</div>
-                        <div class="details-user-date">Información general del test</div>
-                    </div>
-                </div>
-
-                <div class="details-bubble details-bubble-teacher">
-                    <div class="details-bubble-label">Datos principales</div>
-
-                    <div class="row g-3">
-                        <div class="col-md-6"><strong>Tipo:</strong> Tipo test</div>
-                        <div class="col-md-6"><strong>Nota máxima:</strong> 10</div>
-                        <div class="col-md-6"><strong>Tiempo máximo:</strong> 30 min</div>
-                        <div class="col-md-6"><strong>Preguntas:</strong> 3</div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- PERMISOS -->
-        <div class="details-message-row details-message-row-left">
-            <div class="details-message-block w-100">
-
-                <div class="details-bubble details-bubble-student">
-                    <div class="details-bubble-label">Permisos</div>
-
-                    <div class="d-flex flex-wrap gap-2">
-                        <span class="details-badge">B</span>
-                        <span class="details-badge">A2</span>
-                        <span class="details-badge">AM</span>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- PREGUNTAS + TOTAL ALUMNOS -->
-        <div class="details-message-row details-message-row-left">
-            <div class="details-message-block w-100">
-
-                <div class="details-bubble details-bubble-student">
-                    
-                    <!-- TOTAL ARRIBA -->
-                    <div class="mb-3">
-                        <strong>Alumnos que lo han realizado:</strong> 2
-                    </div>
-
-                    <div class="details-bubble-label">Preguntas</div>
-
-                    <!-- PREGUNTA 1 -->
-                    <div class="border rounded-4 p-3 mb-3">
-                        <div class="fw-semibold mb-3">
-                            1. ¿Qué indica esta señal?
-                        </div>
-
-                        <div class="d-flex flex-column gap-2">
-                            <div class="details-option-normal px-3 py-2 rounded-3 border">
-                                Ceda el paso
-                            </div>
-
-                            <div class="details-option-correct px-3 py-2 rounded-3 border">
-                                Stop (Correcta)
-                            </div>
-
-                            <div class="details-option-normal px-3 py-2 rounded-3 border">
-                                Prohibido el paso
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- PREGUNTA 2 -->
-                    <div class="border rounded-4 p-3 mb-3">
-                        <div class="fw-semibold mb-3">
-                            2. ¿Cuál es la velocidad máxima en ciudad?
-                        </div>
-
-                        <div class="d-flex flex-column gap-2">
-                            <div class="details-option-correct px-3 py-2 rounded-3 border">
-                                50 km/h (Correcta)
-                            </div>
-
-                            <div class="details-option-normal px-3 py-2 rounded-3 border">
-                                70 km/h
-                            </div>
-
-                            <div class="details-option-normal px-3 py-2 rounded-3 border">
-                                90 km/h
-                            </div>
-                        </div>
-                    </div>
-
-                </div>
-            </div>
-        </div>
-
-    </div>
-</div>`
 
 function setAnswers(result){
     result.data.forEach(item => {
@@ -246,7 +131,7 @@ function setTests(result){
                         <div class="stats-item-right">
                             <div class="stats-item-date">${item['date']}</div>
 
-                            <button class="stats-open-btn" onclick="openDetail('${item['id']}', 0)">
+                            <button class="stats-open-btn" onclick="openDetail('${item['id']}', 1)">
                                 <i class="fa-solid fa-arrow-up-right-from-square"></i>
                                 Ver detalle
                             </button>
@@ -297,7 +182,7 @@ function setClasses(result){
                         <div class="stats-item-right">
                             <div class="stats-item-date">Clase</div>
 
-                            <button class="stats-open-btn" onclick="openDetail('${item['id']}')">
+                            <button class="stats-open-btn" onclick="openDetail('${item['id']}', 2)">
                                 <i class="fa-solid fa-arrow-up-right-from-square"></i>
                                 Ver detalle
                             </button>
@@ -320,21 +205,8 @@ function setAnswersDetails(result){
     let timeQuestion = dateObj.toLocaleTimeString();
 
     
-    let teacherInitials = item.teacher_name
-        .split(' ')
-        .map(n => n.trim()[0])
-        .filter(Boolean)
-        .slice(0, 2)
-        .join('')
-        .toUpperCase();
-
-    let studentInitials = item.student_name
-        .split(' ')
-        .map(n => n.trim()[0])
-        .filter(Boolean)
-        .slice(0, 2)
-        .join('')
-        .toUpperCase();
+    let teacherInitials = getInitials(item.teacher_name);
+    let studentInitials = getInitials(item.student_name);
     
     detailsContent.insertAdjacentHTML('beforeend',`
                 <div class="details-card">
@@ -399,5 +271,255 @@ function setAnswersDetails(result){
 }
 
 function setTestsDetails(result){
+    item = result.data;
 
+    teacherInitial = getInitials(item.teacherName);
+    detailsContent.innerHTML = `
+                <div class="details-card">
+
+                    <div class="details-card-header">
+                        <span class="details-badge">Test</span>
+                        <h5 class="details-subject">Título: ${item.testTitle}</h5>
+                    </div>
+
+                    <div class="details-chat-wrapper">
+
+                        <!-- DATOS GENERALES -->
+                        <div class="details-message-row details-message-row-left">
+                            <div class="details-message-block w-100">
+
+                                <div class="details-user-header">
+                                    <div class="details-avatar details-avatar-teacher">${teacherInitial}</div>
+
+                                    <div>
+                                        <div class="details-user-name">${item.teacherName}</div>
+                                        <div class="details-user-date">Información general del test</div>
+                                    </div>
+                                </div>
+
+                                <div class="details-bubble details-bubble-teacher">
+                                    <div class="details-bubble-label">Datos principales</div>
+
+                                    <div class="row g-3">
+                                        <div class="col-md-6"><strong>Tipo:</strong> ${item.testType}</div>
+                                        <div class="col-md-6"><strong>Nota máxima:</strong> ${item.max_note}</div>
+                                        <div class="col-md-6"><strong>Tiempo máximo:</strong> ${item.max_time} min</div>
+                                        <div class="col-md-6"><strong>Hecho por</strong> ${item.studentsCount} estudiantes</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- PERMISOS -->
+                        <div class="details-message-row details-message-row-left">
+                            <div class="details-message-block w-100">
+
+                                <div class="details-bubble details-bubble-student">
+                                    <div class="details-bubble-label">Permisos</div>
+
+                                    <div class="d-flex flex-wrap gap-2">
+                                        ${item.permissions.map(p=> `<span class="details-badge">${p}</span>`).join('')}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- PREGUNTAS + TOTAL ALUMNOS -->
+                        <div class="details-message-row details-message-row-left">
+                            <div class="details-message-block w-100">
+
+                                <div class="details-bubble details-bubble-student" id="questionContainer">
+
+                                    <div class="details-bubble-label">Preguntas</div>
+
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>`;
+    
+    setQuestionsDetails(item);
+}
+
+function setQuestionsDetails(item){
+    const questionContainer = document.getElementById("questionContainer");
+    let counter = 0;
+    item.questions.forEach(e => {
+        questionContainer.insertAdjacentHTML('beforeend',`
+            <div class="border rounded-4 p-3 mb-3" id="question${counter}">
+            </div>`);
+        
+        const actualQuestion = document.getElementById(`question${counter}`);
+        
+        actualQuestion.innerHTML = `
+            <div class="fw-semibold mb-3">
+                ${counter + 1}. ${e.questionTitle}
+            </div>`;
+        
+        e.options.forEach(o=> {
+            if(o.is_correct){
+                actualQuestion.insertAdjacentHTML('beforeend', `
+                    <div class="details-option-correct px-3 py-2 rounded-3 border">
+                        ${o.option}
+                    </div>
+                `);
+            }else{
+                actualQuestion.insertAdjacentHTML('beforeend', `
+                    <div class="details-option-normal px-3 py-2 rounded-3 border">
+                        ${o.option}
+                    </div>
+                `);
+            }
+        })
+        
+        counter++;
+    });
+}
+
+function setClassesDetails(result){
+    let item = result.data;
+
+    teacherInitial = getInitials(item.teacherName);
+    detailsContent.innerHTML = `
+    <div class="details-card class-details-card">
+
+        <div class="details-card-header">
+            <span class="details-badge">Clase</span>
+            <h5 class="details-subject">Título: ${item.title}</h5>
+        </div>
+
+        <div class="details-chat-wrapper">
+
+            <!-- DATOS GENERALES -->
+            <div class="details-message-row details-message-row-left">
+                <div class="details-message-block w-100">
+
+                    <div class="details-user-header">
+                        <div class="details-avatar details-avatar-teacher">${teacherInitial}</div>
+
+                        <div>
+                            <div class="details-user-name">J${item.teacherName}</div>
+                            <div class="details-user-date">Información general de la clase</div>
+                        </div>
+                    </div>
+
+                    <div class="details-bubble details-bubble-teacher">
+                        <div class="details-bubble-label">Datos principales</div>
+
+                        <div class="class-details-grid">
+                            <div class="class-detail-item">
+                                <span class="class-detail-label">Máximo de estudiantes</span>
+                                <span class="class-detail-value">${item.max_students}</span>
+                            </div>
+
+                            <div class="class-detail-item">
+                                <span class="class-detail-label">Fecha</span>
+                                <span class="class-detail-value">${item.date}</span>
+                            </div>
+
+                            <div class="class-detail-item">
+                                <span class="class-detail-label">Hora de entrada</span>
+                                <span class="class-detail-value">${item.start_time}</span>
+                            </div>
+
+                            <div class="class-detail-item">
+                                <span class="class-detail-label">Hora de salida</span>
+                                <span class="class-detail-value">${item.end_time}</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ESTADO -->
+            <div class="details-message-row details-message-row-left">
+                <div class="details-message-block w-100">
+                    <div class="details-bubble details-bubble-student">
+                        <div class="details-bubble-label">Estado de la clase</div>
+                            ${result = item.done ? `
+                                    <span class="class-status-badge class-status-pending">
+                                        Pendiente
+                                    </span> 
+                                `:`
+                                    <div class="class-status-row">
+                                        <span class="class-status-badge class-status-done">Realizada</span>
+                                    </div>
+                                `}
+                    </div>
+                </div>
+            </div>
+
+            <!-- PERMISOS -->
+            <div class="details-message-row details-message-row-left">
+                <div class="details-message-block w-100">
+                    <div class="details-bubble details-bubble-student">
+                        <div class="details-bubble-label">Permisos relacionados</div>
+
+                        <div class="d-flex flex-wrap gap-2">
+                            ${item.permissions.map(p=> `<span class="details-badge">${p}</span>`).join('')}
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ALUMNOS -->
+            <div class="details-message-row details-message-row-right">
+                <div class="details-message-block w-100">
+                    <div class="details-bubble details-bubble-teacher">
+                        ${result = item.done ? 
+                            `<div class="details-bubble-label">Alumnos que han reservado</div>`:
+                            `<div class="details-bubble-label">Alumnos que han participado</div>`
+                        }
+                        
+
+                        <div class="class-students-summary">
+                            <strong>Total:</strong> ${item.students.length} alumnos
+                        </div>
+
+                        <div class="class-students-list" id="students_list">
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>`;
+
+    setStudentsDetails(item.students, item.done);
+}
+
+function setStudentsDetails(students, done){
+    studentStatus = done ? 
+        `<div class="details-user-date">Alumno con reserva</div>`:
+        `<div class="details-user-date">Alumno participante</div>`;
+
+    const studentContainer = document.getElementById('students_list'); 
+    students.forEach(student => {
+        let initialStudent = getInitials(student);
+        studentContainer.insertAdjacentHTML('beforeend',`
+            <div class="class-student-card">
+                <div class="class-student-left">
+                    <div class="details-avatar details-avatar-student">${initialStudent}</div>
+                    <div>
+                        <div class="details-user-name">${student}</div>
+                        <div class="details-user-date">${studentStatus}</div>
+                    </div>
+                </div>
+            </div>
+            `)
+    });
+}
+
+
+
+function getInitials(name){
+    return name
+        .split(' ')
+        .map(n => n.trim()[0])
+        .filter(Boolean)
+        .slice(0, 2)
+        .join('')
+        .toUpperCase();
 }

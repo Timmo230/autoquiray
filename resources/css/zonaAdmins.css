@@ -791,3 +791,93 @@ button.stat-btn-custom:hover,
 .details-message-block .details-badge {
     font-size: 0.75rem;
 }
+
+
+
+
+
+.class-details-card .class-details-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+    gap: 14px;
+    margin-top: 0.5rem;
+}
+
+.class-details-card .class-detail-item {
+    padding: 14px 16px;
+    border-radius: 16px;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.class-details-card .class-detail-label {
+    display: block;
+    font-size: 0.82rem;
+    color: rgba(255, 255, 255, 0.62);
+    margin-bottom: 6px;
+}
+
+.class-details-card .class-detail-value {
+    display: block;
+    font-size: 1rem;
+    font-weight: 600;
+    color: #fff;
+}
+
+.class-details-card .class-status-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.class-details-card .class-status-badge {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 38px;
+    padding: 0 16px;
+    border-radius: 999px;
+    font-size: 0.9rem;
+    font-weight: 700;
+    letter-spacing: 0.02em;
+}
+
+.class-details-card .class-status-done {
+    color: #8ff0c0;
+    background: rgba(25, 135, 84, 0.18);
+    border: 1px solid rgba(25, 135, 84, 0.45);
+}
+
+.class-details-card .class-status-pending {
+    color: #ffd98a;
+    background: rgba(255, 193, 7, 0.16);
+    border: 1px solid rgba(255, 193, 7, 0.4);
+}
+
+.class-details-card .class-students-summary {
+    margin-bottom: 14px;
+    color: rgba(255, 255, 255, 0.85);
+}
+
+.class-details-card .class-students-list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.class-details-card .class-student-card {
+    padding: 14px 16px;
+    border-radius: 18px;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.class-details-card .class-student-left {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.class-details-card .details-message-block.w-100 {
+    width: 100%;
+}

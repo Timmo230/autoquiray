@@ -60,10 +60,7 @@ class EmployeesPlaceController extends Controller
             $tests = 1;
             $classes = 2;
 
-            $teacherName = DB::table('users')
-                ->where('id', $teacherID)
-                ->pluck('name')
-                ->first();
+            $teacherName = service::getTeacherName($teacherID);
 
             $result = match ((int) $solicited) {
                 $answers => service::getAnswers($teacherID),
