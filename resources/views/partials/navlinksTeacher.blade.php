@@ -17,9 +17,17 @@
     
     <li class="nav-item mx-1">
         <a class="nav-link px-3 fw-medium {{ $uri == 'create_tests' ? 'active' : '' }}" 
-           href="{{ url('crear_tests') }}" 
+           href="{{ route('teacher.createTests') }}" 
            id="{{ $uri == 'crear_tests' ? 'actualPg' : '' }}">
             <i class="fa-solid fa-plus-circle me-1 small opacity-75"></i> Crear Test
+        </a>
+    </li>
+
+    <li class="nav-item mx-1">
+        <a class="nav-link px-3 fw-medium {{ $uri == 'create_classes' ? 'active' : '' }}" 
+           href="{{ route('teacher.createClasses') }}" 
+           id="{{ $uri == 'create_classes' ? 'actualPg' : '' }}">
+            <i class="fa-solid fa-chalkboard-user me-1 small opacity-75"></i> Crear classes
         </a>
     </li>
 </ul>

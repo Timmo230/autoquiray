@@ -25,24 +25,50 @@
                     @auth
                         @if($type == 'student')
                             <li class="nav-item">
-                                <a class="nav-link {{ request()->is('tipos_de_test') ? 'text-green-btn' : ''}}" href="{{ url('tipos_de_test') }}">Test Online</a>
+                                <a class="nav-link {{ $uri == 'tipos_de_test' ? 'text-green-btn' : ''}}" 
+                                href="{{ route('student.testType') }}">Test Online</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link {{ request()->is('classes') ? 'text-green-btn' : ''}}" href="{{ url('classes') }}">Mis Clases</a>
+                                <a class="nav-link {{ $uri == 'classes' ? 'text-green-btn' : ''}}" 
+                                href="{{ route('student.classes') }}">Mis Clases</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link {{ request()->is('contacto') ? 'text-green-btn' : ''}}" href="{{ url('contacto') }}">Contactos</a>
+                                <a class="nav-link {{ $uri == 'contacto' ? 'text-green-btn' : ''}}" 
+                                href="{{ route('student.contacto') }}">Contactos</a>
                             </li>
                         @elseif($type == 'teacher')
                             <li class="nav-item">
-                                <a class="nav-link {{ request()->is('dashboard') ? 'text-green-btn' : ''}}" href="{{ url('dashboard') }}">Información alumnos</a>
+                                <a class="nav-link {{ $uri == 'teacher/dashboard' ? 'text-green-btn' : ''}}" 
+                                href="{{ route('teacher.dashboard') }}">Información alumnos</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link {{ $uri == 'crear_tests' ? 'text-green-btn' : ''}}" 
+                                href="{{ route('teacher.createTests') }}">Crear tests</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link {{ $uri == 'create_classes' ? 'text-green-btn' : ''}}" 
+                                href="{{ route('teacher.createClasses') }}">Crear tests</a>
+                            </li>
+                        @else
+                            <li class="nav-item">
+                                <a class="nav-link {{ $uri == 'admin/dashboard' ? 'text-green-btn' : ''}}" 
+                                href="{{ route('admin.dashboard') }}">Informacion profesores</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link {{ $uri == 'create_user' ? 'text-green-btn' : ''}}" 
+                                href="{{ route('admin.createUser') }}">Crear usuario</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link {{ $uri == 'create_timetable' ? 'text-green-btn' : ''}}" 
+                                href="{{ route('admin.createTimetable') }}">Crear horario</a>
                             </li>
                         @endif
                     @endauth
                     
                     @guest
                         <li class="nav-item">
-                            <a class="nav-link {{ request()->is('contacto') ? 'text-green-btn' : ''}}" href="{{ url('contacto') }}">Contactos</a>
+                            <a class="nav-link {{ $uri == 'contacto' ? 'text-green-btn' : ''}}" 
+                            href="{{ route('student.contacto') }}">Contactos</a>
                         </li>
                     @endguest
                 </ul>

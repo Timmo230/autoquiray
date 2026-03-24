@@ -24,10 +24,6 @@ body.bg-main{
     color: var(--aq-text);
 }
 
-.container-fluid{
-    max-width: 1200px;
-}
-
 .text-muted{ color: var(--aq-text-soft) !important; }
 .text-dark{ color: var(--aq-text) !important; }
 .text-primary{ color: var(--aq-primary-2) !important; }

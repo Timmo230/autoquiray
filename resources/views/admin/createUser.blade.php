@@ -18,7 +18,7 @@
 
     @include("partials.nav", ['uri' => $uri])
 
-    <main class="container-fluid py-4">
+    <main class="container py-4">
 
         @if ($errors->any())
             <div class="alert alert-danger rounded-4 shadow mb-4">
