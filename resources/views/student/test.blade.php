@@ -15,7 +15,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Tests Online</title>
     @include("partials.links")
-    <link rel="stylesheet" href="/autoquiray/resources/css/tests.css">
+    <link rel="stylesheet" href="/resources/css/tests.css">
 </head>
 <body class="bg-main">
     @include("partials.nav", ['uri' => $uri])
@@ -66,7 +66,7 @@
                     <div class="card test-card rounded-4 p-4 h-100 border-0 {{ $statusClass }}">
                         <div class="d-flex justify-content-between align-items-start">
                             <div class="d-flex align-items-center gap-3">
-                                <img src="/autoquiray/resources/img/tests/{{ $iconos[$categoria] }}.png"
+                                <img src="/resources/img/tests/{{ $iconos[$categoria] }}.png"
                                      alt="Icono {{ $categoria }}"
                                      class="rounded-4 test-img">
 

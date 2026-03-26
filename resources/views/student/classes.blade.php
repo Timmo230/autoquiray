@@ -11,7 +11,7 @@
     <title>Mis Clases</title>
     <meta name="csrf-token" content="{{ csrf_token() }}">
     @include("partials.links")
-    <link rel="stylesheet" href="/autoquiray/resources/css/classes.css">
+    <link rel="stylesheet" href="/resources/css/classes.css">
 </head>
 
 <body class="bg-main">
@@ -228,6 +228,6 @@
 
     @include("partials.footer")
     @include("partials.scripts")
-    <script src="/autoquiray/resources/js/classes.js"></script>
+    <script src="/resources/js/classes.js"></script>
 </body>
 </html>

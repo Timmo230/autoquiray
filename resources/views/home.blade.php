@@ -9,7 +9,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>AUTOQUIRAY | Tu Autoescuela Digital</title>
     @include('partials.links')
-    <link rel="stylesheet" href="/autoquiray/resources/css/index.css">
+    <link rel="stylesheet" href="/resources/css/index.css">
 </head>
 <body class="bg-navbar">   
     @include('partials.nav', ['uri' => $uri])
@@ -75,7 +75,7 @@
                     
                     <div class="card card-flex ventajas arriba shadow border-0">
                         <div class="icon-container mb-3">
-                            <img src="/autoquiray/resources/img/ventajas/tests.png" alt="Tests">
+                            <img src="/resources/img/ventajas/tests.png" alt="Tests">
                         </div>
                         <h4>Test Online</h4>
                         <p class="text-secondary opacity-75">Miles de preguntas actualizadas según la normativa DGT vigente</p>
@@ -83,7 +83,7 @@
 
                     <div class="card card-flex ventajas arriba shadow border-0">
                         <div class="icon-container mb-3">
-                            <img src="/autoquiray/resources/img/ventajas/Progreso.png" alt="Progreso">
+                            <img src="/resources/img/ventajas/Progreso.png" alt="Progreso">
                         </div>
                         <h4>Seguimiento</h4>
                         <p class="text-secondary opacity-75">Visualiza tu evolución con estadísticas detalladas y gráficos</p>
@@ -91,7 +91,7 @@
 
                     <div class="card card-flex ventajas arriba shadow border-0">
                         <div class="icon-container mb-3">
-                            <img src="/autoquiray/resources/img/ventajas/Reserva.png" alt="Reserva">
+                            <img src="/resources/img/ventajas/Reserva.png" alt="Reserva">
                         </div>
                         <h4>Reserva de Clases</h4>
                         <p class="text-secondary opacity-75">Programa tus clases prácticas fácilmente desde la app</p>
@@ -99,7 +99,7 @@
 
                     <div class="card card-flex ventajas arriba shadow border-0">
                         <div class="icon-container mb-3">
-                            <img src="/autoquiray/resources/img/ventajas/atencion.png" alt="Soporte">
+                            <img src="/resources/img/ventajas/atencion.png" alt="Soporte">
                         </div>
                         <h4>Atención</h4>
                         <p class="text-secondary opacity-75">Soporte personalizado para resolver todas tus dudas</p>
@@ -113,16 +113,16 @@
                 <div id="carouselExample" class="carousel slide container">
                     <div class="carousel-inner glass-panel p-3">
                         <div class="carousel-item active">
-                            <model-viewer src="{{ asset('storage/models/motorbike1.glb') }}" ar camera-controls touch-action="pan-y" style="width: 100%; height: 400px;"></model-viewer>
+                            <model-viewer src="/storage/models/motorbike1.glb" ar camera-controls touch-action="pan-y" style="width: 100%; height: 400px;"></model-viewer>
                         </div>
                         <div class="carousel-item">
-                            <model-viewer src="{{ asset('storage/models/Untitled.glb') }}" ar camera-controls touch-action="pan-y" style="width: 100%; height: 400px;"></model-viewer>
+                            <model-viewer src="/storage/models/Untitled.glb" ar camera-controls touch-action="pan-y" style="width: 100%; height: 400px;"></model-viewer>
                         </div>
                         <div class="carousel-item">
-                            <model-viewer src="{{ asset('storage/models/motorbike2.glb') }}" ar camera-controls touch-action="pan-y" style="width: 100%; height: 400px;"></model-viewer>
+                            <model-viewer src="/storage/models/motorbike2.glb" ar camera-controls touch-action="pan-y" style="width: 100%; height: 400px;"></model-viewer>
                         </div>
                         <div class="carousel-item">
-                            <model-viewer src="{{ asset('storage/models/car1.glb') }}" ar camera-controls touch-action="pan-y" style="width: 100%; height: 400px;"></model-viewer>
+                            <model-viewer src="/storage/models/car1.glb" ar camera-controls touch-action="pan-y" style="width: 100%; height: 400px;"></model-viewer>
                         </div>
                     </div>
                     <button class="carousel-control-prev" type="button" data-bs-target="#carouselExample" data-bs-slide="prev">

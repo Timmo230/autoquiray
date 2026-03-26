@@ -11,7 +11,7 @@
 
     @include('partials.links')
 
-    <link rel="stylesheet" href="/autoquiray/resources/css/createTimetable.css">
+    <link rel="stylesheet" href="/resources/css/createTimetable.css">
 </head>
 <body class="bg-main">
 

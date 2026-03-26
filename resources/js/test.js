@@ -33,7 +33,7 @@ const quizApp = {
             }
         }
         
-        const post = await fetch('/autoquiray/resultados', {
+        const post = await fetch('/resultados', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -47,7 +47,7 @@ const quizApp = {
         });
         
         console.log("Enviando respuestas:", quizApp.userAnswers);
-        if(post.ok) window.location.href = `/autoquiray/resultados?id=${this.testId}`;
+        if(post.ok) window.location.href = `/resultados?id=${this.testId}`;
         else alert('Error al guardar el test');
     },
 

@@ -11,7 +11,7 @@
 
     @include('partials.links')
 
-    <link rel="stylesheet" href="/autoquiray/resources/css/createClass.css">
+    <link rel="stylesheet" href="/resources/css/createClass.css">
 </head>
 <body class="bg-main">
 
@@ -351,6 +351,6 @@
     @include('partials.footer')
     @include('partials.scripts')
 
-    <script src="/autoquiray/resources/js/createClasses.js"></script>
+    <script src="/resources/js/createClasses.js"></script>
 </body>
 </html>

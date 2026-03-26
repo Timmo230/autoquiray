@@ -11,7 +11,7 @@
     <div class="container-fluid px-md-4">
 
         <a class="navbar-brand me-4" href="{{ url('/') }}">
-            <img src="/autoquiray/resources/img/logo/logo.png"
+            <img src="/resources/img/logo/logo.png"
                  width="220"
                  alt="Autoquiray Logo"
                  class="arriba nav-logo">
@@ -72,7 +72,7 @@
 
         <div class="offcanvas-header border-bottom border-secondary border-opacity-10">
             <a href="{{ url('/') }}">
-                <img src="/autoquiray/resources/img/logo/logo.png" width="160" alt="logo" class="nav-logo-sm">
+                <img src="/resources/img/logo/logo.png" width="160" alt="logo" class="nav-logo-sm">
             </a>
             <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas" aria-label="Close"></button>
         </div>

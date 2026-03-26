@@ -10,7 +10,7 @@
     <title>Login | AUTOQUIRAY</title>
     
     @include('partials.links')
-    <link rel="stylesheet" href="/autoquiray/resources/css/login.css">
+    <link rel="stylesheet" href="/resources/css/login.css">
 </head>
 <body class="bg-main">
     @include('partials.nav')
@@ -33,7 +33,7 @@
                 @csrf 
                 
                 <div class="text-center mb-4">
-                    <img src="/autoquiray/resources/img/logo/logo.png" alt="logo" class="mb-3 logo">
+                    <img src="/resources/img/logo/logo.png" alt="logo" class="mb-3 logo">
                     <p class="small text-secondary">Accede a tu cuenta de AUTOQUIRAY</p>
                 </div>
                 
@@ -68,7 +68,7 @@
                 </div>
 
                 <div class="text-center">
-                    <img src="/autoquiray/resources/img/login/conexionSegura.png" alt="Conexión Segura" class="rounded-2">
+                    <img src="/resources/img/login/conexionSegura.png" alt="Conexión Segura" class="rounded-2">
                 </div>
             </form>
         </section>

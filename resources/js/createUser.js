@@ -204,7 +204,7 @@ async function uploadData(e) {
     
 
     try {
-        const post = await fetch('/autoquiray/create_user', {
+        const post = await fetch('/create_user', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -224,7 +224,7 @@ async function uploadData(e) {
         });
 
         if (post.ok) {
-            window.location.href = '/autoquiray/create_user';
+            window.location.href = '/create_user';
             return;
         }
 

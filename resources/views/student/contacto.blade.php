@@ -19,8 +19,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Contacto</title>
     @include("partials.links")
-    <link rel="stylesheet" href="/autoquiray/resources/css/icons.css">
-    <link rel="stylesheet" href="/autoquiray/resources/css/contacto.css">
+    <link rel="stylesheet" href="/resources/css/icons.css">
+    <link rel="stylesheet" href="/resources/css/contacto.css">
 </head>
 <body class="bg-main">
 

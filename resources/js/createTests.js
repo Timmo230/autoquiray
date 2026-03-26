@@ -78,7 +78,7 @@ async function submit(){
         };
     });
     
-    const post = await fetch('/autoquiray/crear_tests', {
+    const post = await fetch('/crear_tests', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
@@ -93,6 +93,6 @@ async function submit(){
         })
     });
     
-    if(post.ok) window.location.href = `/autoquiray/crear_tests`;
+    if(post.ok) window.location.href = `/crear_tests`;
     else alert('Error al guardar el test');
 }

@@ -5,21 +5,20 @@ namespace Database\Factories;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use App\Models\Type;
 
-/**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Model>
- */
-class typeFactory extends Factory
+class TypeFactory extends Factory
 {
     protected $model = Type::class;
-    /**
-     * Define the model's default state.
-     *
-     * @return array<string, mixed>
-     */
+
     protected static $types = ['student', 'teacher', 'administrator'];
+
     public function definition(): array
     {
         $type = array_shift(self::$types);
+
+        if ($type === null) {
+            $type = fake()->randomElement(['student', 'teacher', 'administrator']);
+        }
+
         return [
             'type' => $type,
         ];

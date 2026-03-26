@@ -11,9 +11,9 @@
     <title>Zona de Administrador - Autoquiray</title>
 
     @include("partials.links")
-    <link rel="stylesheet" href="/autoquiray/resources/css/icons.css">
-    <link rel="stylesheet" href="/autoquiray/resources/css/zonaAdmins.css">
-    <link rel="stylesheet" href="/autoquiray/resources/css/loadingDots.css">
+    <link rel="stylesheet" href="/resources/css/icons.css">
+    <link rel="stylesheet" href="/resources/css/zonaAdmins.css">
+    <link rel="stylesheet" href="/resources/css/loadingDots.css">
 </head>
 <body class="bg-main">
     @include("partials.nav", ["uri" => $uri])
@@ -213,6 +213,6 @@
 
     @include("partials.footer")
     @include("partials.scripts")
-    <script src="/autoquiray/resources/js/dashboardAdmins.js"></script>
+    <script src="/resources/js/dashboardAdmins.js"></script>
 </body>
 </html>

@@ -9,8 +9,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Zona de Profesores - Autoquiray</title>
     @include("partials.links")
-    <link rel="stylesheet" href="/autoquiray/resources/css/icons.css">
-    <link rel="stylesheet" href="/autoquiray/resources/css/zonaProfesores.css">
+    <link rel="stylesheet" href="/resources/css/icons.css">
+    <link rel="stylesheet" href="/resources/css/zonaProfesores.css">
     
     <style>
         

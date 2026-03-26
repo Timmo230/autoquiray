@@ -7,7 +7,7 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
     @include('partials.links')
-    <link rel="stylesheet" href="/autoquiray/resources/css/changePassword.css">
+    <link rel="stylesheet" href="/resources/css/changePassword.css">
 </head>
 <body class="bg-main">
 
@@ -58,7 +58,7 @@
 
     @include('partials.scripts')
 
-    <script src="/autoquiray/resources/js/changePassword.js"></script>
+    <script src="/resources/js/changePassword.js"></script>
     <script>
         email = @json($email);
     </script>

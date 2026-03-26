@@ -8,7 +8,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Resultados</title>
     @include("partials.links")
-    <link rel="stylesheet" href="/autoquiray/resources/css/results.css">
+    <link rel="stylesheet" href="/resources/css/results.css">
 </head>
 <body class="bg-main">
     @include("partials.nav", ['uri' => $uri])
@@ -72,7 +72,7 @@
 
     @include("partials.footer")
     @include("partials.scripts")
-    <script src="\autoquiray\resources\js\result.js"></script>
+    <script src="\resources\js\result.js"></script>
     <script>
         const successes = {{ $successes }};
         const max_note = {{ $max_note }};

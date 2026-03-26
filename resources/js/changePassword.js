@@ -18,7 +18,7 @@ function checkPasswd(){
 }
 
 async function login(){
-    const post = await fetch('/autoquiray/cambiar_contraseña', {
+    const post = await fetch('/cambiar_contraseña', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
@@ -32,7 +32,7 @@ async function login(){
     });
 
     if (post.ok) {
-        window.location.href = '/autoquiray/login';
+        window.location.href = '/login';
         return;
     }
 

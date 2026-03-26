@@ -9,7 +9,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tests Online</title>
     @include("partials.links")
-    <link rel="stylesheet" href="/autoquiray/resources/css/tests.css">
+    <link rel="stylesheet" href="/resources/css/tests.css">
 </head>
 
 <body class="bg-main">
@@ -34,7 +34,7 @@
                 <div class="card test-card rounded-4 p-4 h-100 border-0">
 
                     <div class="d-flex justify-content-between align-items-start">
-                        <img src="/autoquiray/resources/img/tests/senales.png"
+                        <img src="/resources/img/tests/senales.png"
                              alt="Icono señales"
                              class="rounded-4 test-img">
 
@@ -70,7 +70,7 @@
                 <div class="card test-card rounded-4 p-4 h-100 border-0">
 
                     <div class="d-flex justify-content-between align-items-start">
-                        <img src="/autoquiray/resources/img/tests/circulacion.png"
+                        <img src="/resources/img/tests/circulacion.png"
                              alt="Icono circulación"
                              class="rounded-4 test-img">
 
@@ -106,7 +106,7 @@
                 <div class="card test-card rounded-4 p-4 h-100 border-0">
 
                     <div class="d-flex justify-content-between align-items-start">
-                        <img src="/autoquiray/resources/img/tests/seguridad.png"
+                        <img src="/resources/img/tests/seguridad.png"
                              alt="Icono seguridad vial"
                              class="rounded-4 test-img">
 
@@ -142,7 +142,7 @@
                 <div class="card test-card rounded-4 p-4 h-100 border-0">
 
                     <div class="d-flex justify-content-between align-items-start">
-                        <img src="/autoquiray/resources/img/tests/oficial.png"
+                        <img src="/resources/img/tests/oficial.png"
                              alt="Icono test oficial"
                              class="rounded-4 test-img">
 

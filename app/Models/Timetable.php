@@ -22,7 +22,7 @@ class Timetable extends Model
         return $this->belongsTo(Administrator::class, 'administrator_id');
     }
 
-    public function class(){
+    public function classes(){
         return $this->hasMany(Classes::class, 'timetable_id');
     }
 }

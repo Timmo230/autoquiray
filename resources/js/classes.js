@@ -1,5 +1,5 @@
 async function reservesClass(idClass){
-    const post = await fetch('/autoquiray/classes', {
+    const post = await fetch('/classes', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
@@ -10,6 +10,6 @@ async function reservesClass(idClass){
         })
     });
 
-    if(post.ok) window.location.href = `/autoquiray/classes`;
+    if(post.ok) window.location.href = `/classes`;
     else alert('Error al reservar clase');
 }

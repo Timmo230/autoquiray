@@ -11,7 +11,7 @@
     <title>Crear usuario</title>
 
     @include('partials.links')
-    <link rel="stylesheet" href="/autoquiray/resources/css/createUser.css">
+    <link rel="stylesheet" href="/resources/css/createUser.css">
 </head>
 
 <body class="bg-main">
@@ -120,7 +120,7 @@
     @include("partials.footer")
     @include("partials.scripts")
 
-    <script src="/autoquiray/resources/js/createUser.js"></script>
+    <script src="/resources/js/createUser.js"></script>
     <script>
         perms = @json($permissions);
         typesGot = @json($userTypes);

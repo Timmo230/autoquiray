@@ -11,7 +11,7 @@
             
             <div class="col my-3 d-flex flex-column align-items-center">
                 <div class="mb-4">
-                    <img src="/autoquiray/resources/img/logo/logo.png" alt="Autoquiray Logo" class="footLogo">
+                    <img src="/resources/img/logo/logo.png" alt="Autoquiray Logo" class="footLogo">
                 </div>
                 <p class="px-4 text-grey small">
                     Tu autoescuela digital de confianza. <br>

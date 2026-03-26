@@ -22,7 +22,7 @@ async function showTeacherStats(teacherID, action){
     modal.show();
     list.innerHTML = loadingDots;
 
-    const post = await fetch('/autoquiray/admin/dashboard/stats', {
+    const post = await fetch('/admin/dashboard/stats', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -59,7 +59,7 @@ async function openDetail(elementID, action) {
     modalDetails.show();
     detailsContent.innerHTML = loadingDots;
 
-    const post = await fetch('/autoquiray/admin/dashboard/details', {
+    const post = await fetch('/admin/dashboard/details', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',

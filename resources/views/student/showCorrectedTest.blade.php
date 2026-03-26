@@ -10,7 +10,7 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>Test corregido</title>
     @include("partials.links")
-    <link rel="stylesheet" href="/autoquiray/resources/css/testCorregido.css">
+    <link rel="stylesheet" href="/resources/css/testCorregido.css">
 </head>
 <body class="bg-main">
     @include("partials.nav", ['uri' => $uri])
@@ -101,7 +101,7 @@
         </form>
     </main>
 
-    <script src="/autoquiray/resources/js/test.js"></script>
+    <script src="/resources/js/test.js"></script>
 
     <script>
         quizApp.init({{ $test->max_note }});
