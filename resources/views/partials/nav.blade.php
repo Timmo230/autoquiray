@@ -41,7 +41,7 @@
                 </div>
 
                 <div class="d-none d-xl-flex align-items-center">
-                    <form action="{{ route('logout') }}" method="POST" class="m-0">
+                    <form action="{{ route('logout') }}" method="POST" class="m-0" data-plausible-submit="logout">
                         @csrf
                         <button type="submit" class="btn btn-success d-flex align-items-center px-3 nav-action-btn">
                             <i class="fa-solid fa-right-from-bracket fs-5"></i>
@@ -105,7 +105,7 @@
                         </div>
                     </div>
 
-                    <form action="{{ route('logout') }}" method="POST" class="w-100">
+                    <form action="{{ route('logout') }}" method="POST" class="w-100" data-plausible-submit="logout">
                         @csrf
                         <button type="submit"
                                 class="btn btn-outline-danger w-100 rounded-pill py-3 fw-bold border-2 d-flex align-items-center justify-content-center gap-2 nav-logout-btn">
