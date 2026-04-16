@@ -17,7 +17,8 @@ Route::post('/cambiar_contraseña', [LoginController::class, 'changePassword'])-
 Route::middleware(['role:student'])->group(function () {
     Route::get('/tipos_de_test', fn() => view('student.testTypes'))->name('student.testType');
     Route::get('/classes', [ClassesController::class, 'get'])->name('student.classes');
-    Route::post('/classes', [ClassesController::class, 'reservesClass'])->name('student.classes');
+    Route::post('/classes', [ClassesController::class, 'reservesClass'])->name('student.classes.reserve');
+    Route::delete('/classes/{class}', [ClassesController::class, 'cancelReservation'])->name('student.classes.cancel');
     Route::get("/contacto", fn() => view('student.contacto'))->name('student.contacto');
     Route::post("/contacto", [ContactController::class, 'uploadMessage'])->name('student.contacto');
     Route::get('/hacer_tests', [hacerTestController::class, 'showTests'])->name('student.test');

@@ -19,8 +19,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Contacto</title>
     @include("partials.links")
-    <link rel="stylesheet" href="/resources/css/icons.css">
-    <link rel="stylesheet" href="/resources/css/contacto.css">
+    <link rel="stylesheet" href="{{ asset('resources/css/icons.css') }}">
+    <link rel="stylesheet" href="{{ asset('resources/css/contacto.css') }}">
 </head>
 <body class="bg-main">
 
@@ -35,7 +35,7 @@
                         <h5 class="aq-muted mb-0">¿Tienes alguna duda? Estamos aquí para ayudarte</h5>
                     </div>
 
-                    <form action="{{ route('student.contacto') }}" method="POST">
+                    <form action="{{ route('student.contacto') }}" method="POST" data-plausible-submit="contact_form_submitted">
                         @csrf
                         <div class="mb-3 mt-4">
                             <label for="tipo" class="form-label aq-muted">Asunto</label>
@@ -131,6 +131,6 @@
 
     @include("partials.footer")
     @include("partials.scripts")
-    <script src="\autoquiray\resources\js\contacto.js"></script>
+    <script src="{{ asset('resources/js/contacto.js') }}"></script>
 </body>
 </html>

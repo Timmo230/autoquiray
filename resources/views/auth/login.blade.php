@@ -10,7 +10,7 @@
     <title>Login | AUTOQUIRAY</title>
     
     @include('partials.links')
-    <link rel="stylesheet" href="/resources/css/login.css">
+    <link rel="stylesheet" href="{{ asset('resources/css/login.css') }}">
 </head>
 <body class="bg-main">
     @include('partials.nav')
@@ -29,11 +29,11 @@
 
     <main class="py-5">
         <section class="p-4 p-md-5 rounded-4 mx-auto" id="login">
-            <form method="POST" action="{{ route('login') }}">
+            <form method="POST" action="{{ route('login') }}" data-plausible-submit="login_submitted">
                 @csrf 
                 
                 <div class="text-center mb-4">
-                    <img src="/resources/img/logo/logo.png" alt="logo" class="mb-3 logo">
+                    <img src="{{ asset('resources/img/logo/logo.png') }}" alt="logo" class="mb-3 logo">
                     <p class="small text-secondary">Accede a tu cuenta de AUTOQUIRAY</p>
                 </div>
                 
@@ -68,7 +68,7 @@
                 </div>
 
                 <div class="text-center">
-                    <img src="/resources/img/login/conexionSegura.png" alt="Conexión Segura" class="rounded-2">
+                    <img src="{{ asset('resources/img/login/conexionSegura.png') }}" alt="Conexión Segura" class="rounded-2">
                 </div>
             </form>
         </section>

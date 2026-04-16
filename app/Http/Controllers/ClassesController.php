@@ -117,6 +117,8 @@ class ClassesController extends Controller
         ->select(
             'classes.*',
             'timetables.date as raw_date',
+            'timetables.start_time as raw_start_time',
+            'timetables.end_time as raw_end_time',
             DB::raw("DATE_FORMAT(timetables.date, '%d/%m/%Y') as date"),
             DB::raw('DATE_FORMAT(timetables.start_time, "%H:%i") as start_time'),
             DB::raw('DATE_FORMAT(timetables.end_time, "%H:%i") as end_time'),
@@ -136,9 +138,46 @@ class ClassesController extends Controller
         if (!$userID) {
             return response()->json(['error' => 'Usuario no autenticado'], 401);
         }
-        if(!$request->filled('idClass')) return response()->json(['No clase especificada']);
+        if(!$request->filled('idClass')) {
+            return response()->json(['error' => 'No clase especificada'], 422);
+        }
 
-        $idClass = $request->input('idClass');
+        $idClass = (int) $request->input('idClass');
+
+        $class = DB::table('classes')
+        ->join('timetables', 'timetables.id', '=', 'classes.timetable_id')
+        ->leftJoin('students_reserves_classes as src', 'src.class_id', '=', 'classes.id')
+        ->where('classes.id', $idClass)
+        ->whereRaw("TIMESTAMP(timetables.date, timetables.start_time) > NOW()")
+        ->groupBy(
+            'classes.id',
+            'classes.max_students',
+            'timetables.date',
+            'timetables.start_time'
+        )
+        ->select(
+            'classes.id',
+            'classes.max_students',
+            DB::raw('COUNT(src.student_id) as reserved_count')
+        )
+        ->first();
+
+        if (!$class) {
+            return response()->json(['error' => 'La clase no esta disponible'], 404);
+        }
+
+        $alreadyReserved = DB::table('students_reserves_classes')
+        ->where('student_id', $userID)
+        ->where('class_id', $idClass)
+        ->exists();
+
+        if ($alreadyReserved) {
+            return response()->json(['error' => 'Ya estabas apuntado a esta clase'], 409);
+        }
+
+        if ($class->reserved_count >= $class->max_students) {
+            return response()->json(['error' => 'La clase ya no tiene plazas disponibles'], 409);
+        }
 
         DB::table('students_reserves_classes')
         ->insert([
@@ -147,6 +186,40 @@ class ClassesController extends Controller
             'created_at' => now(),
             'updated_at' => now()
         ]);
+
+        return response()->json(['success' => true]);
+    }
+
+    public function cancelReservation(int $classId)
+    {
+        $userID = Auth::id();
+        if (!$userID) {
+            return response()->json(['error' => 'Usuario no autenticado'], 401);
+        }
+
+        $reservation = DB::table('students_reserves_classes as src')
+        ->join('classes', 'classes.id', '=', 'src.class_id')
+        ->join('timetables', 'timetables.id', '=', 'classes.timetable_id')
+        ->where('src.student_id', $userID)
+        ->where('src.class_id', $classId)
+        ->select(
+            'src.class_id',
+            DB::raw("TIMESTAMP(timetables.date, timetables.start_time) as starts_at")
+        )
+        ->first();
+
+        if (!$reservation) {
+            return response()->json(['error' => 'Reserva no encontrada'], 404);
+        }
+
+        if (now()->gte(\Carbon\Carbon::parse($reservation->starts_at))) {
+            return response()->json(['error' => 'No puedes desapuntarte de una clase que ya ha empezado'], 422);
+        }
+
+        DB::table('students_reserves_classes')
+        ->where('student_id', $userID)
+        ->where('class_id', $classId)
+        ->delete();
 
         return response()->json(['success' => true]);
     }

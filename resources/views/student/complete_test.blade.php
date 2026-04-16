@@ -10,7 +10,7 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>Haciendo test...</title>
     @include("partials.links")
-    <link rel="stylesheet" href="/resources/css/complete_test.css">
+    <link rel="stylesheet" href="{{ asset('resources/css/complete_test.css') }}">
 </head>
 
 <body class="bg-main">
@@ -100,7 +100,7 @@
         </div>
     </main>
 
-    <script src="/resources/js/test.js"></script>
+    <script src="{{ asset('resources/js/test.js') }}"></script>
     <script>
         quizApp.init({{ $test->max_note }});
 

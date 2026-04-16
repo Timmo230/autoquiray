@@ -10,6 +10,7 @@ const quizApp = {
     init: function(total) {
         this.totalSteps = total;
         this.userAnswers = {};
+        window.trackEvent('test_started', { test_id: this.testId });
     },
 
     changeStep: function(n) {
@@ -20,8 +21,11 @@ const quizApp = {
     },
 
     saveAnswer: function(qId, oId) {
+        const isFirstAnswer = !(qId in quizApp.userAnswers);
         quizApp.userAnswers[qId] = oId;
-        console.log("Guardado:", quizApp.userAnswers);
+        if (isFirstAnswer) {
+            window.trackEvent('test_question_answered');
+        }
     },
 
     finishTest: async function(time){
@@ -46,9 +50,21 @@ const quizApp = {
             })
         });
         
-        console.log("Enviando respuestas:", quizApp.userAnswers);
-        if(post.ok) window.location.href = `/resultados?id=${this.testId}`;
-        else alert('Error al guardar el test');
+        if(post.ok) {
+            const data = await post.json();
+            window.trackEvent('test_completed', {
+                test_id: String(this.testId),
+                score: String(data.note),
+                max_score: String(data.max_note),
+                answered: String(data.answered),
+                duration_seconds: String(time_transcurred)
+            });
+            window.location.href = `/resultados?id=${this.testId}`;
+        }
+        else {
+            window.trackEvent('test_submit_failed', { test_id: String(this.testId) });
+            alert('Error al guardar el test');
+        }
     },
 
     time: function(seconds, totalSeconds){

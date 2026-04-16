@@ -11,7 +11,7 @@
     <title>Mis Clases</title>
     <meta name="csrf-token" content="{{ csrf_token() }}">
     @include("partials.links")
-    <link rel="stylesheet" href="/resources/css/classes.css">
+    <link rel="stylesheet" href="{{ asset('resources/css/classes.css') }}">
 </head>
 
 <body class="bg-main">
@@ -35,7 +35,7 @@
 
                 <div class="container-fluid my-4">
                     <div class="card reserved-table-card rounded-4">
-                        <div class="card-body p-0 table-responsive">
+                        <div class="card-body p-0 table-responsive d-none d-md-block">
                             <table class="table mb-0 align-middle reserved-table">
                                 <thead>
                                     <tr>
@@ -43,11 +43,18 @@
                                         <th>Fecha</th>
                                         <th>Hora</th>
                                         <th>Profesor</th>
-                                        <th class="pe-4">Estado</th>
+                                        <th>Estado</th>
+                                        <th class="pe-4 text-end">Accion</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach ($reservedClasses as $class)
+                                    @forelse ($reservedClasses as $class)
+                                        @php
+                                            $classStart = \Carbon\Carbon::parse($class->raw_date . ' ' . $class->raw_start_time);
+                                            $canCancel = $classStart->isFuture();
+                                            $classDate = \Carbon\Carbon::parse($class->raw_date)->startOfDay();
+                                            $today = now()->startOfDay();
+                                        @endphp
                                         <tr>
                                             <td class="ps-4">
                                                 <div class="fw-semibold">
@@ -60,22 +67,131 @@
                                             <td>{{ $class->date }}</td>
                                             <td>{{ $class->start_time }} - {{ $class->end_time }}</td>
                                             <td>{{ $class->name }}</td>
-                                            <<td class="pe-4">
-                                                @php
-                                                    $classDate = \Carbon\Carbon::parse($class->raw_date)->startOfDay();
-                                                    $today = now()->startOfDay();
-                                                @endphp
-
+                                            <td>
                                                 @if ($classDate->gt($today))
-                                                    <span class="badge bg-success px-3 py-2">Próxima</span>
+                                                    <span class="badge bg-success px-3 py-2">Proxima</span>
                                                 @elseif ($classDate->eq($today))
                                                     <span class="badge bg-warning text-dark px-3 py-2">Hoy</span>
                                                 @else
                                                     <span class="badge bg-secondary px-3 py-2">Ya realizada</span>
                                                 @endif
                                             </td>
+                                            <td class="pe-4 text-end">
+                                                @if ($canCancel)
+                                                    <button
+                                                        class="btn btn-outline-danger reserve-card-btn cancel-btn"
+                                                        type="button"
+                                                        onclick="cancelReservation({{ $class->id }})">
+                                                        Desapuntar
+                                                    </button>
+                                                @else
+                                                    <span class="text-muted small">Bloqueada</span>
+                                                @endif
+                                            </td>
+                                        </tr>
+                                    @empty
+                                        <tr>
+                                            <td colspan="6" class="px-4 py-4 text-center text-muted">
+                                                No tienes clases reservadas ahora mismo.
+                                            </td>
+                                        </tr>
+                                    @endforelse
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <div class="card-body p-0 d-md-none">
+                            <table class="table mb-0 align-middle reserved-table reserved-table-mobile">
+                                <thead>
+                                    <tr>
+                                        <th class="ps-3">Clase</th>
+                                        <th>Fecha</th>
+                                        <th class="pe-3 text-end">Detalle</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @php
+                                        $counter = 0;
+                                    @endphp
+                                    @foreach ($reservedClasses as $class)
+                                        @php
+                                            $classStart = \Carbon\Carbon::parse($class->raw_date . ' ' . $class->raw_start_time);
+                                            $canCancel = $classStart->isFuture();
+                                            $classDate = \Carbon\Carbon::parse($class->raw_date)->startOfDay();
+                                            $today = now()->startOfDay();
+                                            $detailId = 'class-detail-' . $class->id;
+                                        @endphp
+                                        <tr>
+                                            <td class="ps-3">
+                                                <div class="fw-semibold">
+                                                    Clase #{{ $counter++ + 1}}
+                                                </div>
+                                            </td>
+                                            <td>{{ $class->date }}</td>
+                                            <td class="pe-3 text-end">
+                                                <button
+                                                    class="btn btn-sm btn-detail-toggle"
+                                                    type="button"
+                                                    data-class-toggle="{{ $detailId }}"
+                                                    aria-expanded="false">
+                                                    Ver
+                                                </button>
+                                            </td>
+                                        </tr>
+                                        <tr id="{{ $detailId }}" class="class-detail-row" hidden>
+                                            <td colspan="3" class="p-0">
+                                                <div class="class-detail-panel">
+                                                    <div class="class-detail-grid">
+                                                        <div>
+                                                            <span class="class-detail-label">Clase</span>
+                                                            <p class="mb-0">{{ $class->title }}</p>
+                                                        </div>
+                                                        <div>
+                                                            <span class="class-detail-label">Profesor</span>
+                                                            <p class="mb-0">{{ $class->name }}</p>
+                                                        </div>
+                                                        <div>
+                                                            <span class="class-detail-label">Horario</span>
+                                                            <p class="mb-0">{{ $class->start_time }} - {{ $class->end_time }}</p>
+                                                        </div>
+                                                        <div>
+                                                            <span class="class-detail-label">Estado</span>
+                                                            <p class="mb-0">
+                                                                @if ($classDate->gt($today))
+                                                                    <span class="badge bg-success px-3 py-2">Proxima</span>
+                                                                @elseif ($classDate->eq($today))
+                                                                    <span class="badge bg-warning text-dark px-3 py-2">Hoy</span>
+                                                                @else
+                                                                    <span class="badge bg-secondary px-3 py-2">Ya realizada</span>
+                                                                @endif
+                                                            </p>
+                                                        </div>
+                                                    </div>
+
+                                                    @if ($canCancel)
+                                                        <button
+                                                            class="btn btn-outline-danger w-100 reserve-card-btn cancel-btn mt-3"
+                                                            type="button"
+                                                            onclick="cancelReservation({{ $class->id }})">
+                                                            Desapuntarme de esta clase
+                                                        </button>
+                                                    @else
+                                                        <p class="small text-muted mb-0 mt-3">
+                                                            Esta clase ya ha empezado o ha finalizado.
+                                                        </p>
+                                                    @endif
+                                                </div>
+                                            </td>
                                         </tr>
                                     @endforeach
+
+                                    @if ($reservedClasses->isEmpty())
+                                        <tr>
+                                            <td colspan="3" class="px-3 py-4 text-center text-muted">
+                                                No tienes clases reservadas ahora mismo.
+                                            </td>
+                                        </tr>
+                                    @endif
                                 </tbody>
                             </table>
                         </div>
@@ -107,7 +223,7 @@
                     @php
                         $counter = 0;
                     @endphp
-                    @foreach ($classes as $class)
+                    @forelse ($classes as $class)
                         <div class="col p-2">
                             <div class="card rounded-4 class-card green">
                                 <div class="card-body">
@@ -125,9 +241,16 @@
                                     </p>
 
                                     <div class="class-meta mt-3">
+                                        <div class="d-flex align-items-center justify-content-between mb-2 class-meta-row">
+                                            <div class="d-flex align-items-center">
+                                                <i class="fa-regular fa-calendar me-2"></i>
+                                                <span>{{ $class->date }}</span>
+                                            </div>
+                                            <span class="class-slots">{{ $class->available_slots }} plazas</span>
+                                        </div>
                                         <div class="d-flex align-items-center mb-2">
                                             <i class="fa-regular fa-calendar me-2"></i>
-                                            <span>{{ $class->date }}</span>
+                                            <span>{{ $class->name }}</span>
                                         </div>
                                         <div class="d-flex align-items-center">
                                             <i class="fa-regular fa-clock me-2"></i>
@@ -137,16 +260,17 @@
 
                                     <hr class="my-3">
 
-                                    <div class="d-flex justify-content-between align-items-center">
+                                    <div class="d-flex justify-content-between align-items-center class-card-footer">
                                         <div class="d-flex align-items-center">
                                             <div class="avatar-placeholder"></div>
                                             <span class="ms-2 opacity-75">
-                                                {{ $class->name }}
+                                                Grupo practico
                                             </span>
                                         </div>
 
                                         <button
                                             class="btn bg-green-btn text-white reserve-card-btn"
+                                            type="button"
                                             onclick="reservesClass({{ $class->id }})">
                                             Reservar
                                         </button>
@@ -155,7 +279,16 @@
                                 </div>
                             </div>
                         </div>
-                    @endforeach
+                    @empty
+                        <div class="col-12 p-2">
+                            <div class="card rounded-4 class-card empty-state-card">
+                                <div class="card-body text-center py-5">
+                                    <h5 class="mb-2">No hay clases disponibles con esos filtros</h5>
+                                    <p class="mb-0 opacity-75">Prueba a limpiar filtros o vuelve mas tarde.</p>
+                                </div>
+                            </div>
+                        </div>
+                    @endforelse
                 </div>
             </section>
         </article>
@@ -228,6 +361,6 @@
 
     @include("partials.footer")
     @include("partials.scripts")
-    <script src="/resources/js/classes.js"></script>
+    <script src="{{ asset('resources/js/classes.js') }}"></script>
 </body>
 </html>

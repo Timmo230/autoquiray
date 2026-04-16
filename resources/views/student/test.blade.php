@@ -15,7 +15,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Tests Online</title>
     @include("partials.links")
-    <link rel="stylesheet" href="/resources/css/tests.css">
+    <link rel="stylesheet" href="{{ asset('resources/css/tests.css') }}">
 </head>
 <body class="bg-main">
     @include("partials.nav", ['uri' => $uri])
@@ -66,7 +66,7 @@
                     <div class="card test-card rounded-4 p-4 h-100 border-0 {{ $statusClass }}">
                         <div class="d-flex justify-content-between align-items-start">
                             <div class="d-flex align-items-center gap-3">
-                                <img src="/resources/img/tests/{{ $iconos[$categoria] }}.png"
+                                <img src="{{ asset('resources/img/tests/' . $iconos[$categoria] . '.png') }}"
                                      alt="Icono {{ $categoria }}"
                                      class="rounded-4 test-img">
 
@@ -94,7 +94,8 @@
                                 </small>
 
                                 <a href="{{ route('student.complete_test', ['id'=> $test->id]) }}"
-                                   class="btn btn-green-aq btngreenLight rounded-3 px-4 text-white btn-t">
+                                   class="btn btn-green-aq btngreenLight rounded-3 px-4 text-white btn-t"
+                                   data-plausible-event="test_launch_clicked">
                                     Empezar
                                 </a>
                             </div>

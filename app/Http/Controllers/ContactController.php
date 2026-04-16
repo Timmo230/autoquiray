@@ -37,7 +37,11 @@ class ContactController extends Controller
                 'updated_at' => now()
             ]);
 
-            return redirect('/contacto')->with('success', '¡Mensaje enviado con éxito!');
+            return redirect('/contacto')
+                ->with('success', '¡Mensaje enviado con éxito!')
+                ->with('plausible_events', [
+                    ['name' => 'contact_message_sent', 'props' => ['subject' => $affair]]
+                ]);
         }
 
         return redirect('/')->with('error', 'Error al subir la pregunta');

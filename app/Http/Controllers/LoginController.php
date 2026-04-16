@@ -25,7 +25,13 @@ class LoginController extends Controller
             ->where('email', $request->email)
             ->first();
 
-        if (!$user) return back()->withErrors(['email' => 'El tipo de usuario no coincide con esta cuenta.']);
+        if (!$user) {
+            return back()
+                ->withErrors(['email' => 'El tipo de usuario no coincide con esta cuenta.'])
+                ->with('plausible_events', [
+                    ['name' => 'login_failed', 'props' => ['reason' => 'user_not_found', 'role' => $request->type]]
+                ]);
+        }
 
         if($user->password == null && $request->password == null){
             return view('auth.changePasswd', [
@@ -49,18 +55,34 @@ class LoginController extends Controller
     
             if (!$user) {
                 Auth::logout();
-                return back()->withErrors(['email' => 'El tipo de usuario no coincide con esta cuenta.']);
+                return back()
+                    ->withErrors(['email' => 'El tipo de usuario no coincide con esta cuenta.'])
+                    ->with('plausible_events', [
+                        ['name' => 'login_failed', 'props' => ['reason' => 'role_mismatch', 'role' => $request->type]]
+                    ]);
             }
             
             return match($user->type){
-                'administrator' => redirect()->route('admin.dashboard'),
-                'teacher' => redirect()->route('teacher.dashboard'),
-                'student' => redirect()->route('student.testType'),
-                default => redirect('/')
+                'administrator' => redirect()->route('admin.dashboard')->with('plausible_events', [
+                    ['name' => 'login_success', 'props' => ['role' => 'administrator']]
+                ]),
+                'teacher' => redirect()->route('teacher.dashboard')->with('plausible_events', [
+                    ['name' => 'login_success', 'props' => ['role' => 'teacher']]
+                ]),
+                'student' => redirect()->route('student.testType')->with('plausible_events', [
+                    ['name' => 'login_success', 'props' => ['role' => 'student']]
+                ]),
+                default => redirect('/')->with('plausible_events', [
+                    ['name' => 'login_success', 'props' => ['role' => 'unknown']]
+                ])
             };
         }
 
-        return back()->withErrors(['email' => 'Credenciales incorrectas.']);
+        return back()
+            ->withErrors(['email' => 'Credenciales incorrectas.'])
+            ->with('plausible_events', [
+                ['name' => 'login_failed', 'props' => ['reason' => 'invalid_credentials', 'role' => $request->type]]
+            ]);
     }
 
     public function logout(Request $request) 
@@ -68,7 +90,9 @@ class LoginController extends Controller
         Auth::logout();
         $request->session()->invalidate();
         $request->session()->regenerateToken();
-        return redirect('/');
+        return redirect('/')->with('plausible_events', [
+            ['name' => 'logout', 'props' => []]
+        ]);
     }
 
     public function changePassword(Request $request){

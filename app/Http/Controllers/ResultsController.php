@@ -83,7 +83,13 @@ class ResultsController extends Controller
                 ]);
             }
 
-            return response()->json(['success' => true]);
+            return response()->json([
+                'success' => true,
+                'note' => $note,
+                'max_note' => count($correctas),
+                'time' => $time,
+                'answered' => count(array_filter($respuestas))
+            ]);
 
         } catch (\Exception $e) {
             return response()->json(['error_general' => $e->getMessage()], 500);

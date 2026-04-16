@@ -9,7 +9,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>AUTOQUIRAY | Tu Autoescuela Digital</title>
     @include('partials.links')
-    <link rel="stylesheet" href="/resources/css/index.css">
+    <link rel="stylesheet" href="{{ asset('resources/css/index.css') }}">
 </head>
 <body class="bg-navbar">   
     @include('partials.nav', ['uri' => $uri])
@@ -42,13 +42,13 @@
             
             <div class="row justify-content-center text-center mt-5 g-3">
                 <div class="col-12 col-sm-6 col-md-auto">
-                    <a class="btn btn-green-btn rounded-pill px-5 py-3 text-light fs-5-5 fw-bold arriba w-sm-100 d-flex align-items-center justify-content-center" href="{{ url('/tipos_de_test') }}">
+                    <a class="btn btn-green-btn rounded-pill px-5 py-3 text-light fs-5-5 fw-bold arriba w-sm-100 d-flex align-items-center justify-content-center" href="{{ url('/tipos_de_test') }}" data-plausible-event="home_tests_cta_clicked">
                         <i class="fa-regular fa-file-lines me-2"></i>Acceder a mis tests
                     </a>
                 </div>
 
                 <div class="col-12 col-sm-6 col-md-auto">
-                    <a class="btn btn-outline-light rounded-pill px-5 py-3 fw-bold fs-5-5 arriba w-sm-100 d-flex align-items-center justify-content-center shadow-sm" id="iniciarSesion" href="{{ url('login') }}">
+                    <a class="btn btn-outline-light rounded-pill px-5 py-3 fw-bold fs-5-5 arriba w-sm-100 d-flex align-items-center justify-content-center shadow-sm" id="iniciarSesion" href="{{ url('login') }}" data-plausible-event="home_login_cta_clicked">
                         <i class="fa-solid fa-right-to-bracket me-2"></i>Iniciar Sesión
                     </a>
                 </div>

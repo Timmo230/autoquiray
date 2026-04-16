@@ -8,7 +8,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Resultados</title>
     @include("partials.links")
-    <link rel="stylesheet" href="/resources/css/results.css">
+    <link rel="stylesheet" href="{{ asset('resources/css/results.css') }}">
 </head>
 <body class="bg-main">
     @include("partials.nav", ['uri' => $uri])
@@ -72,12 +72,18 @@
 
     @include("partials.footer")
     @include("partials.scripts")
-    <script src="\resources\js\result.js"></script>
+    <script src="{{ asset('resources/js/result.js') }}"></script>
     <script>
         const successes = {{ $successes }};
         const max_note = {{ $max_note }};
         assignStyle(successes, max_note);
         time({{ $time }});
+        window.trackEvent('test_results_viewed', {
+            test_id: '{{ $testId }}',
+            score: '{{ $successes }}',
+            max_score: '{{ $max_note }}',
+            failed: '{{ $failed }}'
+        });
     </script>
 </body>
 </html>
