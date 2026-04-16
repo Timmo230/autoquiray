@@ -100,6 +100,8 @@
         </div>
     </main>
 
+    @include("partials.footer")
+    @include("partials.scripts")
     <script src="{{ asset('resources/js/test.js') }}"></script>
     <script>
         quizApp.init({{ $test->max_note }});
@@ -112,8 +114,5 @@
             quizApp.time(time_transcurred, max_time);
         }, 1000);
     </script>
-
-    @include("partials.footer")
-    @include("partials.scripts")
 </body>
 </html>

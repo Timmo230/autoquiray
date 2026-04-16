@@ -1,16 +1,23 @@
 const paramsDeLaUrl = new URLSearchParams(window.location.search);
 const idDetectado = paramsDeLaUrl.get('id');
+const safeTrackEvent = (name, props = {}) => {
+    if (typeof window.trackEvent === 'function') {
+        window.trackEvent(name, props);
+    }
+};
 
 const quizApp = {
     currentStep: 0,
     totalSteps: 0,
     userAnswers: {},
     testId: idDetectado,
+    elapsedTime: 0,
 
     init: function(total) {
         this.totalSteps = total;
         this.userAnswers = {};
-        window.trackEvent('test_started', { test_id: this.testId });
+        this.elapsedTime = 0;
+        safeTrackEvent('test_started', { test_id: this.testId });
     },
 
     changeStep: function(n) {
@@ -24,7 +31,7 @@ const quizApp = {
         const isFirstAnswer = !(qId in quizApp.userAnswers);
         quizApp.userAnswers[qId] = oId;
         if (isFirstAnswer) {
-            window.trackEvent('test_question_answered');
+            safeTrackEvent('test_question_answered');
         }
     },
 
@@ -46,28 +53,29 @@ const quizApp = {
             body: JSON.stringify({
                 responds: quizApp.userAnswers,
                 testId: this.testId,
-                time: time_transcurred
+                time: this.elapsedTime
             })
         });
         
         if(post.ok) {
             const data = await post.json();
-            window.trackEvent('test_completed', {
+            safeTrackEvent('test_completed', {
                 test_id: String(this.testId),
                 score: String(data.note),
                 max_score: String(data.max_note),
                 answered: String(data.answered),
-                duration_seconds: String(time_transcurred)
+                duration_seconds: String(this.elapsedTime)
             });
             window.location.href = `/resultados?id=${this.testId}`;
         }
         else {
-            window.trackEvent('test_submit_failed', { test_id: String(this.testId) });
+            safeTrackEvent('test_submit_failed', { test_id: String(this.testId) });
             alert('Error al guardar el test');
         }
     },
 
     time: function(seconds, totalSeconds){
+        this.elapsedTime = seconds;
         actualTime = totalSeconds - seconds;
         
         if(totalSeconds <= seconds){
