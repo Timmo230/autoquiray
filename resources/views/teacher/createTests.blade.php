@@ -10,7 +10,7 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>Autoquiray | Creador Pro</title>
     @include("partials.links")
-    <link rel="stylesheet" href="/resources/css/createTests.css">
+    <link rel="stylesheet" href="{{ asset('resources/css/createTests.css') }}">
 </head>
 <body>
     @include("partials.nav", ["uri" => $uri])
@@ -115,6 +115,6 @@
     @include("partials.footer")
     @include("partials.scripts")
 
-    <script src="\autoquiray\resources\js\createTests.js"></script>
+    <script src="{{ asset('resources/js/createTests.js') }}"></script>
 </body>
 </html>
