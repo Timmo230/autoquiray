@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Auth;
 
 // Rutas publicas
 Route::get('/', [HomeController::class, 'index'])->name('home');
+Route::view('/plausible-seed', 'debug.plausible-seed')->name('debug.plausible-seed');
 
 // Rutas de autenticacion
 Route::get('/login', [LoginController::class, 'showLoginForm'])->name('login');
