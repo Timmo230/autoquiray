@@ -3,9 +3,43 @@
         ->join('types as t', 'uat.type_id', '=', 't.id')
         ->where('uat.user_id', auth()->id())
         ->value('t.type');
-    $studentThreadCount = auth()->check() && $type == 'student'
-        ? DB::table('student_questions')->where('student_id', auth()->id())->count()
-        : 0;
+
+    $studentThreads = collect();
+    $studentThreadCount = 0;
+
+    if (auth()->check() && $type == 'student') {
+        $studentQuestions = DB::table('student_questions')
+            ->where('student_id', auth()->id())
+            ->orderByDesc('date_sent')
+            ->select('id', 'affair', 'menssage', 'date_sent')
+            ->get();
+
+        $studentAnswers = $studentQuestions->isNotEmpty()
+            ? DB::table('answers as a')
+                ->leftJoin('teachers as t', 't.employees_id', '=', 'a.teacher_id')
+                ->leftJoin('employees as e', 'e.user_id', '=', 't.employees_id')
+                ->leftJoin('users as u', 'u.id', '=', 'e.user_id')
+                ->whereIn('a.question_id', $studentQuestions->pluck('id'))
+                ->orderBy('a.date_sent')
+                ->select(
+                    'a.id',
+                    'a.question_id',
+                    'a.menssage',
+                    'a.date_sent',
+                    DB::raw("COALESCE(u.name, 'Profesor') as teacher_name")
+                )
+                ->get()
+                ->groupBy('question_id')
+            : collect();
+
+        $studentThreads = $studentQuestions->map(function ($question) use ($studentAnswers) {
+            $question->answers = $studentAnswers->get($question->id, collect());
+            $question->answers_count = $question->answers->count();
+            return $question;
+        });
+
+        $studentThreadCount = $studentThreads->count();
+    }
 @endphp
 
 <footer class="pt-5 px-2">
@@ -38,10 +72,6 @@
                             <li class="nav-item">
                                 <a class="nav-link {{ $uri == 'contacto' ? 'text-green-btn' : ''}}" 
                                 href="{{ route('student.contacto') }}">Contactos</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link {{ $uri == 'mensajes' ? 'text-green-btn' : ''}}"
-                                href="{{ route('student.messages') }}">Mensajes</a>
                             </li>
                         @elseif($type == 'teacher')
                             <li class="nav-item">
@@ -119,14 +149,74 @@
 </footer>
 
 @if(auth()->check() && $type == 'student')
-    <a href="{{ route('student.messages') }}"
-       class="student-message-fab {{ $uri == 'mensajes' ? 'student-message-fab-active' : '' }}"
-       aria-label="Abrir mensajes">
+    <button type="button"
+       class="student-message-fab"
+       aria-label="Abrir mensajes"
+       data-bs-toggle="offcanvas"
+       data-bs-target="#studentMessagesPanel"
+       aria-controls="studentMessagesPanel">
         <i class="fa-solid fa-comments"></i>
         @if($studentThreadCount > 0)
             <span class="student-message-fab-count">{{ $studentThreadCount }}</span>
         @endif
-    </a>
+    </button>
+
+    <div class="offcanvas offcanvas-end student-messages-offcanvas" tabindex="-1" id="studentMessagesPanel" aria-labelledby="studentMessagesPanelLabel">
+        <div class="offcanvas-header border-bottom border-secondary border-opacity-10">
+            <div>
+                <h5 class="offcanvas-title text-white mb-1" id="studentMessagesPanelLabel">Mis mensajes</h5>
+                <p class="mb-0 text-secondary small">Historial de consultas y respuestas de profesores</p>
+            </div>
+            <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+        </div>
+
+        <div class="offcanvas-body">
+            @forelse($studentThreads as $thread)
+                <article class="student-thread-card">
+                    <div class="student-thread-head">
+                        <div>
+                            <p class="student-thread-affair mb-1">{{ ucfirst($thread->affair) }}</p>
+                            <p class="student-thread-date mb-0">{{ \Carbon\Carbon::parse($thread->date_sent)->format('d/m/Y H:i') }}</p>
+                        </div>
+
+                        @if($thread->answers_count > 0)
+                            <span class="student-thread-status student-thread-status-answered">
+                                {{ $thread->answers_count }} respuesta{{ $thread->answers_count > 1 ? 's' : '' }}
+                            </span>
+                        @else
+                            <span class="student-thread-status student-thread-status-pending">
+                                Pendiente
+                            </span>
+                        @endif
+                    </div>
+
+                    <div class="student-thread-bubble student-thread-bubble-student">
+                        <div class="student-thread-meta">
+                            <strong>Tu mensaje</strong>
+                            <span>{{ \Carbon\Carbon::parse($thread->date_sent)->diffForHumans() }}</span>
+                        </div>
+                        <p class="mb-0">{{ $thread->menssage }}</p>
+                    </div>
+
+                    @foreach($thread->answers as $answer)
+                        <div class="student-thread-bubble student-thread-bubble-teacher">
+                            <div class="student-thread-meta">
+                                <strong>{{ $answer->teacher_name }}</strong>
+                                <span>{{ \Carbon\Carbon::parse($answer->date_sent)->format('d/m/Y H:i') }}</span>
+                            </div>
+                            <p class="mb-0">{{ $answer->menssage }}</p>
+                        </div>
+                    @endforeach
+                </article>
+            @empty
+                <div class="student-thread-empty">
+                    <i class="fa-regular fa-paper-plane fs-1 text-secondary mb-3"></i>
+                    <h6 class="text-white mb-2">Todavia no has enviado mensajes</h6>
+                    <p class="text-secondary mb-0">Cuando escribas a soporte, aqui podras leer todo el historial sin salir de la pagina.</p>
+                </div>
+            @endforelse
+        </div>
+    </div>
 
     <style>
         .student-message-fab {
@@ -141,7 +231,7 @@
             justify-content: center;
             background: linear-gradient(135deg, #16a34a, #22c55e);
             color: #fff;
-            text-decoration: none;
+            border: 0;
             box-shadow: 0 14px 35px rgba(0, 0, 0, 0.35);
             z-index: 1050;
             font-size: 1.35rem;
@@ -150,10 +240,6 @@
         .student-message-fab:hover {
             color: #fff;
             transform: translateY(-2px);
-        }
-
-        .student-message-fab-active {
-            background: linear-gradient(135deg, #0f766e, #14b8a6);
         }
 
         .student-message-fab-count {
@@ -174,12 +260,101 @@
             border: 2px solid #0f172a;
         }
 
+        .student-messages-offcanvas {
+            background: #0f172a;
+            color: #e2e8f0;
+            width: min(440px, 100vw);
+        }
+
+        .student-thread-card {
+            background: rgba(30, 41, 59, 0.95);
+            border: 1px solid rgba(255,255,255,0.08);
+            border-radius: 22px;
+            padding: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .student-thread-head,
+        .student-thread-meta {
+            display: flex;
+            justify-content: space-between;
+            gap: 0.75rem;
+            align-items: flex-start;
+        }
+
+        .student-thread-head {
+            margin-bottom: 0.9rem;
+        }
+
+        .student-thread-affair {
+            color: #fff;
+            font-weight: 700;
+        }
+
+        .student-thread-date,
+        .student-thread-meta span {
+            color: #94a3b8;
+            font-size: 0.82rem;
+        }
+
+        .student-thread-status {
+            display: inline-flex;
+            align-items: center;
+            padding: 0.35rem 0.7rem;
+            border-radius: 999px;
+            font-size: 0.8rem;
+            font-weight: 700;
+        }
+
+        .student-thread-status-answered {
+            background: rgba(34, 197, 94, 0.16);
+            color: #86efac;
+        }
+
+        .student-thread-status-pending {
+            background: rgba(249, 115, 22, 0.15);
+            color: #fdba74;
+        }
+
+        .student-thread-bubble {
+            border-radius: 18px;
+            padding: 0.9rem 1rem;
+            margin-top: 0.75rem;
+        }
+
+        .student-thread-bubble-student {
+            background: rgba(15, 23, 42, 0.95);
+            border: 1px solid rgba(96, 165, 250, 0.18);
+        }
+
+        .student-thread-bubble-teacher {
+            background: rgba(20, 83, 45, 0.28);
+            border: 1px solid rgba(34, 197, 94, 0.18);
+        }
+
+        .student-thread-empty {
+            min-height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 1.5rem;
+            border: 1px dashed rgba(255,255,255,0.14);
+            border-radius: 24px;
+        }
+
         @media (max-width: 768px) {
             .student-message-fab {
                 right: 0.9rem;
                 bottom: 0.95rem;
                 width: 58px;
                 height: 58px;
+            }
+
+            .student-thread-head,
+            .student-thread-meta {
+                flex-direction: column;
             }
         }
     </style>

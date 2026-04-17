@@ -30,12 +30,4 @@
             <i class="fa-solid fa-headset me-1 small opacity-75"></i> Soporte
         </a>
     </li>
-
-    <li class="nav-item mx-1">
-        <a class="nav-link px-3 fw-medium {{ $uri == 'mensajes' ? 'active' : '' }}"
-           href="{{ route('student.messages') }}"
-           id="{{ $uri == 'mensajes' ? 'actualPg' : '' }}">
-            <i class="fa-solid fa-envelope-open-text me-1 small opacity-75"></i> Mensajes
-        </a>
-    </li>
 </ul>
