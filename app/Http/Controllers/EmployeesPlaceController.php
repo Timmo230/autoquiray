@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Str;
 
 use App\Services\EmployeesPlaceService as service;
 
@@ -36,9 +38,90 @@ class EmployeesPlaceController extends Controller
         })
         ->toArray();
 
+        $studentQuestions = DB::table('student_questions as sq')
+            ->join('users as student_u', 'student_u.id', '=', 'sq.student_id')
+            ->leftJoin('answers as a', 'a.question_id', '=', 'sq.id')
+            ->when($search, function ($q) use ($search) {
+                $q->where(function ($nested) use ($search) {
+                    $nested->where('student_u.name', 'LIKE', "%{$search}%")
+                        ->orWhere('student_u.email', 'LIKE', "%{$search}%")
+                        ->orWhere('sq.affair', 'LIKE', "%{$search}%");
+                });
+            })
+            ->select(
+                'sq.id',
+                'sq.affair',
+                'sq.menssage',
+                'sq.date_sent',
+                'student_u.id as student_id',
+                'student_u.name as student_name',
+                'student_u.email as student_email',
+                DB::raw('COUNT(a.id) as answers_count'),
+                DB::raw('COUNT(DISTINCT a.teacher_id) as teachers_count'),
+                DB::raw('MAX(a.date_sent) as last_answer_at')
+            )
+            ->groupBy(
+                'sq.id',
+                'sq.affair',
+                'sq.menssage',
+                'sq.date_sent',
+                'student_u.id',
+                'student_u.name',
+                'student_u.email'
+            )
+            ->orderByDesc('sq.date_sent')
+            ->limit(20)
+            ->get();
+
+        $answersByQuestion = $studentQuestions->isNotEmpty()
+            ? DB::table('answers as a')
+                ->leftJoin('teachers as t', 't.employees_id', '=', 'a.teacher_id')
+                ->leftJoin('users as teacher_u', 'teacher_u.id', '=', 't.employees_id')
+                ->whereIn('a.question_id', $studentQuestions->pluck('id'))
+                ->orderBy('a.date_sent')
+                ->select(
+                    'a.id',
+                    'a.question_id',
+                    'a.menssage',
+                    'a.date_sent',
+                    'a.teacher_id',
+                    DB::raw("COALESCE(teacher_u.name, 'Profesor') as teacher_name")
+                )
+                ->get()
+                ->groupBy('question_id')
+            : collect();
+
+        $questions = $studentQuestions->map(function ($question) use ($answersByQuestion) {
+            $question->answers = $answersByQuestion->get($question->id, collect())->values();
+            return $question;
+        });
+
         return view('teacher.dashboard', [
             'alumnos' => $alumnos,
+            'questions' => $questions,
         ]);
+    }
+
+    public function answerStudentQuestion(Request $request)
+    {
+        $request->validate([
+            'question_id' => 'required|string|exists:student_questions,id',
+            'menssage' => 'required|string|max:512',
+        ]);
+
+        DB::table('answers')->insert([
+            'id' => (string) Str::uuid(),
+            'teacher_id' => Auth::id(),
+            'question_id' => $request->input('question_id'),
+            'menssage' => trim($request->input('menssage')),
+            'date_sent' => now(),
+            'created_at' => now(),
+            'updated_at' => now(),
+        ]);
+
+        return redirect()
+            ->route('teacher.dashboard')
+            ->with('success', 'Respuesta enviada correctamente.');
     }
 
     public function getTeachers(Request $request){

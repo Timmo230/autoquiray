@@ -31,6 +31,7 @@ Route::middleware(['role:student'])->group(function () {
 
 Route::middleware(['role:teacher'])->group(function() {
     Route::get('/teacher/dashboard', [EmployeesPlaceController::class, 'getstudents'])->name('teacher.dashboard');
+    Route::post('/teacher/questions/answer', [EmployeesPlaceController::class, 'answerStudentQuestion'])->name('teacher.questions.answer');
     Route::get('/crear_tests', fn() => view('teacher.createTests'))->name('teacher.createTests');
     Route::post('/crear_tests', [CrearTestsController::class, 'crear_tests'])->name('teacher.createTests');
 

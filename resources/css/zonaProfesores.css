@@ -88,3 +88,451 @@ body {
 }
 
 .text-green-accent { color: var(--accent); }
+
+.teacher-question-legend {
+    display: flex;
+    align-items: center;
+    gap: .75rem;
+}
+
+.teacher-question-legend-pill,
+.teacher-question-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: .45rem;
+    padding: .5rem .85rem;
+    border-radius: 999px;
+    border: 1px solid rgba(255,255,255,.08);
+    background: rgba(15, 23, 42, 0.9);
+    color: #cbd5e1;
+    font-size: .84rem;
+    font-weight: 700;
+}
+
+.teacher-alert {
+    border-radius: 18px;
+    padding: .95rem 1.1rem;
+    border: 1px solid transparent;
+    font-weight: 600;
+}
+
+.teacher-alert-success {
+    background: rgba(34, 197, 94, .12);
+    border-color: rgba(34, 197, 94, .25);
+    color: #bbf7d0;
+}
+
+.teacher-alert-error {
+    background: rgba(239, 68, 68, .12);
+    border-color: rgba(239, 68, 68, .25);
+    color: #fecaca;
+}
+
+.teacher-questions-list {
+    display: grid;
+    gap: 1rem;
+}
+
+.teacher-question-item {
+    background: rgba(15, 23, 42, 0.88);
+    border: 1px solid rgba(255,255,255,.08);
+    border-radius: 24px;
+    padding: 1.1rem 1.2rem;
+    display: flex;
+    justify-content: space-between;
+    gap: 1.2rem;
+}
+
+.teacher-question-main {
+    min-width: 0;
+    flex: 1;
+}
+
+.teacher-question-topline,
+.teacher-question-student {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
+}
+
+.teacher-question-topline {
+    margin-bottom: .6rem;
+}
+
+.teacher-question-subject {
+    color: #f8fafc;
+    font-size: 1.02rem;
+    font-weight: 700;
+}
+
+.teacher-question-date,
+.teacher-question-student span,
+.teacher-question-preview {
+    color: var(--text-muted);
+}
+
+.teacher-question-student {
+    margin-bottom: .7rem;
+}
+
+.teacher-question-student strong {
+    color: #e2e8f0;
+    font-size: .95rem;
+}
+
+.teacher-question-preview {
+    line-height: 1.55;
+}
+
+.teacher-question-side {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: .9rem;
+    min-width: 220px;
+}
+
+.teacher-question-metrics {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+    gap: .5rem;
+}
+
+.teacher-question-open-btn,
+.teacher-reply-submit {
+    border: 0;
+    border-radius: 999px;
+    padding: .8rem 1.1rem;
+    font-weight: 700;
+    display: inline-flex;
+    align-items: center;
+    gap: .55rem;
+}
+
+.teacher-question-open-btn {
+    background: linear-gradient(135deg, #2563eb, #3b82f6);
+    color: #fff;
+}
+
+.teacher-reply-submit {
+    background: linear-gradient(135deg, #059669, #10b981);
+    color: #fff;
+}
+
+.teacher-empty-state {
+    background: rgba(15, 23, 42, 0.7);
+    border: 1px dashed rgba(255,255,255,.12);
+    border-radius: 22px;
+    padding: 2rem 1.4rem;
+    text-align: center;
+    color: var(--text-muted);
+}
+
+.teacher-question-modal-content {
+    background: linear-gradient(180deg, rgba(15, 23, 42, 0.98), rgba(15, 23, 42, 0.95));
+    border: 1px solid rgba(255,255,255,.08);
+    border-radius: 24px;
+}
+
+.teacher-question-modal-head {
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+    align-items: flex-start;
+}
+
+.teacher-question-modal-stats {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+    gap: .5rem;
+}
+
+.teacher-reply-form {
+    background: rgba(15, 23, 42, 0.9);
+    border: 1px solid rgba(255,255,255,.08);
+    border-radius: 22px;
+    padding: 1.2rem;
+}
+
+.teacher-reply-label {
+    display: inline-block;
+    margin-bottom: .75rem;
+    color: #e2e8f0;
+    font-weight: 700;
+}
+
+.teacher-reply-textarea {
+    background: rgba(2, 6, 23, 0.88) !important;
+    border: 1px solid rgba(255,255,255,.12) !important;
+    color: #f8fafc !important;
+    border-radius: 18px !important;
+    resize: vertical;
+}
+
+.teacher-reply-textarea:focus {
+    box-shadow: 0 0 0 .25rem rgba(16, 185, 129, 0.18) !important;
+    border-color: rgba(16, 185, 129, 0.45) !important;
+}
+
+.teacher-no-answer-state {
+    display: inline-flex;
+    align-items: center;
+    gap: .6rem;
+    background: rgba(249, 115, 22, .12);
+    border: 1px dashed rgba(249, 115, 22, .3);
+    color: #fdba74;
+    border-radius: 18px;
+    padding: .9rem 1rem;
+}
+
+.details-modal-dark .details-modal-content {
+    background: linear-gradient(180deg, rgba(15, 23, 42, 0.98), rgba(15, 23, 42, 0.95));
+    border: 1px solid rgba(255,255,255,.08);
+    border-radius: 24px;
+    overflow: hidden;
+    box-shadow: 0 30px 90px rgba(0, 0, 0, 0.55);
+}
+
+.details-modal-dark .details-modal-header {
+    background: transparent;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.07);
+    padding: 1.4rem 1.6rem;
+}
+
+.details-modal-dark .details-modal-title {
+    color: #f8fafc;
+    font-weight: 700;
+    margin-bottom: .2rem;
+}
+
+.details-modal-dark .details-modal-subtitle {
+    color: #94a3b8;
+    font-size: .95rem;
+}
+
+.details-modal-dark .details-modal-close {
+    filter: invert(1);
+    opacity: .75;
+}
+
+.details-modal-dark .details-modal-body {
+    background:
+        radial-gradient(circle at top left, rgba(59,130,246,.08), transparent 28%),
+        radial-gradient(circle at bottom right, rgba(16,185,129,.05), transparent 30%),
+        transparent;
+    padding: 1.5rem;
+}
+
+.details-modal-dark .details-modal-footer {
+    background: transparent;
+    border-top: 1px solid rgba(255, 255, 255, 0.07);
+    padding: 1rem 1.6rem 1.4rem;
+}
+
+.details-modal-dark .details-close-btn {
+    background: transparent;
+    color: #cbd5e1;
+    border: 1px solid rgba(255,255,255,.18);
+    border-radius: 999px;
+    padding: .7rem 1.6rem;
+    transition: .2s ease;
+}
+
+.details-modal-dark .details-close-btn:hover {
+    background: rgba(255,255,255,.07);
+    color: #fff;
+    border-color: rgba(255,255,255,.28);
+}
+
+.details-modal-dark .details-card {
+    background: rgba(15, 23, 42, 0.88);
+    border: 1px solid rgba(255,255,255,.08);
+    border-radius: 24px;
+    box-shadow: 0 16px 45px rgba(0,0,0,.35);
+    overflow: hidden;
+}
+
+.details-modal-dark .details-card-header {
+    padding: 1.6rem 1.8rem 1.3rem;
+    border-bottom: 1px solid rgba(255,255,255,.07);
+    background: linear-gradient(180deg, rgba(255,255,255,.02), rgba(255,255,255,0));
+}
+
+.details-modal-dark .details-badge {
+    display: inline-block;
+    background: rgba(37, 99, 235, .18);
+    color: #60a5fa;
+    border: 1px solid rgba(59,130,246,.28);
+    border-radius: 999px;
+    padding: .35rem .8rem;
+    font-size: .85rem;
+    font-weight: 700;
+    margin-bottom: .95rem;
+}
+
+.details-modal-dark .details-subject {
+    color: #f8fafc;
+    font-weight: 700;
+}
+
+.details-modal-dark .details-conversation-label {
+    color: #94a3b8;
+    font-size: .96rem;
+}
+
+.details-modal-dark .details-chat-wrapper {
+    background: rgba(255,255,255,.015);
+    padding: 1.7rem;
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+}
+
+.details-modal-dark .details-message-row {
+    display: flex;
+    width: 100%;
+}
+
+.details-modal-dark .details-message-row-left {
+    justify-content: flex-start;
+}
+
+.details-modal-dark .details-message-row-right {
+    justify-content: flex-end;
+}
+
+.details-modal-dark .details-message-block {
+    width: 100%;
+    max-width: 82%;
+}
+
+.details-modal-dark .details-user-header {
+    display: flex;
+    align-items: center;
+    gap: .8rem;
+    margin-bottom: .8rem;
+}
+
+.details-modal-dark .details-user-header-right {
+    justify-content: flex-end;
+}
+
+.details-modal-dark .details-user-info-right {
+    text-align: right;
+}
+
+.details-modal-dark .details-avatar {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 800;
+    font-size: 1.25rem;
+    color: #fff;
+    flex-shrink: 0;
+    box-shadow: 0 8px 20px rgba(0,0,0,.25);
+}
+
+.details-modal-dark .details-avatar-student {
+    background: linear-gradient(135deg, #2563eb, #3b82f6);
+}
+
+.details-modal-dark .details-avatar-teacher {
+    background: linear-gradient(135deg, #111827, #1f2937);
+    border: 1px solid rgba(255,255,255,.08);
+}
+
+.details-modal-dark .details-user-name {
+    color: #f8fafc;
+    font-size: 1.05rem;
+    font-weight: 700;
+    line-height: 1.1;
+}
+
+.details-modal-dark .details-user-date {
+    color: #94a3b8;
+    font-size: .93rem;
+    margin-top: .15rem;
+}
+
+.details-modal-dark .details-bubble {
+    border-radius: 22px;
+    padding: 1.15rem 1.25rem;
+    box-shadow: 0 10px 25px rgba(0,0,0,.18);
+}
+
+.details-modal-dark .details-bubble-student {
+    background: #111827;
+    border: 1px solid rgba(255,255,255,.08);
+    color: #e5e7eb;
+}
+
+.details-modal-dark .details-bubble-teacher {
+    background: linear-gradient(180deg, rgba(37,99,235,.22), rgba(37,99,235,.15));
+    border: 1px solid rgba(96,165,250,.22);
+    color: #e5e7eb;
+}
+
+.details-modal-dark .details-bubble-label {
+    color: #cbd5e1;
+    text-transform: uppercase;
+    letter-spacing: .04em;
+    font-size: .86rem;
+    font-weight: 700;
+    margin-bottom: .85rem;
+    opacity: .88;
+}
+
+.details-modal-dark .details-bubble p {
+    color: #e5e7eb;
+    font-size: 1.02rem;
+    line-height: 1.6;
+}
+
+@media (max-width: 991.98px) {
+    .teacher-question-item,
+    .teacher-question-topline,
+    .teacher-question-student,
+    .teacher-question-modal-head {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .teacher-question-side,
+    .teacher-question-metrics,
+    .teacher-question-modal-stats {
+        width: 100%;
+        justify-content: flex-start;
+        align-items: flex-start;
+    }
+
+    .teacher-question-side {
+        min-width: 0;
+    }
+}
+
+@media (max-width: 767.98px) {
+    .teacher-question-item {
+        padding: 1rem;
+    }
+
+    .details-modal-dark .details-message-block {
+        max-width: 100%;
+    }
+
+    .details-modal-dark .details-chat-wrapper {
+        padding: 1rem;
+        gap: 1.25rem;
+    }
+
+    .details-modal-dark .details-card-header,
+    .teacher-reply-form {
+        padding: 1rem;
+    }
+}
