@@ -151,9 +151,9 @@
 @if(auth()->check() && $type == 'student')
     <button type="button"
        class="student-message-fab"
+       id="studentMessagesToggle"
        aria-label="Abrir mensajes"
-       data-bs-toggle="offcanvas"
-       data-bs-target="#studentMessagesPanel"
+       aria-expanded="false"
        aria-controls="studentMessagesPanel">
         <i class="fa-solid fa-comments"></i>
         @if($studentThreadCount > 0)
@@ -161,16 +161,16 @@
         @endif
     </button>
 
-    <div class="offcanvas offcanvas-end student-messages-offcanvas" tabindex="-1" id="studentMessagesPanel" aria-labelledby="studentMessagesPanelLabel">
-        <div class="offcanvas-header border-bottom border-secondary border-opacity-10">
+    <aside class="student-messages-panel" id="studentMessagesPanel" aria-labelledby="studentMessagesPanelLabel" aria-hidden="true">
+        <div class="student-messages-panel-head border-bottom border-secondary border-opacity-10">
             <div>
-                <h5 class="offcanvas-title text-white mb-1" id="studentMessagesPanelLabel">Mis mensajes</h5>
+                <h5 class="text-white mb-1" id="studentMessagesPanelLabel">Mis mensajes</h5>
                 <p class="mb-0 text-secondary small">Historial de consultas y respuestas de profesores</p>
             </div>
-            <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+            <button type="button" class="btn-close btn-close-white student-messages-close" id="studentMessagesClose" aria-label="Cerrar mensajes"></button>
         </div>
 
-        <div class="offcanvas-body">
+        <div class="student-messages-panel-body">
             @forelse($studentThreads as $thread)
                 <article class="student-thread-card">
                     <div class="student-thread-head">
@@ -216,7 +216,7 @@
                 </div>
             @endforelse
         </div>
-    </div>
+    </aside>
 
     <style>
         .student-message-fab {
@@ -260,10 +260,44 @@
             border: 2px solid #0f172a;
         }
 
-        .student-messages-offcanvas {
+        .student-messages-panel {
+            position: fixed;
+            right: 1.1rem;
+            bottom: 5.9rem;
             background: #0f172a;
             color: #e2e8f0;
-            width: min(440px, 100vw);
+            width: min(440px, calc(100vw - 1.6rem));
+            max-height: min(72vh, 760px);
+            border: 1px solid rgba(255,255,255,0.08);
+            border-radius: 26px;
+            box-shadow: 0 22px 65px rgba(2, 8, 23, 0.45);
+            z-index: 1049;
+            overflow: hidden;
+            opacity: 0;
+            pointer-events: none;
+            transform: translateY(18px) scale(0.98);
+            transform-origin: bottom right;
+            transition: opacity 0.18s ease, transform 0.18s ease;
+        }
+
+        .student-messages-panel.is-open {
+            opacity: 1;
+            pointer-events: auto;
+            transform: translateY(0) scale(1);
+        }
+
+        .student-messages-panel-head {
+            padding: 1rem 1rem 0.9rem;
+            display: flex;
+            justify-content: space-between;
+            gap: 1rem;
+            align-items: flex-start;
+        }
+
+        .student-messages-panel-body {
+            padding: 0 1rem 1rem;
+            overflow-y: auto;
+            max-height: calc(min(72vh, 760px) - 85px);
         }
 
         .student-thread-card {
@@ -344,6 +378,10 @@
             border-radius: 24px;
         }
 
+        .student-message-fab.is-active {
+            background: linear-gradient(135deg, #15803d, #16a34a);
+        }
+
         @media (max-width: 768px) {
             .student-message-fab {
                 right: 0.9rem;
@@ -352,10 +390,68 @@
                 height: 58px;
             }
 
+            .student-messages-panel {
+                right: 0.75rem;
+                left: 0.75rem;
+                bottom: 5.3rem;
+                width: auto;
+                max-height: min(70vh, 640px);
+                border-radius: 24px 24px 18px 18px;
+            }
+
+            .student-messages-panel-body {
+                max-height: calc(min(70vh, 640px) - 85px);
+            }
+
             .student-thread-head,
             .student-thread-meta {
                 flex-direction: column;
             }
         }
     </style>
+
+    <script>
+        (() => {
+            const toggleButton = document.getElementById('studentMessagesToggle');
+            const closeButton = document.getElementById('studentMessagesClose');
+            const panel = document.getElementById('studentMessagesPanel');
+
+            if (!toggleButton || !closeButton || !panel) {
+                return;
+            }
+
+            const setPanelState = (isOpen) => {
+                panel.classList.toggle('is-open', isOpen);
+                toggleButton.classList.toggle('is-active', isOpen);
+                toggleButton.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+                panel.setAttribute('aria-hidden', isOpen ? 'false' : 'true');
+            };
+
+            toggleButton.addEventListener('click', () => {
+                setPanelState(!panel.classList.contains('is-open'));
+            });
+
+            closeButton.addEventListener('click', () => {
+                setPanelState(false);
+            });
+
+            document.addEventListener('keydown', (event) => {
+                if (event.key === 'Escape') {
+                    setPanelState(false);
+                }
+            });
+
+            document.addEventListener('click', (event) => {
+                if (!panel.classList.contains('is-open')) {
+                    return;
+                }
+
+                if (panel.contains(event.target) || toggleButton.contains(event.target)) {
+                    return;
+                }
+
+                setPanelState(false);
+            });
+        })();
+    </script>
 @endif
