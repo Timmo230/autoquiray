@@ -57,7 +57,12 @@
                 </div>
 
                 <div class="mb-4 form-check">
-                    <input type="checkbox" class="form-check-input" id="check">
+                    <input type="checkbox"
+                           class="form-check-input"
+                           id="check"
+                           name="remember"
+                           value="1"
+                           {{ old('remember') ? 'checked' : '' }}>
                     <label class="form-check-label text-secondary small" for="check">Recordarme en este equipo</label>
                 </div>
 
