@@ -3,6 +3,9 @@
         ->join('types as t', 'uat.type_id', '=', 't.id')
         ->where('uat.user_id', auth()->id())
         ->value('t.type');
+    $studentThreadCount = auth()->check() && $type == 'student'
+        ? DB::table('student_questions')->where('student_id', auth()->id())->count()
+        : 0;
 @endphp
 
 <footer class="pt-5 px-2">
@@ -35,6 +38,10 @@
                             <li class="nav-item">
                                 <a class="nav-link {{ $uri == 'contacto' ? 'text-green-btn' : ''}}" 
                                 href="{{ route('student.contacto') }}">Contactos</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link {{ $uri == 'mensajes' ? 'text-green-btn' : ''}}"
+                                href="{{ route('student.messages') }}">Mensajes</a>
                             </li>
                         @elseif($type == 'teacher')
                             <li class="nav-item">
@@ -110,3 +117,70 @@
         </div>
     </div>
 </footer>
+
+@if(auth()->check() && $type == 'student')
+    <a href="{{ route('student.messages') }}"
+       class="student-message-fab {{ $uri == 'mensajes' ? 'student-message-fab-active' : '' }}"
+       aria-label="Abrir mensajes">
+        <i class="fa-solid fa-comments"></i>
+        @if($studentThreadCount > 0)
+            <span class="student-message-fab-count">{{ $studentThreadCount }}</span>
+        @endif
+    </a>
+
+    <style>
+        .student-message-fab {
+            position: fixed;
+            right: 1.1rem;
+            bottom: 1.35rem;
+            width: 62px;
+            height: 62px;
+            border-radius: 50%;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, #16a34a, #22c55e);
+            color: #fff;
+            text-decoration: none;
+            box-shadow: 0 14px 35px rgba(0, 0, 0, 0.35);
+            z-index: 1050;
+            font-size: 1.35rem;
+        }
+
+        .student-message-fab:hover {
+            color: #fff;
+            transform: translateY(-2px);
+        }
+
+        .student-message-fab-active {
+            background: linear-gradient(135deg, #0f766e, #14b8a6);
+        }
+
+        .student-message-fab-count {
+            position: absolute;
+            top: -4px;
+            right: -4px;
+            min-width: 24px;
+            height: 24px;
+            padding: 0 6px;
+            border-radius: 999px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            background: #f97316;
+            color: #fff;
+            font-size: 0.75rem;
+            font-weight: 700;
+            border: 2px solid #0f172a;
+        }
+
+        @media (max-width: 768px) {
+            .student-message-fab {
+                right: 0.9rem;
+                bottom: 0.95rem;
+                width: 58px;
+                height: 58px;
+            }
+        }
+    </style>
+@endif

@@ -11,6 +11,49 @@ use function Symfony\Component\Clock\now;
 
 class ContactController extends Controller
 {
+    public function messages()
+    {
+        $userId = Auth::id();
+
+        $questions = DB::table('student_questions')
+            ->where('student_id', $userId)
+            ->orderByDesc('date_sent')
+            ->select(
+                'id',
+                'affair',
+                'menssage',
+                'date_sent',
+                'created_at'
+            )
+            ->get();
+
+        $answers = DB::table('answers as a')
+            ->leftJoin('teachers as t', 't.employees_id', '=', 'a.teacher_id')
+            ->leftJoin('employees as e', 'e.user_id', '=', 't.employees_id')
+            ->leftJoin('users as u', 'u.id', '=', 'e.user_id')
+            ->whereIn('a.question_id', $questions->pluck('id'))
+            ->orderBy('a.date_sent')
+            ->select(
+                'a.id',
+                'a.question_id',
+                'a.menssage',
+                'a.date_sent',
+                DB::raw("COALESCE(u.name, 'Profesor') as teacher_name")
+            )
+            ->get()
+            ->groupBy('question_id');
+
+        $threads = $questions->map(function ($question) use ($answers) {
+            $question->answers = $answers->get($question->id, collect());
+            $question->answers_count = $question->answers->count();
+            return $question;
+        });
+
+        return view('student.messages', [
+            'threads' => $threads,
+        ]);
+    }
+
     public function uploadMessage(Request $request){
         
         $request->validate([

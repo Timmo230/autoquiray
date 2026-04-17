@@ -22,6 +22,7 @@ Route::middleware(['role:student'])->group(function () {
     Route::delete('/classes/{class}', [ClassesController::class, 'cancelReservation'])->name('student.classes.cancel');
     Route::get("/contacto", fn() => view('student.contacto'))->name('student.contacto');
     Route::post("/contacto", [ContactController::class, 'uploadMessage'])->name('student.contacto');
+    Route::get('/mensajes', [ContactController::class, 'messages'])->name('student.messages');
     Route::get('/hacer_tests', [hacerTestController::class, 'showTests'])->name('student.test');
     Route::get('/haciendo_test', [haciendoTestController::class, 'showquestions'])->name('student.complete_test');
     Route::get('/resultados', [ResultsController::class, 'get'])->name('student.result');
