@@ -51,32 +51,6 @@
                     </div>
                 </div>
 
-                {{-- ALERTAS --}}
-                @if (session('success'))
-                    <div class="alert aq-alert-success rounded-4 border-0 shadow-sm">
-                        <i class="fa-solid fa-circle-check me-2"></i>{{ session('success') }}
-                    </div>
-                @endif
-
-                @if (session('error'))
-                    <div class="alert aq-alert-danger rounded-4 border-0 shadow-sm">
-                        <i class="fa-solid fa-triangle-exclamation me-2"></i>{{ session('error') }}
-                    </div>
-                @endif
-
-                @if ($errors->any())
-                    <div class="alert aq-alert-danger rounded-4 border-0 shadow-sm">
-                        <div class="fw-bold mb-2">
-                            <i class="fa-solid fa-circle-exclamation me-2"></i>Se han encontrado errores
-                        </div>
-                        <ul class="mb-0 ps-3">
-                            @foreach ($errors->all() as $error)
-                                <li>{{ $error }}</li>
-                            @endforeach
-                        </ul>
-                    </div>
-                @endif
-
                 <form action="{{ route('teacher.createClasses') }}" method="POST" id="createClassForm">
                     @csrf
 

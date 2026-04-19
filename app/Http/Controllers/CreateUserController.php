@@ -28,103 +28,108 @@ class CreateUserController extends Controller
     }
 
     public function upload(Request $request){
-        $userType = $request->input('userType');
-        $nameUser = $request->input('nameUser');
-        $email =  $request->input('email');
-        $documentType = $request->input('documentType');
-        $documentValue =  $request->input('documentValue');
+        try {
+            $userType = $request->input('userType');
+            $nameUser = $request->input('nameUser');
+            $email =  $request->input('email');
+            $documentType = $request->input('documentType');
+            $documentValue =  $request->input('documentValue');
 
-        $userID = Auth::id();
-        $newUserID = (string) Str::uuid();
+            $userID = Auth::id();
+            $newUserID = (string) Str::uuid();
 
-        $now = now();
+            $now = now();
 
-        DB::transaction(function() use ($userType, $nameUser, $email,
-        $documentType, $documentValue, $request,
-        $userID, $newUserID, $now){
-            DB::table('users')
-            ->insert([
-                'id' => $newUserID,
-                'administrator_id' => $userID,
-                'document_id' => $documentValue,
-                'document_type' => $documentType,
-                'name' => $nameUser,
-                'email' => $email,
-                'active' => true,
-                'password' => null,
-                'created_at' => $now,
-                'updated_at' => $now
-            ]);
-
-            DB::table('user_is_assigned_types')
-            ->insert([
-                'user_id' => $newUserID,
-                'type_id' => $userType,
-                'created_at' => $now,
-                'updated_at' => $now
-            ]);
-
-            if($userType ==  1){
-                
-                $amountTutions = $request->input('amountTutions');
-                $tutions = $request->input('tuitions');
-                DB::table('students')
+            DB::transaction(function() use ($userType, $nameUser, $email,
+            $documentType, $documentValue, $request,
+            $userID, $newUserID, $now){
+                DB::table('users')
                 ->insert([
-                    'user_id' => $newUserID,
+                    'id' => $newUserID,
+                    'administrator_id' => $userID,
+                    'document_id' => $documentValue,
+                    'document_type' => $documentType,
+                    'name' => $nameUser,
+                    'email' => $email,
+                    'active' => true,
+                    'password' => null,
                     'created_at' => $now,
                     'updated_at' => $now
                 ]);
 
-                foreach($tutions as $tution){
-                    $paid = null;
-
-                    if($tution['is_paid']) $paid = 'matriculado';
-                    else $paid = 'pendientePago';
-
-                    DB::table('tutions')
-                    ->insert([
-                        'administrator_id' => $userID,
-                        'student_id' => $newUserID,
-                        'permission_id' => $tution['permission_id'],
-                        'date' => $now,
-                        'start_date' => $tution['starts_at'],
-                        'max_end_date' => $tution['ends_at'],
-                        'status' => $paid,
-                        'price' => $tution['price'],
-                        'created_at' => $now,
-                        'updated_at' => $now
-                    ]);
-                }
-            }
-            else{
-                $salary = $request->input('salary');
-                DB::table('employees')
+                DB::table('user_is_assigned_types')
                 ->insert([
                     'user_id' => $newUserID,
-                    'salary' => $salary,
+                    'type_id' => $userType,
                     'created_at' => $now,
                     'updated_at' => $now
                 ]);
 
-                if($userType ==  2){
-                    DB::table('teachers')
+                if($userType ==  1){
+                    $tutions = $request->input('tuitions', []);
+                    DB::table('students')
                     ->insert([
-                        'employees_id' => $newUserID,
+                        'user_id' => $newUserID,
                         'created_at' => $now,
                         'updated_at' => $now
                     ]);
+
+                    foreach($tutions as $tution){
+                        $paid = !empty($tution['is_paid']) ? 'matriculado' : 'pendientePago';
+
+                        DB::table('tutions')
+                        ->insert([
+                            'administrator_id' => $userID,
+                            'student_id' => $newUserID,
+                            'permission_id' => $tution['permission_id'],
+                            'date' => $now,
+                            'start_date' => $tution['starts_at'],
+                            'max_end_date' => $tution['ends_at'],
+                            'status' => $paid,
+                            'price' => $tution['price'],
+                            'created_at' => $now,
+                            'updated_at' => $now
+                        ]);
+                    }
                 }
                 else{
-                    DB::table('administrators')
+                    $salary = $request->input('salary');
+                    DB::table('employees')
                     ->insert([
-                        'employees_id' => $newUserID,
+                        'user_id' => $newUserID,
+                        'salary' => $salary,
                         'created_at' => $now,
                         'updated_at' => $now
                     ]);
-                }
-            }
-        }, 10);
 
-        return response()->json(['success' => true]);
+                    if($userType ==  2){
+                        DB::table('teachers')
+                        ->insert([
+                            'employees_id' => $newUserID,
+                            'created_at' => $now,
+                            'updated_at' => $now
+                        ]);
+                    }
+                    else{
+                        DB::table('administrators')
+                        ->insert([
+                            'employees_id' => $newUserID,
+                            'created_at' => $now,
+                            'updated_at' => $now
+                        ]);
+                    }
+                }
+            }, 10);
+
+            return response()->json([
+                'success' => true,
+                'message' => 'Usuario creado correctamente.'
+            ]);
+        } catch (\Throwable $e) {
+            return response()->json([
+                'success' => false,
+                'message' => 'No se pudo crear el usuario.'
+            ], 500);
+        }
     }
 }

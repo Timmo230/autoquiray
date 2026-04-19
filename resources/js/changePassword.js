@@ -13,7 +13,7 @@ form.addEventListener('submit', function (e) {
 function checkPasswd(){
     if(passwd.value == repeatPasswd.value) return true;
 
-    alert("Las contraseñas no coinciden");
+    window.showAppFlash?.('error', 'Las contraseñas no coinciden');
     return false;
 }
 
@@ -32,6 +32,7 @@ async function login(){
     });
 
     if (post.ok) {
+        window.showAppFlash?.('success', 'Contraseña actualizada correctamente. Ya puedes iniciar sesión.', { persist: true });
         window.location.href = '/login';
         return;
     }
@@ -45,5 +46,5 @@ async function login(){
         }
     } catch (_) {}
 
-    alert(errorText);
+    window.showAppFlash?.('error', errorText);
 }

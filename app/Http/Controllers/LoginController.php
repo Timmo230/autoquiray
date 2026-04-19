@@ -97,10 +97,22 @@ class LoginController extends Controller
     }
 
     public function changePassword(Request $request){
-        DB::table('users')
-            ->where('email','=', $request->email)
-            ->update([
-                'password'=> Hash::make($request->password),
+        try {
+            DB::table('users')
+                ->where('email','=', $request->email)
+                ->update([
+                    'password'=> Hash::make($request->password),
+                ]);
+
+            return response()->json([
+                'success' => true,
+                'message' => 'Contraseña actualizada correctamente.'
             ]);
+        } catch (\Throwable $e) {
+            return response()->json([
+                'success' => false,
+                'message' => 'No se pudo actualizar la contraseña.'
+            ], 500);
+        }
     }
 }

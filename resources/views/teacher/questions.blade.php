@@ -84,18 +84,6 @@
                             </div>
                         </div>
 
-                        @if(session('success'))
-                            <div class="teacher-alert teacher-alert-success mt-4">
-                                {{ session('success') }}
-                            </div>
-                        @endif
-
-                        @if($errors->any())
-                            <div class="teacher-alert teacher-alert-error mt-4">
-                                {{ $errors->first() }}
-                            </div>
-                        @endif
-
                         <div class="teacher-questions-list mt-4">
                             @forelse($questions as $question)
                                 <article class="teacher-question-item">

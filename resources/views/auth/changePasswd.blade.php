@@ -10,6 +10,7 @@
     <link rel="stylesheet" href="/resources/css/changePassword.css">
 </head>
 <body class="bg-main">
+    @include('partials.flashMessages')
 
     <main class="change-password-page">
         <section class="password-box animate__animated animate__fadeInUp">

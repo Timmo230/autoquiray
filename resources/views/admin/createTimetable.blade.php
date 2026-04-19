@@ -39,26 +39,6 @@
                     </div>
                 </div>
 
-                @if (session('success'))
-                    <div class="alert aq-alert-success shadow-sm rounded-4 border-0 animate__animated animate__fadeInDown">
-                        <i class="fa-solid fa-circle-check me-2"></i>{{ session('success') }}
-                    </div>
-                @endif
-
-                @if ($errors->any())
-                    <div class="alert aq-alert-danger shadow-sm rounded-4 border-0 animate__animated animate__fadeInDown">
-                        <div class="d-flex align-items-center mb-2">
-                            <i class="fa-solid fa-triangle-exclamation me-2"></i>
-                            <strong>Se han encontrado errores</strong>
-                        </div>
-                        <ul class="mb-0 ps-3">
-                            @foreach ($errors->all() as $error)
-                                <li>{{ $error }}</li>
-                            @endforeach
-                        </ul>
-                    </div>
-                @endif
-
                 <div class="row g-4">
                     <div class="col-12 col-lg-8">
                         <div class="glass-card aq-form-card animate__animated animate__fadeInUp">

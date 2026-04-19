@@ -124,3 +124,5 @@
         </div>
     </div>
 </nav>
+
+@include('partials.flashMessages')

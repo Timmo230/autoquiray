@@ -12,12 +12,13 @@ async function reservesClass(idClass){
 
     if(post.ok) {
         window.trackEvent('class_reserved');
+        window.showAppFlash?.('success', 'Clase reservada correctamente.', { persist: true });
         window.location.href = `/classes`;
     }
     else {
         const data = await post.json().catch(() => ({}));
         window.trackEvent('class_reservation_failed', data.error ? { reason: data.error } : {});
-        alert(data.error ?? 'Error al reservar clase');
+        window.showAppFlash?.('error', data.error ?? 'Error al reservar clase');
     }
 }
 
@@ -35,13 +36,14 @@ async function cancelReservation(idClass){
 
     if (response.ok) {
         window.trackEvent('class_reservation_cancelled');
+        window.showAppFlash?.('success', 'Te has desapuntado de la clase correctamente.', { persist: true });
         window.location.href = '/classes';
         return;
     }
 
     const data = await response.json().catch(() => ({}));
     window.trackEvent('class_cancel_failed', data.error ? { reason: data.error } : {});
-    alert(data.error ?? 'No se pudo desapuntar de la clase');
+    window.showAppFlash?.('error', data.error ?? 'No se pudo desapuntar de la clase');
 }
 
 document.addEventListener('click', (event) => {

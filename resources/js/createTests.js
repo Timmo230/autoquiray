@@ -82,7 +82,8 @@ async function submit(){
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
-            'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content
+            'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content,
+            'Accept': 'application/json'
         },
         body: JSON.stringify({
             titleTest: titleTest,
@@ -93,6 +94,13 @@ async function submit(){
         })
     });
     
-    if(post.ok) window.location.href = `/crear_tests`;
-    else alert('Error al guardar el test');
+    if(post.ok) {
+        const payload = await post.json().catch(() => ({}));
+        window.showAppFlash?.('success', payload.message ?? 'Test guardado correctamente.', { persist: true });
+        window.location.href = `/crear_tests`;
+    }
+    else {
+        const payload = await post.json().catch(() => ({}));
+        window.showAppFlash?.('error', payload.message ?? 'Error al guardar el test');
+    }
 }

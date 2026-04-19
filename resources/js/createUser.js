@@ -224,6 +224,8 @@ async function uploadData(e) {
         });
 
         if (post.ok) {
+            const payload = await post.json().catch(() => ({}));
+            window.showAppFlash?.('success', payload.message ?? 'Usuario creado correctamente.', { persist: true });
             window.location.href = '/create_user';
             return;
         }
@@ -237,10 +239,10 @@ async function uploadData(e) {
             }
         } catch (_) {}
 
-        alert(errorText);
+        window.showAppFlash?.('error', errorText);
     } catch (error) {
         console.error(error);
-        alert('Error de conexión al guardar el usuario');
+        window.showAppFlash?.('error', 'Error de conexión al guardar el usuario');
     }
 }
 

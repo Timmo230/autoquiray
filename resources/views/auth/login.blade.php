@@ -15,18 +15,6 @@
 <body class="bg-main">
     @include('partials.nav')
 
-    @if ($errors->any())
-        <div class="alert alert-danger border-0 rounded-0 m-0">
-            <div class="container">
-                <ul class="m-0">
-                    @foreach ($errors->all() as $error)
-                        <li><i class="fa-solid fa-triangle-exclamation me-2"></i>{{ $error }}</li>
-                    @endforeach
-                </ul>
-            </div>
-        </div>
-    @endif
-
     <main class="py-5">
         <section class="p-4 p-md-5 rounded-4 mx-auto" id="login">
             <form method="POST" action="{{ route('login') }}" data-plausible-submit="login_submitted">
