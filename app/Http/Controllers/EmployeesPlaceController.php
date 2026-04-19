@@ -11,41 +11,24 @@ use App\Services\EmployeesPlaceService as service;
 
 class EmployeesPlaceController extends Controller
 {
-    public function getstudents(Request $request){
-
-        $search = $request->input('search');
-
-        $alumnos = DB::table('users as u')
-        ->join('students as st', 'st.user_id', '=', 'u.id')
-        ->leftJoin('student_completes_tests as sct', 'sct.student_id', '=', 'st.user_id')
-        ->when($search, function ($q) use ($search) {
-            return $q->where('u.email', 'LIKE', "%{$search}%");
-        })
-        ->select(
-            'u.name',
-            'u.email',
-            DB::raw('COUNT(sct.test_id) as total_examenes'),
-            DB::raw('SUM(CASE WHEN sct.last_note >= 27 THEN 1 ELSE 0 END) as aprobados')
-        )
-        ->groupBy('u.id', 'u.name', 'u.email')
-        ->limit(10)
-        ->get()
-        ->map(function ($item) {
-            $item->porcentaje_aprobados = $item->total_examenes > 0 
-                ? round(($item->aprobados / $item->total_examenes) * 100, 2) 
-                : 0;
-            return $item;
-        })
-        ->toArray();
+    protected function getTeacherQuestionsCollection(Request $request)
+    {
+        $search = trim((string) $request->input('search', ''));
+        $status = $request->input('status', 'all');
 
         $studentQuestions = DB::table('student_questions as sq')
             ->join('users as student_u', 'student_u.id', '=', 'sq.student_id')
             ->leftJoin('answers as a', 'a.question_id', '=', 'sq.id')
-            ->when($search, function ($q) use ($search) {
+            ->leftJoin('teachers as t', 't.employees_id', '=', 'a.teacher_id')
+            ->leftJoin('users as teacher_u', 'teacher_u.id', '=', 't.employees_id')
+            ->when($search !== '', function ($q) use ($search) {
                 $q->where(function ($nested) use ($search) {
                     $nested->where('student_u.name', 'LIKE', "%{$search}%")
                         ->orWhere('student_u.email', 'LIKE', "%{$search}%")
-                        ->orWhere('sq.affair', 'LIKE', "%{$search}%");
+                        ->orWhere('sq.affair', 'LIKE', "%{$search}%")
+                        ->orWhere('sq.menssage', 'LIKE', "%{$search}%")
+                        ->orWhere('a.menssage', 'LIKE', "%{$search}%")
+                        ->orWhere('teacher_u.name', 'LIKE', "%{$search}%");
                 });
             })
             ->select(
@@ -69,8 +52,15 @@ class EmployeesPlaceController extends Controller
                 'student_u.name',
                 'student_u.email'
             )
+            ->when($status === 'answered', function ($q) {
+                $q->havingRaw('COUNT(a.id) > 0');
+            })
+            ->when($status === 'pending', function ($q) {
+                $q->havingRaw('COUNT(a.id) = 0');
+            })
+            ->orderByRaw('CASE WHEN COUNT(a.id) = 0 THEN 0 ELSE 1 END ASC')
             ->orderByDesc('sq.date_sent')
-            ->limit(20)
+            ->limit(40)
             ->get();
 
         $answersByQuestion = $studentQuestions->isNotEmpty()
@@ -91,14 +81,52 @@ class EmployeesPlaceController extends Controller
                 ->groupBy('question_id')
             : collect();
 
-        $questions = $studentQuestions->map(function ($question) use ($answersByQuestion) {
+        return $studentQuestions->map(function ($question) use ($answersByQuestion) {
             $question->answers = $answersByQuestion->get($question->id, collect())->values();
             return $question;
         });
+    }
+
+    public function getstudents(Request $request){
+
+        $search = $request->input('search');
+
+        $alumnos = DB::table('users as u')
+        ->join('students as st', 'st.user_id', '=', 'u.id')
+        ->leftJoin('student_completes_tests as sct', 'sct.student_id', '=', 'st.user_id')
+        ->when($search, function ($q) use ($search) {
+            return $q->where('u.email', 'LIKE', "%{$search}%");
+        })
+        ->select(
+            'u.name',
+            'u.email',
+            DB::raw('COUNT(sct.test_id) as total_examenes'),
+            DB::raw('SUM(CASE WHEN sct.last_note >= 27 THEN 1 ELSE 0 END) as aprobados')
+        )
+        ->groupBy('u.id', 'u.name', 'u.email')
+        ->limit(10)
+        ->get()
+        ->map(function ($item) {
+            $item->porcentaje_aprobados = $item->total_examenes > 0
+                ? round(($item->aprobados / $item->total_examenes) * 100, 2)
+                : 0;
+            return $item;
+        })
+        ->toArray();
 
         return view('teacher.dashboard', [
             'alumnos' => $alumnos,
-            'questions' => $questions,
+        ]);
+    }
+
+    public function getQuestions(Request $request)
+    {
+        return view('teacher.questions', [
+            'questions' => $this->getTeacherQuestionsCollection($request),
+            'filters' => [
+                'search' => $request->input('search', ''),
+                'status' => $request->input('status', 'all'),
+            ],
         ]);
     }
 
@@ -119,9 +147,7 @@ class EmployeesPlaceController extends Controller
             'updated_at' => now(),
         ]);
 
-        return redirect()
-            ->route('teacher.dashboard')
-            ->with('success', 'Respuesta enviada correctamente.');
+        return back()->with('success', 'Respuesta enviada correctamente.');
     }
 
     public function getTeachers(Request $request){

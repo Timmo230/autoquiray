@@ -14,6 +14,14 @@
             <i class="fa-solid fa-chart-line me-1 small opacity-75"></i> Panel de Gestión
         </a>
     </li>
+
+    <li class="nav-item mx-1">
+        <a class="nav-link px-3 fw-medium {{ $uri == 'teacher/questions' ? 'active' : '' }}"
+           href="{{ route('teacher.questions') }}"
+           id="{{ $uri == 'teacher/questions' ? 'actualPg' : '' }}">
+            <i class="fa-solid fa-comments me-1 small opacity-75"></i> Consultas
+        </a>
+    </li>
     
     <li class="nav-item mx-1">
         <a class="nav-link px-3 fw-medium {{ $uri == 'create_tests' ? 'active' : '' }}" 
