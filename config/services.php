@@ -34,10 +34,4 @@ return [
             'channel' => env('SLACK_BOT_USER_DEFAULT_CHANNEL'),
         ],
     ],
-
-    'plausible' => [
-        'domain' => env('PLAUSIBLE_DOMAIN', parse_url((string) env('APP_URL', 'http://localhost'), PHP_URL_HOST)),
-        'script_url' => env('PLAUSIBLE_SCRIPT_URL'),
-    ],
-
 ];
