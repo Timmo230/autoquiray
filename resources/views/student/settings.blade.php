@@ -151,7 +151,7 @@
                     @endif
 
                     @if ($activeTab === 'tuitions')
-                        <section class="settings-panel">
+                        <section class="settings-panel settings-panel-tuitions">
                             <div class="settings-panel-head">
                                 <div>
                                     <span class="settings-panel-kicker">Matrículas</span>
@@ -160,12 +160,31 @@
                                 <p class="settings-panel-copy">Consulta permisos asociados, vigencia, estado económico y fechas límite de cada matrícula.</p>
                             </div>
 
+                            <div class="settings-spotlight-grid">
+                                <div class="settings-spotlight-card">
+                                    <span class="settings-spotlight-label">Matrículas activas</span>
+                                    <strong>{{ $tuitions->filter(fn ($tuition) => $tuition->is_active)->count() }}</strong>
+                                    <p>Permisos listos para seguir operando en clases y convocatorias.</p>
+                                </div>
+                                <div class="settings-spotlight-card">
+                                    <span class="settings-spotlight-label">Total registradas</span>
+                                    <strong>{{ $tuitions->count() }}</strong>
+                                    <p>Histórico completo de matrículas asociadas a tu perfil.</p>
+                                </div>
+                            </div>
+
                             <div class="settings-stack">
                                 @forelse ($tuitions as $tuition)
-                                    <article class="settings-card-row">
+                                    <article class="settings-card-row settings-card-row-academic">
+                                        <div class="settings-card-icon settings-card-icon-emerald">
+                                            <i class="fa-solid fa-id-card"></i>
+                                        </div>
                                         <div class="settings-card-main">
-                                            <div class="settings-card-topline">
-                                                <h3>{{ $tuition->permission_name }}</h3>
+                                            <div class="settings-card-topline settings-card-topline-wrap">
+                                                <div>
+                                                    <p class="settings-card-overline">Permiso matriculado</p>
+                                                    <h3>{{ $tuition->permission_name }}</h3>
+                                                </div>
                                                 <span class="settings-pill {{ $tuition->is_active ? 'is-success' : 'is-muted' }}">
                                                     {{ $tuition->status_label }}
                                                 </span>
@@ -207,7 +226,7 @@
                     @endif
 
                     @if ($activeTab === 'exams')
-                        <section class="settings-panel">
+                        <section class="settings-panel settings-panel-exams">
                             <div class="settings-panel-head">
                                 <div>
                                     <span class="settings-panel-kicker">Exámenes</span>
@@ -229,10 +248,16 @@
 
                             <div class="settings-stack">
                                 @forelse ($exams as $exam)
-                                    <article class="settings-card-row">
+                                    <article class="settings-card-row settings-card-row-exam {{ $exam->can_register ? 'is-available' : ($exam->is_registered ? 'is-registered' : '') }}">
+                                        <div class="settings-card-icon {{ $exam->can_register ? 'settings-card-icon-emerald' : ($exam->is_registered ? 'settings-card-icon-blue' : 'settings-card-icon-slate') }}">
+                                            <i class="fa-solid {{ $exam->type === 'practical' ? 'fa-car-side' : 'fa-file-lines' }}"></i>
+                                        </div>
                                         <div class="settings-card-main">
-                                            <div class="settings-card-topline">
-                                                <h3>{{ $exam->permission_name }} · {{ $exam->type_label }}</h3>
+                                            <div class="settings-card-topline settings-card-topline-wrap">
+                                                <div>
+                                                    <p class="settings-card-overline">{{ $exam->type_label }}</p>
+                                                    <h3>{{ $exam->permission_name }}</h3>
+                                                </div>
                                                 <span class="settings-pill {{ $exam->can_register ? 'is-success' : ($exam->is_registered ? 'is-info' : 'is-muted') }}">
                                                     {{ $exam->status_label }}
                                                 </span>
@@ -327,7 +352,7 @@
                     @endif
 
                     @if ($activeTab === 'activity')
-                        <section class="settings-panel">
+                        <section class="settings-panel settings-panel-activity">
                             <div class="settings-panel-head">
                                 <div>
                                     <span class="settings-panel-kicker">Actividad</span>
@@ -336,9 +361,25 @@
                                 <p class="settings-panel-copy">Un vistazo rápido a tus tests más recientes, tus clases reservadas y las consultas abiertas con soporte.</p>
                             </div>
 
+                            <div class="settings-spotlight-grid">
+                                <div class="settings-spotlight-card">
+                                    <span class="settings-spotlight-label">Tests recientes</span>
+                                    <strong>{{ $recentTests->count() }}</strong>
+                                    <p>Últimos resultados guardados en la plataforma.</p>
+                                </div>
+                                <div class="settings-spotlight-card">
+                                    <span class="settings-spotlight-label">Interacciones activas</span>
+                                    <strong>{{ $recentQuestions->count() + $recentClasses->count() }}</strong>
+                                    <p>Movimiento reciente entre reservas de clases y soporte.</p>
+                                </div>
+                            </div>
+
                             <div class="activity-grid">
                                 <div class="activity-column">
-                                    <h3>Últimos tests</h3>
+                                    <div class="activity-column-head">
+                                        <span class="activity-column-icon emerald"><i class="fa-solid fa-laptop-code"></i></span>
+                                        <h3>Últimos tests</h3>
+                                    </div>
                                     @forelse ($recentTests as $test)
                                         <article class="activity-item">
                                             <strong>{{ $test->title }}</strong>
@@ -353,7 +394,10 @@
                                 </div>
 
                                 <div class="activity-column">
-                                    <h3>Clases reservadas</h3>
+                                    <div class="activity-column-head">
+                                        <span class="activity-column-icon blue"><i class="fa-solid fa-chalkboard-user"></i></span>
+                                        <h3>Clases reservadas</h3>
+                                    </div>
                                     @forelse ($recentClasses as $class)
                                         <article class="activity-item">
                                             <strong>{{ $class->title }}</strong>
@@ -368,7 +412,10 @@
                                 </div>
 
                                 <div class="activity-column">
-                                    <h3>Consultas enviadas</h3>
+                                    <div class="activity-column-head">
+                                        <span class="activity-column-icon amber"><i class="fa-solid fa-headset"></i></span>
+                                        <h3>Consultas enviadas</h3>
+                                    </div>
                                     @forelse ($recentQuestions as $question)
                                         <article class="activity-item">
                                             <strong>{{ ucfirst($question->affair) }}</strong>
