@@ -1,0 +1,475 @@
+.student-settings-page {
+    padding-top: 8.5rem;
+    padding-bottom: 4rem;
+}
+
+.student-settings-shell {
+    max-width: 1480px;
+    margin: 0 auto;
+    padding: 0 1.5rem;
+}
+
+.student-settings-header {
+    display: grid;
+    grid-template-columns: minmax(0, 1.6fr) minmax(0, 1fr);
+    gap: 1.5rem;
+    align-items: end;
+    margin-bottom: 1.75rem;
+}
+
+.student-settings-eyebrow,
+.settings-panel-kicker {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.45rem 0.9rem;
+    border-radius: 999px;
+    background: rgba(16, 185, 129, 0.12);
+    border: 1px solid rgba(16, 185, 129, 0.24);
+    color: #6ee7b7;
+    font-size: 0.78rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+}
+
+.student-settings-title {
+    margin: 1rem 0 0.75rem;
+    font-size: clamp(2.2rem, 4vw, 3.4rem);
+    line-height: 1;
+}
+
+.student-settings-subtitle,
+.settings-panel-copy,
+.settings-card-copy {
+    max-width: 72ch;
+    color: #cbd5e1 !important;
+    font-size: 1rem;
+    line-height: 1.7;
+}
+
+.student-settings-summary-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1rem;
+}
+
+.student-summary-card,
+.student-exam-overview-card {
+    background:
+        linear-gradient(145deg, rgba(15, 23, 42, 0.94), rgba(30, 41, 59, 0.82));
+    border: 1px solid rgba(148, 163, 184, 0.18);
+    border-radius: 1.35rem;
+    padding: 1.15rem 1.2rem;
+    box-shadow: 0 24px 60px rgba(2, 6, 23, 0.28);
+}
+
+.student-summary-card strong,
+.student-exam-overview-card strong {
+    display: block;
+    margin-top: 0.35rem;
+    color: #f8fafc;
+    font-size: 1.8rem;
+    line-height: 1;
+}
+
+.student-summary-label,
+.student-exam-overview-card span,
+.student-inline-note-label,
+.settings-card-meta-grid span,
+.activity-item span,
+.activity-item small,
+.settings-secondary-note {
+    color: #94a3b8 !important;
+}
+
+.student-settings-layout {
+    display: grid;
+    grid-template-columns: 300px minmax(0, 1fr);
+    gap: 1.5rem;
+    align-items: start;
+}
+
+.student-settings-sidebar,
+.settings-panel {
+    background:
+        linear-gradient(180deg, rgba(15, 23, 42, 0.98), rgba(17, 24, 39, 0.9));
+    border: 1px solid rgba(148, 163, 184, 0.18);
+    border-radius: 1.6rem;
+    box-shadow: 0 24px 70px rgba(2, 6, 23, 0.35);
+}
+
+.student-settings-sidebar {
+    position: sticky;
+    top: 7rem;
+    padding: 1.3rem;
+}
+
+.student-settings-user-card {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 1rem;
+    margin-bottom: 1rem;
+    background: rgba(30, 41, 59, 0.72);
+    border-radius: 1.2rem;
+    border: 1px solid rgba(148, 163, 184, 0.16);
+}
+
+.student-settings-avatar {
+    width: 3.25rem;
+    height: 3.25rem;
+    border-radius: 50%;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.2rem;
+    font-weight: 800;
+    color: #052e16;
+    background: linear-gradient(135deg, #34d399, #a7f3d0);
+}
+
+.student-settings-user-name {
+    margin: 0;
+    color: #f8fafc;
+    font-size: 1rem;
+    font-weight: 700;
+}
+
+.student-settings-user-email {
+    margin: 0.2rem 0 0;
+    color: #94a3b8 !important;
+    font-size: 0.9rem;
+}
+
+.student-settings-nav {
+    display: flex;
+    flex-direction: column;
+    gap: 0.65rem;
+}
+
+.student-settings-nav-link,
+.student-settings-logout {
+    width: 100%;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.8rem;
+    padding: 0.95rem 1rem;
+    border-radius: 999px;
+    border: 1px solid rgba(148, 163, 184, 0.14);
+    background: rgba(15, 23, 42, 0.7);
+    color: #e2e8f0 !important;
+    font-weight: 600;
+    text-decoration: none;
+    transition: transform 0.18s ease, border-color 0.18s ease, background-color 0.18s ease;
+}
+
+.student-settings-nav-link:hover,
+.student-settings-logout:hover {
+    transform: translateX(4px);
+    border-color: rgba(16, 185, 129, 0.45);
+    background: rgba(30, 41, 59, 0.92);
+}
+
+.student-settings-nav-link.is-active {
+    color: #04130d !important;
+    background: linear-gradient(135deg, #34d399, #10b981);
+    border-color: transparent;
+}
+
+.student-settings-logout {
+    margin-top: 1rem;
+    justify-content: center;
+    background: rgba(127, 29, 29, 0.18);
+    color: #fecaca !important;
+}
+
+.student-settings-content {
+    min-width: 0;
+}
+
+.settings-panel {
+    padding: 1.6rem;
+}
+
+.settings-panel-head {
+    display: flex;
+    justify-content: space-between;
+    gap: 1.5rem;
+    margin-bottom: 1.6rem;
+}
+
+.settings-panel-head h2 {
+    margin: 0.9rem 0 0.45rem;
+    font-size: clamp(1.6rem, 3vw, 2.4rem);
+}
+
+.settings-form-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1rem 1.15rem;
+}
+
+.settings-field {
+    display: flex;
+    flex-direction: column;
+    gap: 0.45rem;
+}
+
+.settings-field-full {
+    grid-column: 1 / -1;
+}
+
+.settings-field label {
+    color: #f8fafc;
+    font-size: 0.92rem;
+    font-weight: 600;
+}
+
+.settings-field input,
+.settings-field select {
+    width: 100%;
+    min-height: 3.35rem;
+    padding: 0.95rem 1rem;
+    background: rgba(2, 6, 23, 0.7);
+    border: 1px solid rgba(71, 85, 105, 0.92);
+    border-radius: 1rem;
+    color: #f8fafc;
+}
+
+.student-inline-note {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 1rem;
+    padding: 1rem 1.1rem;
+    border-radius: 1.15rem;
+    background: rgba(15, 23, 42, 0.7);
+    border: 1px solid rgba(148, 163, 184, 0.16);
+}
+
+.student-inline-note strong,
+.settings-card-meta-grid strong,
+.activity-item strong {
+    color: #f8fafc;
+}
+
+.settings-actions {
+    grid-column: 1 / -1;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
+    margin-top: 0.35rem;
+}
+
+.settings-primary-action,
+.settings-secondary-action,
+.settings-static-action {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.55rem;
+    min-height: 3.25rem;
+    padding: 0.85rem 1.35rem;
+    border-radius: 999px;
+    font-weight: 700;
+    text-decoration: none;
+}
+
+.settings-primary-action {
+    border: none;
+    color: #04130d;
+    background: linear-gradient(135deg, #34d399, #10b981);
+}
+
+.settings-secondary-action {
+    color: #e2e8f0 !important;
+    border: 1px solid rgba(148, 163, 184, 0.18);
+    background: rgba(15, 23, 42, 0.64);
+}
+
+.settings-static-action {
+    color: #bfdbfe;
+    background: rgba(30, 64, 175, 0.16);
+    border: 1px solid rgba(96, 165, 250, 0.2);
+}
+
+.settings-static-action.is-muted {
+    color: #cbd5e1;
+    background: rgba(51, 65, 85, 0.36);
+    border-color: rgba(148, 163, 184, 0.14);
+}
+
+.settings-stack {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.settings-card-row {
+    display: grid;
+    grid-template-columns: minmax(0, 1.4fr) minmax(320px, 1fr) auto;
+    gap: 1rem;
+    align-items: center;
+    padding: 1.2rem;
+    border-radius: 1.25rem;
+    background: rgba(15, 23, 42, 0.72);
+    border: 1px solid rgba(148, 163, 184, 0.14);
+}
+
+.settings-card-topline {
+    display: flex;
+    gap: 0.8rem;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 0.5rem;
+}
+
+.settings-card-topline h3,
+.activity-column h3 {
+    margin: 0;
+    color: #f8fafc;
+    font-size: 1.1rem;
+}
+
+.settings-pill {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 2rem;
+    padding: 0.35rem 0.8rem;
+    border-radius: 999px;
+    font-size: 0.8rem;
+    font-weight: 700;
+}
+
+.settings-pill.is-success {
+    color: #052e16;
+    background: #6ee7b7;
+}
+
+.settings-pill.is-info {
+    color: #082f49;
+    background: #93c5fd;
+}
+
+.settings-pill.is-muted {
+    color: #e2e8f0;
+    background: rgba(71, 85, 105, 0.68);
+}
+
+.settings-card-meta-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0.85rem 1rem;
+}
+
+.settings-card-actions {
+    justify-self: end;
+}
+
+.student-exam-overview {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1rem;
+    margin-bottom: 1rem;
+}
+
+.activity-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 1rem;
+}
+
+.activity-column {
+    padding: 1.1rem;
+    border-radius: 1.25rem;
+    background: rgba(15, 23, 42, 0.72);
+    border: 1px solid rgba(148, 163, 184, 0.14);
+}
+
+.activity-item {
+    display: flex;
+    flex-direction: column;
+    gap: 0.3rem;
+    padding: 0.9rem 0;
+    border-bottom: 1px solid rgba(148, 163, 184, 0.14);
+}
+
+.activity-item:last-child {
+    border-bottom: none;
+    padding-bottom: 0;
+}
+
+.settings-empty-state {
+    padding: 1.4rem;
+    border-radius: 1.15rem;
+    color: #cbd5e1 !important;
+    background: rgba(15, 23, 42, 0.56);
+    border: 1px dashed rgba(148, 163, 184, 0.24);
+    text-align: center;
+}
+
+.settings-empty-state.compact {
+    min-height: 100%;
+}
+
+@media (max-width: 1399.98px) {
+    .settings-card-row {
+        grid-template-columns: 1fr;
+    }
+
+    .settings-card-actions {
+        justify-self: start;
+    }
+}
+
+@media (max-width: 1199.98px) {
+    .student-settings-header,
+    .student-settings-layout,
+    .activity-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .student-settings-sidebar {
+        position: static;
+    }
+}
+
+@media (max-width: 767.98px) {
+    .student-settings-shell {
+        padding: 0 0.85rem;
+    }
+
+    .student-settings-page {
+        padding-top: 7.2rem;
+    }
+
+    .student-settings-summary-grid,
+    .student-exam-overview,
+    .settings-form-grid,
+    .student-inline-note,
+    .settings-card-meta-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .settings-panel,
+    .student-settings-sidebar {
+        padding: 1rem;
+        border-radius: 1.2rem;
+    }
+
+    .settings-panel-head,
+    .settings-actions {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .student-settings-nav-link,
+    .student-settings-logout,
+    .settings-primary-action,
+    .settings-secondary-action,
+    .settings-static-action {
+        width: 100%;
+    }
+}

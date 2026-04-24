@@ -36,7 +36,15 @@
 
             @auth
                 <div class="d-none d-xl-block text-end me-4 border-end border-secondary border-opacity-25 pe-4">
-                    <p class="m-0 fw-bold text-white small nav-user-email">{{ auth()->user()->email }}</p>
+                    @if($type === 'student')
+                        <a href="{{ route('student.settings') }}" class="m-0 fw-bold text-white small nav-user-name d-inline-flex align-items-center gap-2 text-decoration-none">
+                            <span>{{ auth()->user()->name }}</span>
+                            <i class="fa-solid fa-chevron-down small text-success"></i>
+                        </a>
+                    @else
+                        <p class="m-0 fw-bold text-white small nav-user-name">{{ auth()->user()->name }}</p>
+                    @endif
+                    <p class="m-0 text-white-50 small nav-user-email">{{ auth()->user()->email }}</p>
                     <p class="m-0 text-success small fw-bold text-uppercase nav-user-type">{{ $type }}</p>
                 </div>
 
@@ -100,7 +108,15 @@
                             <i class="fa-solid fa-user text-dark fs-4"></i>
                         </div>
                         <div class="overflow-hidden">
-                            <p class="m-0 text-white small fw-bold text-truncate">{{ auth()->user()->email }}</p>
+                            @if($type === 'student')
+                                <a href="{{ route('student.settings') }}" class="m-0 text-white small fw-bold text-truncate text-decoration-none d-inline-flex align-items-center gap-2">
+                                    <span>{{ auth()->user()->name }}</span>
+                                    <i class="fa-solid fa-chevron-right text-success"></i>
+                                </a>
+                            @else
+                                <p class="m-0 text-white small fw-bold text-truncate">{{ auth()->user()->name }}</p>
+                            @endif
+                            <p class="m-0 text-white-50 small text-truncate">{{ auth()->user()->email }}</p>
                             <span class="text-success fw-bold nav-user-type-sm">{{ strtoupper($type) }}</span>
                         </div>
                     </div>

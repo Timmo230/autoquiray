@@ -1,59 +1,472 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# AUTOQUIRAY
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+Aplicacion web de autoescuela construida con Laravel. El proyecto gestiona alumnos, profesores y administradores, con tests teoricos, reserva de clases, consultas entre alumno y profesor y paneles internos de seguimiento.
 
-## About Laravel
+Este `README` esta pensado como documento de orientacion rapida para mantenimiento. La idea es que cualquier desarrollador o IA pueda abrirlo y saber en pocos minutos:
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+- que hace el proyecto
+- donde estan las piezas importantes
+- como arrancarlo
+- que rutas y modulos existen
+- donde hay decisiones tecnicas o deuda heredada
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+## Resumen Rapido
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+- Framework: Laravel 12
+- PHP: `^8.2`
+- Frontend declarado: Vite + Tailwind 4
+- Frontend real en uso: Blade + CSS/JS cargados manualmente desde `resources/` y `public/node_modules`
+- Base de datos: relacional, con migraciones y seeders propios
+- Autenticacion: `Auth::attempt()` + middleware de roles personalizado
+- Roles de negocio:
+  - `student`
+  - `teacher`
+  - `administrator`
 
-## Learning Laravel
+## Que Hace El Proyecto
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework. You can also check out [Laravel Learn](https://laravel.com/learn), where you will be guided through building a modern Laravel application.
+AUTOQUIRAY es una plataforma para autoescuela con estos flujos principales:
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+- Landing publica con metricas y acceso a login.
+- Login con seleccion explicita de rol.
+- Alumno:
+  - ver tipos de test
+  - hacer tests teoricos
+  - ver resultados y test corregido
+  - reservar y cancelar clases
+  - gestionar perfil, matriculas, examenes y seguridad desde configuracion
+  - enviar consultas al profesorado
+- Profesor:
+  - ver dashboard de alumnos
+  - ver y responder consultas
+  - crear tests
+  - crear clases a partir de horarios existentes
+- Administrador:
+  - ver dashboard de profesores con metricas
+  - consultar detalles de actividad
+  - crear usuarios
+  - crear horarios
 
-## Laravel Sponsors
+## Mapa Del Proyecto
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+### Directorios importantes
 
-### Premium Partners
+- `app/Http/Controllers`
+  Controladores principales de la aplicacion.
+- `app/Http/Middleware`
+  Middleware de roles.
+- `app/Models`
+  Modelos Eloquent del dominio.
+- `app/Services`
+  Consultas agregadas para dashboards internos.
+- `resources/views`
+  Vistas Blade reales de la app.
+- `resources/css`
+  CSS del proyecto.
+- `resources/js`
+  JS del proyecto.
+- `routes/web.php`
+  Rutas HTTP principales.
+- `database/migrations`
+  Esquema de base de datos.
+- `database/seeders`
+  Datos de ejemplo/inicializacion.
+- `storage/models`
+  Modelos 3D usados en la home.
 
-- **[Vehikl](https://vehikl.com)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Redberry](https://redberry.international/laravel-development)**
-- **[Active Logic](https://activelogic.com)**
+### Archivos clave para orientarse rapido
 
-## Contributing
+- [`routes/web.php`](./routes/web.php)
+  Punto de entrada principal para entender modulos y permisos.
+- [`app/Http/Middleware/RoleMiddleware.php`](./app/Http/Middleware/RoleMiddleware.php)
+  Control de acceso por rol.
+- [`app/Http/Controllers/LoginController.php`](./app/Http/Controllers/LoginController.php)
+  Login, logout y cambio inicial de contrasena.
+- [`app/Http/Controllers/HomeController.php`](./app/Http/Controllers/HomeController.php)
+  Home publica y metricas.
+- [`app/Http/Controllers/ClassesController.php`](./app/Http/Controllers/ClassesController.php)
+  Reserva y cancelacion de clases.
+- [`app/Http/Controllers/ResultsController.php`](./app/Http/Controllers/ResultsController.php)
+  Correccion, guardado y visualizacion de resultados de tests.
+- [`app/Http/Controllers/EmployeesPlaceController.php`](./app/Http/Controllers/EmployeesPlaceController.php)
+  Paneles de profesor/administrador y consultas de alumnos.
+- [`app/Services/EmployeesPlaceService.php`](./app/Services/EmployeesPlaceService.php)
+  Consultas agregadas de estadisticas y detalles.
+- [`resources/views/partials/links.blade.php`](./resources/views/partials/links.blade.php)
+  Carga de CSS global.
+- [`resources/views/partials/scripts.blade.php`](./resources/views/partials/scripts.blade.php)
+  Carga de JS global y eventos de analitica.
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+## Rutas Y Modulos
 
-## Code of Conduct
+### Publicas
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+- `GET /`
+  Home publica.
+- `GET /plausible-seed`
+  Vista de depuracion relacionada con eventos de Plausible.
 
-## Security Vulnerabilities
+### Autenticacion
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+- `GET /login`
+- `POST /login`
+- `POST /logout`
+- `POST /cambiar_contraseña`
 
-## License
+### Alumno
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+- `GET /tipos_de_test`
+- `GET /classes`
+- `POST /classes`
+- `DELETE /classes/{class}`
+- `GET /alumno/configuracion`
+- `POST /alumno/configuracion/perfil`
+- `POST /alumno/configuracion/seguridad`
+- `POST /alumno/configuracion/examenes/{exam}`
+- `GET /contacto`
+- `POST /contacto`
+- `GET /hacer_tests`
+- `GET /haciendo_test`
+- `GET /resultados`
+- `POST /resultados`
+- `GET /test_corregido`
+
+### Profesor
+
+- `GET /teacher/dashboard`
+- `GET /teacher/questions`
+- `POST /teacher/questions/answer`
+- `GET /crear_tests`
+- `POST /crear_tests`
+- `GET /create_classes`
+- `POST /create_classes`
+
+### Administrador
+
+- `GET /admin/dashboard`
+- `POST /admin/dashboard/stats`
+- `POST /admin/dashboard/details`
+- `GET /create_user`
+- `POST /create_user`
+- `GET /create_timetable`
+- `POST /create_timetable`
+
+## Arquitectura Funcional
+
+### 1. Autenticacion y roles
+
+El login usa `Auth::attempt()` con email y contrasena, pero ademas exige que el rol elegido en el formulario coincida con la asignacion real del usuario.
+
+Tablas implicadas:
+
+- `users`
+- `types`
+- `user_is_assigned_types`
+
+El middleware [`RoleMiddleware.php`](./app/Http/Middleware/RoleMiddleware.php) consulta estas tablas para permitir o bloquear el acceso.
+
+### 2. Tests teoricos
+
+Los tests se definen por profesor y contienen preguntas y opciones.
+
+Tablas implicadas:
+
+- `tests`
+- `question_tests`
+- `options`
+- `student_selects_options`
+- `student_completes_tests`
+- `permissions_are_associated_test`
+
+Flujo:
+
+- el profesor crea un test
+- el alumno lo responde
+- se guardan opciones seleccionadas
+- se calcula nota
+- se guarda el resultado final
+- el alumno puede ver el resumen y la correccion
+
+### 3. Clases practicas
+
+Las clases se construyen a partir de horarios (`timetables`) y se reservan por alumnos.
+
+Tablas implicadas:
+
+- `timetables`
+- `classes`
+- `students_reserves_classes`
+- `permissions_are_tought_in_classes`
+
+Flujo:
+
+- administrador crea horarios
+- profesor crea una clase asociada a un horario
+- alumno reserva si hay plazas
+- alumno puede cancelar mientras la clase no haya empezado
+
+### 4. Consultas alumno-profesor
+
+El alumno puede enviar un mensaje desde contacto. Los profesores lo visualizan en una bandeja y responden.
+
+Tablas implicadas:
+
+- `student_questions`
+- `answers`
+
+### 5. Dashboards internos
+
+Profesor y administrador tienen paneles con consultas agregadas montadas con `DB::table(...)` y apoyadas por `EmployeesPlaceService`.
+
+## Modelo De Datos
+
+### Tablas principales
+
+- `users`
+  Usuario base del sistema.
+- `students`
+  Extension de usuario alumno.
+- `employees`
+  Extension de usuario empleado.
+- `teachers`
+  Extension de empleado profesor.
+- `administrators`
+  Extension de empleado administrador.
+- `permissions`
+  Permisos/licencias vinculadas a tests y clases.
+- `tests`
+  Tests creados por profesores.
+- `question_tests`
+  Preguntas de cada test.
+- `options`
+  Opciones de respuesta por pregunta.
+- `student_completes_tests`
+  Resultado global de un alumno en un test.
+- `student_selects_options`
+  Opciones marcadas por cada alumno.
+- `timetables`
+  Horarios disponibles.
+- `classes`
+  Clases practicas publicadas.
+- `students_reserves_classes`
+  Reservas de clases de alumnos.
+- `student_questions`
+  Consultas enviadas por alumnos.
+- `answers`
+  Respuestas del profesorado.
+- `registers`
+  Historico relacionado con examenes/notas.
+- `exams`
+  Examenes del dominio.
+- `tutions`
+  Tabla del dominio academico.
+
+### Identificadores
+
+No todo usa el mismo tipo de clave:
+
+- varias tablas usan `string` como PK o FK con UUID/manual ids
+- `classes` usa `id()` numerico autoincremental
+- hay mezcla de IDs string y numericos en el modelo general
+
+Eso es importante al tocar relaciones, validaciones o consultas SQL.
+
+## Vistas Y Frontend
+
+### Vistas reales
+
+Las vistas activas estan en `resources/views`.
+
+Subcarpetas relevantes:
+
+- `auth/`
+- `student/`
+- `teacher/`
+- `admin/`
+- `partials/`
+
+### Carga de assets
+
+Aunque el proyecto declara Vite y Tailwind 4, la app actualmente sigue usando una estrategia heredada:
+
+- CSS cargado desde Blade con `asset('resources/css/...')`
+- Bootstrap JS cargado desde `public/node_modules/bootstrap/...`
+- JS propios cargados como scripts directos desde `resources/js/...`
+
+Archivos a revisar antes de tocar frontend:
+
+- [`resources/views/partials/links.blade.php`](./resources/views/partials/links.blade.php)
+- [`resources/views/partials/scripts.blade.php`](./resources/views/partials/scripts.blade.php)
+- [`vite.config.js`](./vite.config.js)
+- [`resources/js/app.js`](./resources/js/app.js)
+- [`resources/css/app.css`](./resources/css/app.css)
+
+### Analitica
+
+Hay integracion de eventos con Plausible en `partials/scripts.blade.php`.
+
+Puntos relevantes:
+
+- define `window.trackEvent`
+- dispara eventos por atributos `data-plausible-event`
+- dispara eventos de formulario por `data-plausible-submit`
+- reinyecta eventos de sesion flash desde backend
+
+Ahora mismo el script apunta a una IP local:
+
+- `http://192.168.100.248:8000/js/script.js`
+
+Esto parece configuracion de entorno local o privada, no una integracion generica de produccion.
+
+## Seeders
+
+Hay una bateria amplia de seeders para poblar practicamente todo el dominio:
+
+- usuarios
+- roles
+- empleados
+- alumnos
+- profesores
+- administradores
+- tests
+- preguntas
+- opciones
+- horarios
+- clases
+- reservas
+- consultas
+- respuestas
+
+Archivo principal:
+
+- [`database/seeders/DatabaseSeeder.php`](./database/seeders/DatabaseSeeder.php)
+
+## Como Levantar El Proyecto
+
+### Requisitos
+
+- PHP 8.2+
+- Composer
+- Node.js + npm
+- Base de datos configurada en `.env`
+
+### Instalacion
+
+```bash
+composer install
+cp .env.example .env
+php artisan key:generate
+php artisan migrate
+npm install
+```
+
+### Opcional: datos de ejemplo
+
+```bash
+php artisan db:seed
+```
+
+### Desarrollo
+
+En una terminal:
+
+```bash
+php artisan serve
+```
+
+En otra:
+
+```bash
+npm run dev
+```
+
+Laravel tambien trae un script combinado:
+
+```bash
+composer run dev
+```
+
+### Tests
+
+```bash
+php artisan test
+```
+
+o:
+
+```bash
+composer test
+```
+
+## Convenciones Y Realidad Del Codigo
+
+### Lo que esta bastante claro
+
+- estructura general por roles
+- dominio principal del negocio
+- separacion basica de vistas por area
+- consultas agregadas centralizadas en parte del backoffice
+
+### Lo que esta mezclado o heredado
+
+- uso mixto de Eloquent y `DB::table(...)`
+- nombres mezclando espanol e ingles
+- typo heredado en varios campos: `menssage`
+- controladores con nomenclatura irregular
+- assets modernos declarados, pero pipeline real aun manual
+- mezcla de claves UUID/string con IDs numericos
+
+## Puntos De Entrada Recomendados Segun Tarea
+
+### Si quieres tocar login/permisos
+
+- `routes/web.php`
+- `app/Http/Controllers/LoginController.php`
+- `app/Http/Middleware/RoleMiddleware.php`
+
+### Si quieres tocar tests
+
+- `app/Http/Controllers/CrearTestsController.php`
+- `app/Http/Controllers/hacerTestController.php`
+- `app/Http/Controllers/haciendoTestController.php`
+- `app/Http/Controllers/ResultsController.php`
+
+### Si quieres tocar clases
+
+- `app/Http/Controllers/ClassesController.php`
+- `app/Http/Controllers/CrearClassController.php`
+- migraciones de `classes`, `timetables` y `students_reserves_classes`
+
+### Si quieres tocar dashboard profesor/admin
+
+- `app/Http/Controllers/EmployeesPlaceController.php`
+- `app/Services/EmployeesPlaceService.php`
+- vistas en `resources/views/teacher` y `resources/views/admin`
+
+### Si quieres tocar frontend global
+
+- `resources/views/partials/links.blade.php`
+- `resources/views/partials/scripts.blade.php`
+- `resources/views/partials/nav.blade.php`
+- `resources/css/`
+- `resources/js/`
+
+## Riesgos Tecnicos A Tener En Cuenta
+
+- El `README` original era el de Laravel y no documentaba nada del dominio.
+- El frontend esta a medio camino entre Vite/Tailwind moderno y carga manual heredada.
+- El middleware de roles merece revision si se amplian casos de autorizacion.
+- La analitica Plausible esta acoplada a una IP concreta.
+- Hay mucha logica SQL escrita a mano; cualquier refactor debe comprobar bien joins, group by y tipos de ID.
+
+## Objetivo De Este Documento
+
+Este archivo no intenta ser documentacion funcional para cliente. Su objetivo es servir como hoja de contexto de mantenimiento.
+
+Si vas a ampliar el proyecto, lo razonable es actualizar este `README` cuando cambie al menos una de estas piezas:
+
+- modulos
+- rutas
+- pipeline de assets
+- autenticacion/autorizacion
+- modelo de datos principal
