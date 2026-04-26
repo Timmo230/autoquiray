@@ -1,6 +1,17 @@
 <script src="{{ asset('node_modules/bootstrap/dist/js/bootstrap.bundle.min.js') }}"></script>
 <script src="{{ asset('resources/js/nav.js') }}"></script>
-<script defer data-domain="192.168.100.248" src="http://192.168.1.248:8000/js/script.js"></script>
+@php
+    $plausibleEnabled = config('services.plausible.enabled')
+        && filled(config('services.plausible.domain'))
+        && filled(config('services.plausible.script_url'));
+@endphp
+@if ($plausibleEnabled)
+    <script
+        defer
+        data-domain="{{ config('services.plausible.domain') }}"
+        src="{{ config('services.plausible.script_url') }}"
+    ></script>
+@endif
 <script>
     window.trackEvent = function (name, props = {}) {
         if (typeof window.plausible !== 'function' || !name) {

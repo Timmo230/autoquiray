@@ -34,4 +34,10 @@ return [
             'channel' => env('SLACK_BOT_USER_DEFAULT_CHANNEL'),
         ],
     ],
+
+    'plausible' => [
+        'enabled' => (bool) env('PLAUSIBLE_ENABLED', false),
+        'domain' => env('PLAUSIBLE_DOMAIN'),
+        'script_url' => env('PLAUSIBLE_SCRIPT_URL'),
+    ],
 ];
