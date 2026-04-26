@@ -17,18 +17,28 @@ Este `README` esta pensado como documento de orientacion rapida para mantenimien
 - Frontend declarado: Vite + Tailwind 4
 - Frontend real en uso: Blade + CSS/JS cargados manualmente desde `resources/` y `public/node_modules`
 - Base de datos: relacional, con migraciones y seeders propios
-- Autenticacion: `Auth::attempt()` + middleware de roles personalizado
+- Autenticacion: `Auth::attempt()` + sesion de rol activo + middleware de roles personalizado
 - Roles de negocio:
   - `student`
   - `teacher`
   - `administrator`
+
+## Cambios Recientes Relevantes
+
+- El login ya no depende de elegir el rol en el propio formulario.
+- Si un usuario tiene un solo rol asignado, entra directamente a su area.
+- Si un usuario tiene varios roles, se le redirige a `GET /seleccionar-rol` para elegir el contexto de sesion.
+- Se introdujo [`app/Support/UserRoleManager.php`](./app/Support/UserRoleManager.php) para centralizar roles disponibles, rol activo, limpieza de sesion y redirecciones por rol.
+- El middleware de rol ahora valida el `active_role` de sesion y, si hace falta, fuerza la seleccion de rol.
+- El alumno dispone de un panel de configuracion mas completo en `GET /alumno/configuracion` con perfil, seguridad, matriculas, examenes y resumen de actividad.
+- La interfaz global ya usa mensajes flash animados y eventos de analitica disparados desde Blade y desde backend.
 
 ## Que Hace El Proyecto
 
 AUTOQUIRAY es una plataforma para autoescuela con estos flujos principales:
 
 - Landing publica con metricas y acceso a login.
-- Login con seleccion explicita de rol.
+- Login con resolucion automatica de rol o pantalla de seleccion de rol si la cuenta es multirol.
 - Alumno:
   - ver tipos de test
   - hacer tests teoricos
@@ -81,13 +91,17 @@ AUTOQUIRAY es una plataforma para autoescuela con estos flujos principales:
 - [`app/Http/Middleware/RoleMiddleware.php`](./app/Http/Middleware/RoleMiddleware.php)
   Control de acceso por rol.
 - [`app/Http/Controllers/LoginController.php`](./app/Http/Controllers/LoginController.php)
-  Login, logout y cambio inicial de contrasena.
+  Login, logout, cambio inicial de contrasena y seleccion de rol.
+- [`app/Support/UserRoleManager.php`](./app/Support/UserRoleManager.php)
+  Gestion centralizada del rol activo y de los roles disponibles del usuario.
 - [`app/Http/Controllers/HomeController.php`](./app/Http/Controllers/HomeController.php)
   Home publica y metricas.
 - [`app/Http/Controllers/ClassesController.php`](./app/Http/Controllers/ClassesController.php)
   Reserva y cancelacion de clases.
 - [`app/Http/Controllers/ResultsController.php`](./app/Http/Controllers/ResultsController.php)
   Correccion, guardado y visualizacion de resultados de tests.
+- [`app/Http/Controllers/StudentSettingsController.php`](./app/Http/Controllers/StudentSettingsController.php)
+  Configuracion del alumno, seguridad e inscripcion a examenes.
 - [`app/Http/Controllers/EmployeesPlaceController.php`](./app/Http/Controllers/EmployeesPlaceController.php)
   Paneles de profesor/administrador y consultas de alumnos.
 - [`app/Services/EmployeesPlaceService.php`](./app/Services/EmployeesPlaceService.php)
@@ -96,6 +110,8 @@ AUTOQUIRAY es una plataforma para autoescuela con estos flujos principales:
   Carga de CSS global.
 - [`resources/views/partials/scripts.blade.php`](./resources/views/partials/scripts.blade.php)
   Carga de JS global y eventos de analitica.
+- [`resources/views/partials/flashMessages.blade.php`](./resources/views/partials/flashMessages.blade.php)
+  Sistema global de avisos visuales persistidos en sesion.
 
 ## Rutas Y Modulos
 
@@ -110,6 +126,8 @@ AUTOQUIRAY es una plataforma para autoescuela con estos flujos principales:
 
 - `GET /login`
 - `POST /login`
+- `GET /seleccionar-rol`
+- `POST /seleccionar-rol`
 - `POST /logout`
 - `POST /cambiar_contraseña`
 
@@ -155,7 +173,20 @@ AUTOQUIRAY es una plataforma para autoescuela con estos flujos principales:
 
 ### 1. Autenticacion y roles
 
-El login usa `Auth::attempt()` con email y contrasena, pero ademas exige que el rol elegido en el formulario coincida con la asignacion real del usuario.
+El login usa `Auth::attempt()` con email y contrasena. Despues del login, el sistema consulta los roles realmente asignados al usuario y decide el contexto de sesion:
+
+- si no tiene roles, se cierra la sesion y se devuelve error
+- si tiene un solo rol, se guarda en sesion como `active_role` y se redirige automaticamente
+- si tiene varios, se fuerza una seleccion explicita en `/seleccionar-rol`
+
+El control se apoya en [`UserRoleManager.php`](./app/Support/UserRoleManager.php), que centraliza:
+
+- `getAvailableRoles()`
+- `getActiveRole()`
+- `setActiveRole()`
+- `clearRoleSession()`
+- `syncRoleSession()`
+- `redirectForRole()`
 
 Tablas implicadas:
 
@@ -163,7 +194,7 @@ Tablas implicadas:
 - `types`
 - `user_is_assigned_types`
 
-El middleware [`RoleMiddleware.php`](./app/Http/Middleware/RoleMiddleware.php) consulta estas tablas para permitir o bloquear el acceso.
+El middleware [`RoleMiddleware.php`](./app/Http/Middleware/RoleMiddleware.php) valida el rol activo en sesion y evita entrar en areas cuyo contexto no coincide con el rol permitido.
 
 ### 2. Tests teoricos
 
@@ -285,6 +316,12 @@ Subcarpetas relevantes:
 - `admin/`
 - `partials/`
 
+Vistas recientes especialmente relevantes:
+
+- `resources/views/auth/selectRole.blade.php`
+- `resources/views/student/settings.blade.php`
+- `resources/views/partials/flashMessages.blade.php`
+
 ### Carga de assets
 
 Aunque el proyecto declara Vite y Tailwind 4, la app actualmente sigue usando una estrategia heredada:
@@ -311,10 +348,17 @@ Puntos relevantes:
 - dispara eventos por atributos `data-plausible-event`
 - dispara eventos de formulario por `data-plausible-submit`
 - reinyecta eventos de sesion flash desde backend
+- actualmente se usa tambien para eventos de login, logout, contacto y CTA de home
+
+Ademas, el proyecto tiene un sistema de mensajes flash globales en `partials.flashMessages`:
+
+- renderiza avisos de `success`, `error` y errores de validacion
+- persiste avisos breves en `sessionStorage` para mejorar transiciones entre recargas
+- se inyecta desde `nav.blade.php`, por lo que afecta a gran parte de la navegacion autenticada y publica
 
 Ahora mismo el script apunta a una IP local:
 
-- `http://192.168.100.248:8000/js/script.js`
+- `http://192.168.1.248:8000/js/script.js`
 
 Esto parece configuracion de entorno local o privada, no una integracion generica de produccion.
 
@@ -423,6 +467,14 @@ composer test
 - `routes/web.php`
 - `app/Http/Controllers/LoginController.php`
 - `app/Http/Middleware/RoleMiddleware.php`
+- `app/Support/UserRoleManager.php`
+
+### Si quieres tocar configuracion del alumno
+
+- `app/Http/Controllers/StudentSettingsController.php`
+- `resources/views/student/settings.blade.php`
+- `resources/css/studentSettings.css`
+- tablas `tutions`, `exams`, `registers`, `student_completes_tests` y `students_reserves_classes`
 
 ### Si quieres tocar tests
 
@@ -455,9 +507,10 @@ composer test
 
 - El `README` original era el de Laravel y no documentaba nada del dominio.
 - El frontend esta a medio camino entre Vite/Tailwind moderno y carga manual heredada.
-- El middleware de roles merece revision si se amplian casos de autorizacion.
+- La sesion multirol esta resuelta a nivel de middleware y sesion, pero todavia conviene revisar politicas mas finas si se amplian permisos.
 - La analitica Plausible esta acoplada a una IP concreta.
 - Hay mucha logica SQL escrita a mano; cualquier refactor debe comprobar bien joins, group by y tipos de ID.
+- Parte del dominio del alumno vive en consultas agregadas extensas dentro de `StudentSettingsController`, lo que puede crecer mal si se siguen anadiendo widgets a esa pantalla.
 
 ## Objetivo De Este Documento
 
