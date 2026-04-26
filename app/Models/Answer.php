@@ -15,7 +15,7 @@ class Answer extends Model
     protected $fillable = [
         'teacher_id',
         'question_id',
-        'menssage',
+        'message',
         'date_sent',
     ];
 

@@ -20,7 +20,7 @@ class StudentQuestionFactory extends Factory
         return [
             'id' => fake()->bothify('????????-???????-???????-???????'),
             'student_id' => Student::inRandomOrder()->first(),
-            'menssage' => $this->faker->sentence(10),
+            'message' => $this->faker->sentence(10),
             'date_sent' => $this->faker->dateTimeBetween('2025-1-1', '2027-12-31'),
             'affair' => $this->faker->word(),
         ];

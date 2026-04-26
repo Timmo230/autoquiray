@@ -40,7 +40,7 @@ class EmployeesPlaceService
                         'a.id as id',
                         'sq.affair as affair',
                         'u.name as user_name',
-                        'a.menssage as answer',
+                        'a.message as answer',
                         'a.date_sent as date'
                     ])
                     ->get()
@@ -161,8 +161,8 @@ class EmployeesPlaceService
                 'sq.affair as affair',
                 'student_u.name as student_name',
                 'teacher_u.name as teacher_name',
-                'sq.menssage as question',
-                'a.menssage as answer',
+                'sq.message as question',
+                'a.message as answer',
                 'a.date_sent as date_answer',
                 'sq.date_sent as date_question'
             ])

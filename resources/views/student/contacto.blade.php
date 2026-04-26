@@ -52,8 +52,8 @@
                         <div class="mb-3" id="otroAsunto"></div>
 
                         <div class="mb-3">
-                            <label for="menssage" class="form-label aq-muted">Mensaje</label>
-                            <textarea class="form-control aq-input" id="menssage" name="menssage" rows="6"
+                            <label for="message" class="form-label aq-muted">Mensaje</label>
+                            <textarea class="form-control aq-input" id="message" name="message" rows="6"
                                       placeholder="Escribe tu mensaje aquí"></textarea>
                         </div>
 

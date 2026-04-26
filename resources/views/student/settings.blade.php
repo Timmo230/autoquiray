@@ -419,7 +419,7 @@
                                     @forelse ($recentQuestions as $question)
                                         <article class="activity-item">
                                             <strong>{{ ucfirst($question->affair) }}</strong>
-                                            <span>{{ \Illuminate\Support\Str::limit($question->menssage, 80) }}</span>
+                                            <span>{{ \Illuminate\Support\Str::limit($question->message, 80) }}</span>
                                             <small>{{ \Carbon\Carbon::parse($question->date_sent)->format('d/m/Y H:i') }} · {{ $question->answers_count }} respuesta{{ $question->answers_count == 1 ? '' : 's' }}</small>
                                         </article>
                                     @empty

@@ -15,7 +15,7 @@ class ContactController extends Controller
         
         $request->validate([
             'tipo' => 'required',
-            'menssage' => 'required',
+            'message' => 'required',
             'detalle_asunto' => 'required_if:tipo,otro|nullable|string|max:255'
         ]);
         
@@ -30,7 +30,7 @@ class ContactController extends Controller
             ->insert([
                 'id' => (string) Str::uuid(),
                 'student_id' => $user_id,
-                'menssage' => $request->menssage,
+                'message' => $request->input('message'),
                 'date_sent' => now(),
                 'affair' => $affair,
                 'created_at' => now(),

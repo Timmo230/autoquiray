@@ -26,15 +26,15 @@ class EmployeesPlaceController extends Controller
                     $nested->where('student_u.name', 'LIKE', "%{$search}%")
                         ->orWhere('student_u.email', 'LIKE', "%{$search}%")
                         ->orWhere('sq.affair', 'LIKE', "%{$search}%")
-                        ->orWhere('sq.menssage', 'LIKE', "%{$search}%")
-                        ->orWhere('a.menssage', 'LIKE', "%{$search}%")
+                        ->orWhere('sq.message', 'LIKE', "%{$search}%")
+                        ->orWhere('a.message', 'LIKE', "%{$search}%")
                         ->orWhere('teacher_u.name', 'LIKE', "%{$search}%");
                 });
             })
             ->select(
                 'sq.id',
                 'sq.affair',
-                'sq.menssage',
+                'sq.message',
                 'sq.date_sent',
                 'student_u.id as student_id',
                 'student_u.name as student_name',
@@ -46,7 +46,7 @@ class EmployeesPlaceController extends Controller
             ->groupBy(
                 'sq.id',
                 'sq.affair',
-                'sq.menssage',
+                'sq.message',
                 'sq.date_sent',
                 'student_u.id',
                 'student_u.name',
@@ -72,7 +72,7 @@ class EmployeesPlaceController extends Controller
                 ->select(
                     'a.id',
                     'a.question_id',
-                    'a.menssage',
+                    'a.message',
                     'a.date_sent',
                     'a.teacher_id',
                     DB::raw("COALESCE(teacher_u.name, 'Profesor') as teacher_name")
@@ -87,7 +87,7 @@ class EmployeesPlaceController extends Controller
         });
     }
 
-    public function getstudents(Request $request){
+    public function getStudents(Request $request){
 
         $search = $request->input('search');
 
@@ -119,6 +119,10 @@ class EmployeesPlaceController extends Controller
         ]);
     }
 
+    public function getstudents(Request $request){
+        return $this->getStudents($request);
+    }
+
     public function getQuestions(Request $request)
     {
         return view('teacher.questions', [
@@ -134,14 +138,14 @@ class EmployeesPlaceController extends Controller
     {
         $request->validate([
             'question_id' => 'required|string|exists:student_questions,id',
-            'menssage' => 'required|string|max:512',
+            'message' => 'required|string|max:512',
         ]);
 
         DB::table('answers')->insert([
             'id' => (string) Str::uuid(),
             'teacher_id' => Auth::id(),
             'question_id' => $request->input('question_id'),
-            'menssage' => trim($request->input('menssage')),
+            'message' => trim($request->input('message')),
             'date_sent' => now(),
             'created_at' => now(),
             'updated_at' => now(),

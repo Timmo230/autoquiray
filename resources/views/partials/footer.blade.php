@@ -8,7 +8,7 @@
         $studentQuestions = DB::table('student_questions')
             ->where('student_id', auth()->id())
             ->orderByDesc('date_sent')
-            ->select('id', 'affair', 'menssage', 'date_sent')
+            ->select('id', 'affair', 'message', 'date_sent')
             ->get();
 
         $studentAnswers = $studentQuestions->isNotEmpty()
@@ -21,7 +21,7 @@
                 ->select(
                     'a.id',
                     'a.question_id',
-                    'a.menssage',
+                    'a.message',
                     'a.date_sent',
                     DB::raw("COALESCE(u.name, 'Profesor') as teacher_name")
                 )
@@ -192,7 +192,7 @@
                             <strong>Tu mensaje</strong>
                             <span>{{ \Carbon\Carbon::parse($thread->date_sent)->diffForHumans() }}</span>
                         </div>
-                        <p class="mb-0">{{ $thread->menssage }}</p>
+                        <p class="mb-0">{{ $thread->message }}</p>
                     </div>
 
                     @foreach($thread->answers as $answer)
@@ -201,7 +201,7 @@
                                 <strong>{{ $answer->teacher_name }}</strong>
                                 <span>{{ \Carbon\Carbon::parse($answer->date_sent)->format('d/m/Y H:i') }}</span>
                             </div>
-                            <p class="mb-0">{{ $answer->menssage }}</p>
+                            <p class="mb-0">{{ $answer->message }}</p>
                         </div>
                     @endforeach
                 </article>

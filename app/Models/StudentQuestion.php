@@ -15,7 +15,7 @@ class StudentQuestion extends Model
     protected $keyType = 'string';
     protected $fillable = [
         'student_id',
-        'menssage',
+        'message',
         'date_sent',
         'affair',
     ];

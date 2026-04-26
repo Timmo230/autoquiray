@@ -67,7 +67,7 @@ const renderAnswerBubble = (answer) => {
 
                 <div class="details-bubble details-bubble-teacher">
                     <div class="details-bubble-label">Respuesta del profesor</div>
-                    <p class="mb-0">${escapeHtml(answer.menssage)}</p>
+                    <p class="mb-0">${escapeHtml(answer.message)}</p>
                 </div>
             </div>
         </div>
@@ -130,7 +130,7 @@ window.openTeacherQuestionModal = (questionId) => {
 
                         <div class="details-bubble details-bubble-student">
                             <div class="details-bubble-label">Mensaje del alumno</div>
-                            <p class="mb-0">${escapeHtml(question.menssage)}</p>
+                            <p class="mb-0">${escapeHtml(question.message)}</p>
                         </div>
                     </div>
                 </div>

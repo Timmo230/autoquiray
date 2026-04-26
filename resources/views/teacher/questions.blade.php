@@ -99,7 +99,7 @@
                                         </div>
 
                                         <p class="teacher-question-preview mb-0">
-                                            {{ \Illuminate\Support\Str::limit($question->menssage, 220) }}
+                                            {{ \Illuminate\Support\Str::limit($question->message, 220) }}
                                         </p>
                                     </div>
 
@@ -163,14 +163,14 @@
 
                         <label for="teacherReplyMessage" class="teacher-reply-label">Responder a la consulta</label>
                         <textarea
-                            name="menssage"
+                            name="message"
                             id="teacherReplyMessage"
                             class="form-control teacher-reply-textarea"
                             rows="5"
                             maxlength="512"
                             placeholder="Escribe una respuesta clara para el alumno"
                             required
-                        >{{ old('menssage') }}</textarea>
+                        >{{ old('message') }}</textarea>
 
                         <div class="modal-footer details-modal-footer px-0 pb-0 mt-4">
                             <button type="button" class="btn details-close-btn" data-bs-dismiss="modal">
