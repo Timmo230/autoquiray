@@ -34,11 +34,11 @@ Route::middleware(['role:student'])->group(function () {
     Route::get('/haciendo_test', [haciendoTestController::class, 'showquestions'])->name('student.complete_test');
     Route::get('/resultados', [ResultsController::class, 'get'])->name('student.result');
     Route::post('/resultados', [ResultsController::class, 'upload'])->name('student.result');
-    Route::get('/test_corregido', [ResultsController::class, 'coorectTests'])->name('student.showCorrectedTest');
+    Route::get('/test_corregido', [ResultsController::class, 'correctTests'])->name('student.showCorrectedTest');
 });
 
 Route::middleware(['role:teacher'])->group(function() {
-    Route::get('/teacher/dashboard', [EmployeesPlaceController::class, 'getstudents'])->name('teacher.dashboard');
+    Route::get('/teacher/dashboard', [EmployeesPlaceController::class, 'getStudents'])->name('teacher.dashboard');
     Route::get('/teacher/questions', [EmployeesPlaceController::class, 'getQuestions'])->name('teacher.questions');
     Route::post('/teacher/questions/answer', [EmployeesPlaceController::class, 'answerStudentQuestion'])->name('teacher.questions.answer');
     Route::get('/crear_tests', fn() => view('teacher.createTests'))->name('teacher.createTests');

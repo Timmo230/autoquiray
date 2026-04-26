@@ -129,7 +129,7 @@ class ResultsController extends Controller
         ]);
     }
 
-    public function coorectTests(Request $request){
+    public function correctTests(Request $request){
         $user_id = Auth::id();
         $test_id = $request->query('id');
 
@@ -168,5 +168,9 @@ class ResultsController extends Controller
             'test' => $testInfo,
             'optionsSelected' => $optionsSelected
         ]);
+    }
+
+    public function coorectTests(Request $request){
+        return $this->correctTests($request);
     }
 }

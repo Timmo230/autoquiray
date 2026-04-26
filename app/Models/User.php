@@ -43,7 +43,16 @@ class User extends Authenticatable
         return $this->belongsTo(Administrator::class, 'administrator_id');
     }
 
+    public function userAssignedTypes()
+    {
+        return $this->hasMany(UserIsAssignedTypes::class, 'user_id');
+    }
+
     public function user_is_assigned_tyops(){
+        return $this->userAssignedTypes();
+    }
+
+    public function user_is_assigned_types(){
         return $this->hasMany(UserIsAssignedTypes::class, 'user_id');
     }
 }
