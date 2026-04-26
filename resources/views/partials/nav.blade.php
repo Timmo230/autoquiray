@@ -1,8 +1,5 @@
 @php
-    $type = DB::table('user_is_assigned_types as uat')
-        ->join('types as t', 'uat.type_id', '=', 't.id')
-        ->where('uat.user_id', auth()->id())
-        ->value('t.type');
+    $type = \App\Support\UserRoleManager::getActiveRole();
 @endphp
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">

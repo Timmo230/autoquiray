@@ -26,17 +26,8 @@
                 </div>
                 
                 <div class="mb-3">
-                    <label for="type" class="form-label">Tipo de usuario</label>
-                    <select class="form-select form-select-lg" id="type" name="type">
-                        <option value="student">Alumno</option>
-                        <option value="teacher">Profesor</option>
-                        <option value="administrator">Administrador</option>
-                    </select>
-                </div>
-
-                <div class="mb-3">
                     <label for="email" class="form-label">Email</label>
-                    <input type="email" class="form-control form-control-lg" id="email" name="email" placeholder="nombre@ejemplo.com" required>
+                    <input type="email" class="form-control form-control-lg" id="email" name="email" placeholder="nombre@ejemplo.com" value="{{ old('email') }}" required>
                 </div>
 
                 <div class="mb-3">
@@ -59,6 +50,10 @@
                         <i class="fa-solid fa-right-to-bracket me-2"></i> Iniciar sesión
                     </button>
                 </div>
+
+                <p class="text-center text-secondary small mb-4">
+                    Si tu cuenta tiene varios perfiles, podrás elegir el rol justo después de acceder.
+                </p>
 
                 <div class="text-center">
                     <img src="{{ asset('resources/img/login/conexionSegura.png') }}" alt="Conexión Segura" class="rounded-2">

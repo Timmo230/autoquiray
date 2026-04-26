@@ -1,8 +1,5 @@
 @php
-    $type = DB::table('user_is_assigned_types as uat')
-        ->join('types as t', 'uat.type_id', '=', 't.id')
-        ->where('uat.user_id', auth()->id())
-        ->value('t.type');
+    $type = \App\Support\UserRoleManager::getActiveRole();
 
     $studentThreads = collect();
     $studentThreadCount = 0;
@@ -86,7 +83,7 @@
                                 <a class="nav-link {{ $uri == 'create_classes' ? 'text-green-btn' : ''}}" 
                                 href="{{ route('teacher.createClasses') }}">Crear tests</a>
                             </li>
-                        @else
+                        @elseif($type == 'administrator')
                             <li class="nav-item">
                                 <a class="nav-link {{ $uri == 'admin/dashboard' ? 'text-green-btn' : ''}}" 
                                 href="{{ route('admin.dashboard') }}">Informacion profesores</a>

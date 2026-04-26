@@ -12,8 +12,12 @@ Route::view('/plausible-seed', 'debug.plausible-seed')->name('debug.plausible-se
 Route::get('/login', [LoginController::class, 'showLoginForm'])->name('login');
 Route::post('/login', [LoginController::class, 'login']);
 Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
-
 Route::post('/cambiar_contraseña', [LoginController::class, 'changePassword'])->name('changePassword');
+
+Route::middleware('auth')->group(function () {
+    Route::get('/seleccionar-rol', [LoginController::class, 'showRoleSelection'])->name('role.selection');
+    Route::post('/seleccionar-rol', [LoginController::class, 'selectRole'])->name('role.selection.store');
+});
 
 Route::middleware(['role:student'])->group(function () {
     Route::get('/tipos_de_test', fn() => view('student.testTypes'))->name('student.testType');
