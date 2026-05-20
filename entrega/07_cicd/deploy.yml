@@ -1,0 +1,74 @@
+# .github/workflows/deploy.yml
+#
+# Continuous deployment for AUTOQUIRAY.
+# Triggered manually or by a successful merge to `main`. SSHes into the
+# production server (servidor del aula), pulls the new revision and runs
+# the canonical Laravel deploy sequence.
+#
+# Required repository secrets:
+#   DEPLOY_HOST   - DNS or IP of the autoescuela server
+#   DEPLOY_USER   - non-root user with sudo rights on /var/www/autoquiray
+#   DEPLOY_KEY    - private SSH key matching an authorized_keys entry
+#   DEPLOY_PATH   - absolute path on the server (e.g. /var/www/autoquiray)
+
+name: Deploy
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+concurrency:
+  group: deploy-production
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    name: Deploy to production
+    runs-on: ubuntu-22.04
+    environment: production
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup SSH agent
+        uses: webfactory/ssh-agent@v0.9.0
+        with:
+          ssh-private-key: ${{ secrets.DEPLOY_KEY }}
+
+      - name: Add server to known_hosts
+        run: |
+          mkdir -p ~/.ssh
+          ssh-keyscan -H "${{ secrets.DEPLOY_HOST }}" >> ~/.ssh/known_hosts
+
+      - name: Deploy
+        env:
+          HOST: ${{ secrets.DEPLOY_HOST }}
+          USER: ${{ secrets.DEPLOY_USER }}
+          APP:  ${{ secrets.DEPLOY_PATH }}
+        run: |
+          ssh "${USER}@${HOST}" bash -se <<'EOSSH'
+            set -euo pipefail
+            cd "${APP}"
+            php artisan down --retry=15 || true
+
+            git fetch --all
+            git reset --hard origin/main
+
+            composer install --no-dev --optimize-autoloader --no-interaction
+            npm ci --no-audit --no-fund
+            npm run build
+
+            php artisan migrate --force
+            php artisan config:cache
+            php artisan route:cache
+            php artisan view:cache
+            php artisan storage:link || true
+
+            sudo systemctl restart autoquiray-queue.service
+            sudo systemctl reload apache2
+
+            php artisan up
+          EOSSH
+
+      - name: Smoke test
+        run: curl --fail --silent --show-error "https://${{ secrets.DEPLOY_HOST }}/up"
