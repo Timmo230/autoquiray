@@ -42,8 +42,8 @@
             
             <div class="row justify-content-center text-center mt-5 g-3">
                 <div class="col-12 col-sm-6 col-md-auto">
-                    <a class="btn btn-green-btn rounded-pill px-5 py-3 text-light fs-5-5 fw-bold arriba w-sm-100 d-flex align-items-center justify-content-center" href="{{ url('/tipos_de_test') }}" data-plausible-event="home_tests_cta_clicked">
-                        <i class="fa-regular fa-file-lines me-2"></i>Acceder a mis tests
+                    <a class="btn btn-green-btn rounded-pill px-5 py-3 text-light fs-5-5 fw-bold arriba w-sm-100 d-flex align-items-center justify-content-center" href="{{ $ctaUrl }}" data-plausible-event="home_tests_cta_clicked">
+                        <i class="{{ $ctaIcon }} me-2"></i>{{ $ctaLabel }}
                     </a>
                 </div>
 
@@ -113,16 +113,16 @@
                 <div id="carouselExample" class="carousel slide container">
                     <div class="carousel-inner glass-panel p-3">
                         <div class="carousel-item active">
-                            <model-viewer src="/storage/models/motorbike1.glb" ar camera-controls touch-action="pan-y" style="width: 100%; height: 400px;"></model-viewer>
+                            <model-viewer src="{{ asset('storage/models/motorbike1.glb') }}" ar camera-controls touch-action="pan-y" style="width: 100%; height: 400px;"></model-viewer>
                         </div>
                         <div class="carousel-item">
-                            <model-viewer src="/storage/models/Untitled.glb" ar camera-controls touch-action="pan-y" style="width: 100%; height: 400px;"></model-viewer>
+                            <model-viewer src="{{ asset('storage/models/Untitled.glb') }}" ar camera-controls touch-action="pan-y" style="width: 100%; height: 400px;"></model-viewer>
                         </div>
                         <div class="carousel-item">
-                            <model-viewer src="/storage/models/motorbike2.glb" ar camera-controls touch-action="pan-y" style="width: 100%; height: 400px;"></model-viewer>
+                            <model-viewer src="{{ asset('storage/models/motorbike2.glb') }}" ar camera-controls touch-action="pan-y" style="width: 100%; height: 400px;"></model-viewer>
                         </div>
                         <div class="carousel-item">
-                            <model-viewer src="/storage/models/car1.glb" ar camera-controls touch-action="pan-y" style="width: 100%; height: 400px;"></model-viewer>
+                            <model-viewer src="{{ asset('storage/models/car1.glb') }}" ar camera-controls touch-action="pan-y" style="width: 100%; height: 400px;"></model-viewer>
                         </div>
                     </div>
                     <button class="carousel-control-prev" type="button" data-bs-target="#carouselExample" data-bs-slide="prev">

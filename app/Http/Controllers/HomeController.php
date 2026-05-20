@@ -8,6 +8,8 @@ use App\Models\QuestionTest;
 use App\Models\Registers;
 use App\Models\Student;
 use App\Models\UserIsAssignedTypes;
+use App\Support\UserRoleManager;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
 class HomeController extends Controller
@@ -50,6 +52,24 @@ class HomeController extends Controller
         }
         $output = ceil($output);
 
-        return view('home', compact('totalStudentsActives', 'totalQuestions', 'output'));
+        $ctaUrl = route('student.testType');
+        $ctaLabel = 'Acceder a mis tests';
+        $ctaIcon = 'fa-regular fa-file-lines';
+
+        if (Auth::check()) {
+            $role = UserRoleManager::getActiveRole();
+
+            if ($role === 'administrator') {
+                $ctaUrl = route('admin.dashboard');
+                $ctaLabel = 'Ir a mi panel';
+                $ctaIcon = 'fa-solid fa-gauge-high';
+            } elseif ($role === 'teacher') {
+                $ctaUrl = route('teacher.dashboard');
+                $ctaLabel = 'Ir a mi panel';
+                $ctaIcon = 'fa-solid fa-gauge-high';
+            }
+        }
+
+        return view('home', compact('totalStudentsActives', 'totalQuestions', 'output', 'ctaUrl', 'ctaLabel', 'ctaIcon'));
     }
 }

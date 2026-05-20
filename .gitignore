@@ -21,3 +21,6 @@
 Homestead.json
 Homestead.yaml
 Thumbs.db
+
+# Local self-signed SSL (never commit private key)
+/deploy/ssl/
