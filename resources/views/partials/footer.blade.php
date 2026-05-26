@@ -1,5 +1,7 @@
 @php
     $type = \App\Support\UserRoleManager::getActiveRole();
+    $studentQuestionMessageColumn = \App\Support\LegacyMessageColumns::studentQuestions();
+    $answerMessageColumn = \App\Support\LegacyMessageColumns::answers();
 
     $studentThreads = collect();
     $studentThreadCount = 0;
@@ -8,7 +10,7 @@
         $studentQuestions = DB::table('student_questions')
             ->where('student_id', auth()->id())
             ->orderByDesc('date_sent')
-            ->select('id', 'affair', 'message', 'date_sent')
+            ->select('id', 'affair', DB::raw($studentQuestionMessageColumn . ' as message'), 'date_sent')
             ->get();
 
         $studentAnswers = $studentQuestions->isNotEmpty()
@@ -21,7 +23,7 @@
                 ->select(
                     'a.id',
                     'a.question_id',
-                    'a.message',
+                    DB::raw('a.' . $answerMessageColumn . ' as message'),
                     'a.date_sent',
                     DB::raw("COALESCE(u.name, 'Profesor') as teacher_name")
                 )

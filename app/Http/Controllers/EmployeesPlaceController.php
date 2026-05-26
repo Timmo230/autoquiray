@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
+use App\Support\LegacyMessageColumns;
 
 use App\Services\EmployeesPlaceService as service;
 
@@ -15,26 +16,28 @@ class EmployeesPlaceController extends Controller
     {
         $search = trim((string) $request->input('search', ''));
         $status = $request->input('status', 'all');
+        $studentQuestionMessageColumn = LegacyMessageColumns::studentQuestions();
+        $answerMessageColumn = LegacyMessageColumns::answers();
 
         $studentQuestions = DB::table('student_questions as sq')
             ->join('users as student_u', 'student_u.id', '=', 'sq.student_id')
             ->leftJoin('answers as a', 'a.question_id', '=', 'sq.id')
             ->leftJoin('teachers as t', 't.employees_id', '=', 'a.teacher_id')
             ->leftJoin('users as teacher_u', 'teacher_u.id', '=', 't.employees_id')
-            ->when($search !== '', function ($q) use ($search) {
-                $q->where(function ($nested) use ($search) {
+            ->when($search !== '', function ($q) use ($search, $studentQuestionMessageColumn, $answerMessageColumn) {
+                $q->where(function ($nested) use ($search, $studentQuestionMessageColumn, $answerMessageColumn) {
                     $nested->where('student_u.name', 'LIKE', "%{$search}%")
                         ->orWhere('student_u.email', 'LIKE', "%{$search}%")
                         ->orWhere('sq.affair', 'LIKE', "%{$search}%")
-                        ->orWhere('sq.message', 'LIKE', "%{$search}%")
-                        ->orWhere('a.message', 'LIKE', "%{$search}%")
+                        ->orWhere('sq.' . $studentQuestionMessageColumn, 'LIKE', "%{$search}%")
+                        ->orWhere('a.' . $answerMessageColumn, 'LIKE', "%{$search}%")
                         ->orWhere('teacher_u.name', 'LIKE', "%{$search}%");
                 });
             })
             ->select(
                 'sq.id',
                 'sq.affair',
-                'sq.message',
+                DB::raw('sq.' . $studentQuestionMessageColumn . ' as message'),
                 'sq.date_sent',
                 'student_u.id as student_id',
                 'student_u.name as student_name',
@@ -46,7 +49,7 @@ class EmployeesPlaceController extends Controller
             ->groupBy(
                 'sq.id',
                 'sq.affair',
-                'sq.message',
+                'sq.' . $studentQuestionMessageColumn,
                 'sq.date_sent',
                 'student_u.id',
                 'student_u.name',
@@ -72,7 +75,7 @@ class EmployeesPlaceController extends Controller
                 ->select(
                     'a.id',
                     'a.question_id',
-                    'a.message',
+                    DB::raw('a.' . $answerMessageColumn . ' as message'),
                     'a.date_sent',
                     'a.teacher_id',
                     DB::raw("COALESCE(teacher_u.name, 'Profesor') as teacher_name")
@@ -119,10 +122,6 @@ class EmployeesPlaceController extends Controller
         ]);
     }
 
-    public function getstudents(Request $request){
-        return $this->getStudents($request);
-    }
-
     public function getQuestions(Request $request)
     {
         return view('teacher.questions', [
@@ -136,6 +135,8 @@ class EmployeesPlaceController extends Controller
 
     public function answerStudentQuestion(Request $request)
     {
+        $answerMessageColumn = LegacyMessageColumns::answers();
+
         $request->validate([
             'question_id' => 'required|string|exists:student_questions,id',
             'message' => 'required|string|max:512',
@@ -145,7 +146,7 @@ class EmployeesPlaceController extends Controller
             'id' => (string) Str::uuid(),
             'teacher_id' => Auth::id(),
             'question_id' => $request->input('question_id'),
-            'message' => trim($request->input('message')),
+            $answerMessageColumn => trim($request->input('message')),
             'date_sent' => now(),
             'created_at' => now(),
             'updated_at' => now(),

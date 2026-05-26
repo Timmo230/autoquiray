@@ -1,7 +1,7 @@
 <ul class="navbar-nav align-items-center">
     <li class="nav-item mx-1">
         <a class="nav-link px-3 fw-medium {{ $uri == '/' ? 'active' : '' }}" 
-           href="{{ url('/') }}" 
+           href="/" 
            id="{{ $uri == '/' ? 'actualPg' : '' }}">
             <i class="fa-solid fa-house-chimney me-1 small opacity-75"></i> Inicio
         </a>

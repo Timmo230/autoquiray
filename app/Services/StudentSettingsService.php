@@ -3,6 +3,7 @@
 namespace App\Services;
 
 use Carbon\Carbon;
+use App\Support\LegacyMessageColumns;
 use Illuminate\Support\Facades\DB;
 
 class StudentSettingsService
@@ -187,16 +188,18 @@ class StudentSettingsService
 
     protected function getRecentQuestions(string $studentId)
     {
+        $studentQuestionMessageColumn = LegacyMessageColumns::studentQuestions();
+
         return DB::table('student_questions as sq')
             ->leftJoin('answers as a', 'a.question_id', '=', 'sq.id')
             ->where('sq.student_id', $studentId)
-            ->groupBy('sq.id', 'sq.affair', 'sq.date_sent', 'sq.message')
+            ->groupBy('sq.id', 'sq.affair', 'sq.date_sent', 'sq.' . $studentQuestionMessageColumn)
             ->orderByDesc('sq.date_sent')
             ->limit(5)
             ->select(
                 'sq.affair',
                 'sq.date_sent',
-                'sq.message',
+                DB::raw('sq.' . $studentQuestionMessageColumn . ' as message'),
                 DB::raw('COUNT(a.id) as answers_count')
             )
             ->get();

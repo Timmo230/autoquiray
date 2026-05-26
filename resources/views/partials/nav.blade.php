@@ -7,7 +7,7 @@
 <nav class="navbar navbar-expand-xl fixed-top z-3" id="nav">
     <div class="container-fluid px-md-4">
 
-        <a class="navbar-brand me-4" href="{{ url('/') }}">
+        <a class="navbar-brand me-4" href="/">
             <img src="/resources/img/logo/logo.png"
                  width="220"
                  alt="Autoquiray Logo"
@@ -34,7 +34,7 @@
             @auth
                 <div class="d-none d-xl-block text-end me-4 border-end border-secondary border-opacity-25 pe-4">
                     @if($type === 'student')
-                        <a href="{{ route('student.settings') }}" class="m-0 fw-bold text-white small nav-user-name d-inline-flex align-items-center gap-2 text-decoration-none">
+                        <a href="{{ route('student.settings', absolute: false) }}" class="m-0 fw-bold text-white small nav-user-name d-inline-flex align-items-center gap-2 text-decoration-none">
                             <span>{{ auth()->user()->name }}</span>
                             <i class="fa-solid fa-chevron-down small text-success"></i>
                         </a>
@@ -46,7 +46,7 @@
                 </div>
 
                 <div class="d-none d-xl-flex align-items-center">
-                    <form action="{{ route('logout') }}" method="POST" class="m-0" data-plausible-submit="logout">
+                    <form action="{{ route('logout', absolute: false) }}" method="POST" class="m-0" data-plausible-submit="logout">
                         @csrf
                         <button type="submit" class="btn btn-success d-flex align-items-center px-3 nav-action-btn">
                             <i class="fa-solid fa-right-from-bracket fs-5"></i>
@@ -57,7 +57,7 @@
 
             @guest
                 <div class="d-none d-xl-flex align-items-center">
-                    <a href="{{ route('login') }}" class="btn btn-success d-flex align-items-center px-4 py-2 nav-action-btn">
+                    <a href="{{ route('login', absolute: false) }}" class="btn btn-success d-flex align-items-center px-4 py-2 nav-action-btn">
                         <i class="fa-solid fa-circle-user me-2"></i> Acceder
                     </a>
                 </div>
@@ -76,7 +76,7 @@
     <div class="offcanvas offcanvas-end" tabindex="-1" id="smallNav" aria-labelledby="smallNavLabel">
 
         <div class="offcanvas-header border-bottom border-secondary border-opacity-10">
-            <a href="{{ url('/') }}">
+            <a href="/">
                 <img src="/resources/img/logo/logo.png" width="160" alt="logo" class="nav-logo-sm">
             </a>
             <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas" aria-label="Close"></button>
@@ -106,7 +106,7 @@
                         </div>
                         <div class="overflow-hidden">
                             @if($type === 'student')
-                                <a href="{{ route('student.settings') }}" class="m-0 text-white small fw-bold text-truncate text-decoration-none d-inline-flex align-items-center gap-2">
+                                <a href="{{ route('student.settings', absolute: false) }}" class="m-0 text-white small fw-bold text-truncate text-decoration-none d-inline-flex align-items-center gap-2">
                                     <span>{{ auth()->user()->name }}</span>
                                     <i class="fa-solid fa-chevron-right text-success"></i>
                                 </a>
@@ -118,7 +118,7 @@
                         </div>
                     </div>
 
-                    <form action="{{ route('logout') }}" method="POST" class="w-100" data-plausible-submit="logout">
+                    <form action="{{ route('logout', absolute: false) }}" method="POST" class="w-100" data-plausible-submit="logout">
                         @csrf
                         <button type="submit"
                                 class="btn btn-outline-danger w-100 rounded-pill py-3 fw-bold border-2 d-flex align-items-center justify-content-center gap-2 nav-logout-btn">
@@ -128,7 +128,7 @@
                 @endauth
 
                 @guest
-                    <a href="{{ route('login') }}"
+                    <a href="{{ route('login', absolute: false) }}"
                        class="btn btn-success w-100 py-3 fw-bold d-flex align-items-center justify-content-center gap-2 nav-login-btn">
                         <i class="fa-solid fa-circle-user fs-5"></i> Iniciar Sesión
                     </a>

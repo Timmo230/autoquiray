@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
+use App\Support\LegacyMessageColumns;
 
 use function Symfony\Component\Clock\now;
 
@@ -21,6 +22,7 @@ class ContactController extends Controller
         
         if (Auth::check()) {
             $user_id = Auth::id();
+            $studentQuestionMessageColumn = LegacyMessageColumns::studentQuestions();
         
             $affair = $request->filled('detalle_asunto') 
                     ? $request->detalle_asunto 
@@ -30,7 +32,7 @@ class ContactController extends Controller
             ->insert([
                 'id' => (string) Str::uuid(),
                 'student_id' => $user_id,
-                'message' => $request->input('message'),
+                $studentQuestionMessageColumn => $request->input('message'),
                 'date_sent' => now(),
                 'affair' => $affair,
                 'created_at' => now(),

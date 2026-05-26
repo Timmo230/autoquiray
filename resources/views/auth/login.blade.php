@@ -17,7 +17,7 @@
 
     <main class="py-5">
         <section class="p-4 p-md-5 rounded-4 mx-auto" id="login">
-            <form method="POST" action="{{ route('login') }}" data-plausible-submit="login_submitted">
+            <form method="POST" action="{{ route('login', absolute: false) }}" data-plausible-submit="login_submitted">
                 @csrf 
                 
                 <div class="text-center mb-4">

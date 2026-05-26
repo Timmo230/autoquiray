@@ -2,6 +2,7 @@
 
 namespace App\Services;
 
+use App\Support\LegacyMessageColumns;
 use Illuminate\Support\Facades\DB;
 
 class EmployeesPlaceService
@@ -30,6 +31,7 @@ class EmployeesPlaceService
     }
 
     public static function getAnswers($teacherID){
+        $answerMessageColumn = LegacyMessageColumns::answers();
         $output = [];
         $data = DB::table('answers as a')
                     ->join('teachers', 'employees_id', '=', 'teacher_id')
@@ -40,7 +42,7 @@ class EmployeesPlaceService
                         'a.id as id',
                         'sq.affair as affair',
                         'u.name as user_name',
-                        'a.message as answer',
+                        'a.' . $answerMessageColumn . ' as answer',
                         'a.date_sent as date'
                     ])
                     ->get()
@@ -150,6 +152,8 @@ class EmployeesPlaceService
     }
 
     public static function getAnswersDetails($elementID){
+        $studentQuestionMessageColumn = LegacyMessageColumns::studentQuestions();
+        $answerMessageColumn = LegacyMessageColumns::answers();
         $output = [];
         $data = DB::table('answers as a')
             ->join('teachers as t', 't.employees_id', '=', 'a.teacher_id')
@@ -161,8 +165,8 @@ class EmployeesPlaceService
                 'sq.affair as affair',
                 'student_u.name as student_name',
                 'teacher_u.name as teacher_name',
-                'sq.message as question',
-                'a.message as answer',
+                'sq.' . $studentQuestionMessageColumn . ' as question',
+                'a.' . $answerMessageColumn . ' as answer',
                 'a.date_sent as date_answer',
                 'sq.date_sent as date_question'
             ])
