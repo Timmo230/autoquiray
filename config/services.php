@@ -1,5 +1,34 @@
 <?php
 
+$appUrl = trim((string) env('APP_URL', ''));
+$appHost = $appUrl !== '' ? (string) parse_url($appUrl, PHP_URL_HOST) : '';
+$plausibleDomain = trim((string) env('PLAUSIBLE_DOMAIN', ''));
+
+if ($plausibleDomain === '' && $appUrl !== '') {
+    $plausibleDomain = $appHost;
+}
+
+if (filter_var($plausibleDomain, FILTER_VALIDATE_URL)) {
+    $plausibleDomain = (string) parse_url($plausibleDomain, PHP_URL_HOST);
+}
+
+$isPrivateOrLocalDomain = $plausibleDomain === 'localhost'
+    || $plausibleDomain === '127.0.0.1'
+    || (
+        filter_var($plausibleDomain, FILTER_VALIDATE_IP) !== false
+        && filter_var(
+            $plausibleDomain,
+            FILTER_VALIDATE_IP,
+            FILTER_FLAG_NO_PRIV_RANGE | FILTER_FLAG_NO_RES_RANGE
+        ) === false
+    );
+
+if ($isPrivateOrLocalDomain && $appHost !== '') {
+    $plausibleDomain = $appHost;
+}
+
+$plausibleScriptUrl = trim((string) env('PLAUSIBLE_SCRIPT_URL', ''));
+
 return [
 
     /*
@@ -37,7 +66,7 @@ return [
 
     'plausible' => [
         'enabled' => (bool) env('PLAUSIBLE_ENABLED', false),
-        'domain' => env('PLAUSIBLE_DOMAIN'),
-        'script_url' => env('PLAUSIBLE_SCRIPT_URL'),
+        'domain' => $plausibleDomain,
+        'script_url' => $plausibleScriptUrl,
     ],
 ];

@@ -15,9 +15,12 @@ class registersSeeder extends Seeder
      */
     public function run(): void
     {
+        $studentsCount = Student::query()->count();
+        $examsCount = Exam::query()->count();
+        $target = min(220, $studentsCount * $examsCount);
         $created = 0;
 
-        while ($created < 1000) {
+        while ($created < $target) {
             $student = Student::inRandomOrder()->first();
             $exam    = Exam::inRandomOrder()->first();
 

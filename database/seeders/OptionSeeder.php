@@ -2,21 +2,18 @@
 
 namespace Database\Seeders;
 
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
-use App\Models\QuestionTest;
+use App\Models\Option;
 
 class OptionSeeder extends Seeder
 {
     /**
      * Run the database seeds.
      */
-    protected static $quiestions = null;
     public function run(): void
     {
-        $question = QuestionTest::all()->count();
-        $question *= 3;
-
-        \App\Models\Option::factory($question)->create();
+        if (Option::query()->exists()) {
+            return;
+        }
     }
 }

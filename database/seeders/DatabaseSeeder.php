@@ -40,6 +40,7 @@ class DatabaseSeeder extends Seeder
             StudentReservesClassSeeder::class,
             TutionSeeder::class,
             AddCoorectOptionSeeder::class,
+            PresentationDemoSeeder::class,
         ]);
     
     }

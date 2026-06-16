@@ -12,12 +12,21 @@ class TimetableFactory extends Factory
 
     public function definition(): array
     {
-        $start = $this->faker->time('H:i:s');
-        $end = $this->faker->time('H:i:s');
+        $faker = fake('es_ES');
+        $slots = [
+            ['09:00:00', '10:30:00'],
+            ['10:30:00', '12:00:00'],
+            ['12:00:00', '13:30:00'],
+            ['16:00:00', '17:30:00'],
+            ['17:30:00', '19:00:00'],
+            ['19:00:00', '20:30:00'],
+        ];
+        [$start, $end] = $faker->randomElement($slots);
+        $date = $faker->dateTimeBetween('+1 day', '+10 weeks');
 
         return [
             'administrator_id' => Administrator::inRandomOrder()->value('employees_id'),
-            'date' => $this->faker->dateTimeBetween('2026-01-01', '2027-12-31'),
+            'date' => $date->format('Y-m-d'),
             'start_time' => $start,
             'end_time' => $end,
         ];

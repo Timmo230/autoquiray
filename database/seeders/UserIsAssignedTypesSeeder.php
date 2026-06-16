@@ -2,6 +2,9 @@
 
 namespace Database\Seeders;
 
+use App\Models\Type;
+use App\Models\UserIsAssignedTypes;
+use Database\Seeders\Support\RealisticSeedCatalog;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use App\Models\User;
@@ -12,46 +15,24 @@ class UserIsAssignedTypesSeeder extends Seeder
     /**
      * Run the database seeds.
      */
-    protected static $users = null;
     public function run(): void
     {
-        if(is_null(self::$users)){
-            self::$users = User::orderBy('created_at', 'asc')->pluck('id')->toArray();
-        }
+        $typeMap = Type::query()->pluck('id', 'type');
+        $namedUsers = collect(RealisticSeedCatalog::namedUsers())->keyBy('email');
 
-        $user = array_shift(self::$users);
+        foreach (User::query()->orderBy('created_at')->get(['id', 'email']) as $user) {
+            $roles = match (true) {
+                $user->email === 'root@root.com' => ['administrator', 'teacher', 'student'],
+                $namedUsers->has($user->email) => $namedUsers[$user->email]['roles'],
+                default => [fake()->randomElement(['student', 'student', 'student', 'teacher', 'administrator'])],
+            };
 
-        
-        $rootUser = \App\Models\UserIsAssignedTypes::factory()->create([
-            'user_id' => (string) $user,
-            'type_id' => 3,
-        ]);
-
-        for($counter = 0; $counter < 3; $counter++){
-            $user = array_shift(self::$users);
-            
-            $administrators = \App\Models\UserIsAssignedTypes::factory()->create([
-                'user_id' => (string) $user,
-                'type_id' => 3,
-            ]);
-        }
-
-        for($counter = 0; $counter < 10; $counter++){
-            $user = array_shift(self::$users);
-            
-            $administrators = \App\Models\UserIsAssignedTypes::factory()->create([
-                'user_id' => (string) $user,
-                'type_id' => 2,
-            ]);
-        }
-
-        for($counter = 0; $counter < 1000; $counter++){
-            $user = array_shift(self::$users);
-            
-            $administrators = \App\Models\UserIsAssignedTypes::factory()->create([
-                'user_id' => (string) $user,
-                'type_id' => 1,
-            ]);
+            foreach ($roles as $role) {
+                UserIsAssignedTypes::query()->firstOrCreate([
+                    'user_id' => $user->id,
+                    'type_id' => $typeMap[$role],
+                ]);
+            }
         }
     }
 }

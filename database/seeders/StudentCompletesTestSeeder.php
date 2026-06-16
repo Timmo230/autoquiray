@@ -15,9 +15,12 @@ class StudentCompletesTestSeeder extends Seeder
      */
     public function run(): void
     {
+        $studentsCount = Student::query()->count();
+        $testsCount = Test::query()->count();
+        $target = min(420, $studentsCount * $testsCount);
         $created = 0;
 
-        while ($created < 5000) {
+        while ($created < $target) {
             $student = Student::inRandomOrder()->first();
             $test    = Test::inRandomOrder()->first();
 
@@ -27,7 +30,9 @@ class StudentCompletesTestSeeder extends Seeder
                     'test_id'    => $test->id,
                 ],
                 [
-                    'last_note' => rand(20, 30),
+                    'last_note' => $test->max_note >= 27
+                        ? rand(max(20, $test->max_note - 6), $test->max_note)
+                        : rand(max(5, $test->max_note - 3), $test->max_note),
                     'time' => rand(0, $test->max_time * 60),
                 ]
             );

@@ -9,7 +9,7 @@ use Illuminate\Database\Eloquent\Factories\Factory;
  */
 class PermissionFactory extends Factory
 {
-    protected static $permissions = ['A', 'A1', 'A2', 'B', 'BTP', 'C', 'C1', 'D', 'D1', 'E'];
+    protected static $permissions = ['AM', 'A1', 'A2', 'B', 'C1', 'C', 'D1', 'D', 'BE', 'CE'];
 
     public function definition(): array
     {

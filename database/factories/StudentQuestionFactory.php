@@ -4,6 +4,8 @@ namespace Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
 use App\Models\Student;
+use Database\Seeders\Support\RealisticSeedCatalog;
+use Illuminate\Support\Str;
 
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\StudentQuestion>
@@ -17,12 +19,14 @@ class StudentQuestionFactory extends Factory
      */
     public function definition(): array
     {
+        $faker = fake('es_ES');
+
         return [
-            'id' => fake()->bothify('????????-???????-???????-???????'),
-            'student_id' => Student::inRandomOrder()->first(),
-            'message' => $this->faker->sentence(10),
-            'date_sent' => $this->faker->dateTimeBetween('2025-1-1', '2027-12-31'),
-            'affair' => $this->faker->word(),
+            'id' => (string) Str::uuid(),
+            'student_id' => Student::query()->inRandomOrder()->value('user_id'),
+            'message' => $faker->randomElement(RealisticSeedCatalog::studentQuestionMessages()),
+            'date_sent' => $faker->dateTimeBetween('-6 weeks', 'now'),
+            'affair' => $faker->randomElement(RealisticSeedCatalog::studentQuestionSubjects()),
         ];
     }
 }

@@ -15,9 +15,12 @@ class StudentReservesClassSeeder extends Seeder
      */
     public function run(): void
     {
+        $studentsCount = Student::query()->count();
+        $classesCount = Classes::query()->count();
+        $target = min(320, $studentsCount * $classesCount);
         $created = 0;
 
-        while ($created < 500) {
+        while ($created < $target) {
             $student = Student::inRandomOrder()->first();
             $class    = Classes::inRandomOrder()->first();
 

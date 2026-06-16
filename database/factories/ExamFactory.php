@@ -5,6 +5,7 @@ namespace Database\Factories;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use App\Models\Exam;
 use App\Models\Permission;
+use Illuminate\Support\Str;
 
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Exam>
@@ -19,14 +20,16 @@ class ExamFactory extends Factory
     public function definition(): array
     {
         $randomPermission = Permission::inRandomOrder()->first();
+        $faker = fake('es_ES');
+        $examDate = $faker->dateTimeBetween('+1 week', '+5 months');
         
         return [
-            'id' => fake()->bothify('????????-???????-???????-???????'),
+            'id' => (string) Str::uuid(),
             'permission_id' => $randomPermission->id,
-            'date' => $this->faker->date('2025-01-01', '2027-12-31'),
-            'start_time' => $this->faker->dateTimeBetween('08:00:00', '23:00:00')->format('H:i:s'),
-            'type' => $this->faker->randomElement(['theorist', 'practical']),
-            'price' => $this->faker->randomFloat(2, 10, 30),
+            'date' => $examDate->format('Y-m-d'),
+            'start_time' => $faker->randomElement(['08:30:00', '10:00:00', '11:30:00', '16:00:00', '17:30:00']),
+            'type' => $faker->randomElement(['theorist', 'practical']),
+            'price' => $faker->randomElement([35.00, 42.50, 55.00, 78.00, 95.00]),
         ];
     }
 }

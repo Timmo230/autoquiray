@@ -14,6 +14,10 @@ class AddCoorectOptionSeeder extends Seeder
      */
     public function run(): void
     {
+        if (QuestionTest::query()->whereNotNull('correct_option_id')->exists()) {
+            return;
+        }
+
         $questions = QuestionTest::all();
 
         foreach ($questions as $question) {

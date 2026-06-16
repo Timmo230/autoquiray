@@ -15,9 +15,12 @@ class PermissionAreAssociatedTestSeeder extends Seeder
      */
     public function run(): void
     {
+        $permissionsCount = Permission::query()->count();
+        $testsCount = Test::query()->count();
+        $target = min(70, $permissionsCount * $testsCount);
         $created = 0;
 
-        while ($created < 150) {
+        while ($created < $target) {
             $permission = Permission::inRandomOrder()->first();
             $test    = Test::inRandomOrder()->first();
 

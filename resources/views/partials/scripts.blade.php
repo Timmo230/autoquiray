@@ -1,15 +1,17 @@
 <script src="{{ asset('node_modules/bootstrap/dist/js/bootstrap.bundle.min.js') }}"></script>
 <script src="{{ asset('resources/js/nav.js') }}"></script>
 @php
-    $plausibleEnabled = config('services.plausible.enabled')
-        && filled(config('services.plausible.domain'))
-        && filled(config('services.plausible.script_url'));
+    $plausibleDomain = trim((string) config('services.plausible.domain', ''));
+    $plausibleScriptUrl = trim((string) config('services.plausible.script_url', ''));
+    $plausibleEnabled = (bool) config('services.plausible.enabled')
+        && filled($plausibleDomain)
+        && filled($plausibleScriptUrl);
 @endphp
 @if ($plausibleEnabled)
     <script
         defer
-        data-domain="{{ config('services.plausible.domain') }}"
-        src="{{ config('services.plausible.script_url') }}"
+        data-domain="{{ $plausibleDomain }}"
+        src="{{ $plausibleScriptUrl }}"
     ></script>
 @endif
 <script>

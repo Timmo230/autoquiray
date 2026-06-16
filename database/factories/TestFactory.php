@@ -4,12 +4,16 @@ namespace Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
 use App\Models\Teacher;
+use Database\Seeders\Support\RealisticSeedCatalog;
+use Illuminate\Support\Str;
 
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Test>
  */
 class TestFactory extends Factory
 {
+    protected static int $definitionIndex = 0;
+
     /**
      * Define the model's default state.
      *
@@ -17,14 +21,17 @@ class TestFactory extends Factory
      */
     public function definition(): array
     {
-        $questions = $this->faker->randomElement([20, 30]);
+        $definitions = RealisticSeedCatalog::testDefinitions();
+        $definition = $definitions[self::$definitionIndex % count($definitions)];
+        self::$definitionIndex++;
+
         return [
-            'id' => fake()->bothify('????????-???????-???????-???????'),
-            'teacher_id' => Teacher::inRandomOrder()->first(),
-            'title' => $this->faker->sentence(),
-            'max_note' => $questions,
-            'max_time' => $questions,
-            'type' => $this->faker->randomElement(['senales', 'circulacion', 'seguridad', 'dgt']),
+            'id' => (string) Str::uuid(),
+            'teacher_id' => Teacher::query()->inRandomOrder()->value('employees_id'),
+            'title' => $definition['title'],
+            'max_note' => $definition['question_count'],
+            'max_time' => $definition['question_count'],
+            'type' => $definition['type'],
         ];
     }
 }

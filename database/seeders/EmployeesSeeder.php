@@ -17,6 +17,7 @@ class EmployeesSeeder extends Seeder
                 ->join('user_is_assigned_types as uat', 'u.id', '=', 'uat.user_id')
                 ->join('types','uat.type_id','=','types.id')
                 ->where('type', '!=', 'student')
+                ->distinct()
                 ->pluck('u.id')
                 ->toArray();
         }

@@ -15,9 +15,12 @@ class PermissionsAreToughtInClassesTableSeeder extends Seeder
      */
     public function run(): void
     {
+        $permissionsCount = Permission::query()->count();
+        $classesCount = Classes::query()->count();
+        $target = min(180, $permissionsCount * $classesCount);
         $created = 0;
 
-        while ($created < 500) {
+        while ($created < $target) {
             $permission = Permission::inRandomOrder()->first();
             $class    = Classes::inRandomOrder()->first();
 

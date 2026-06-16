@@ -3,6 +3,7 @@
 namespace Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
+use Illuminate\Support\Str;
 
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\User>
@@ -18,13 +19,15 @@ class UserFactory extends Factory
      */
     public function definition(): array
     {
+        $faker = fake('es_ES');
+
         return [
-            'id'   => fake()->bothify('????????-???????-???????-???????'),
-            'document_id'   => fake()->bothify('########?'),
-            'document_type' => fake()->randomElement(['DNI', 'passport']),
-            'name'          => fake()->name(),
+            'id' => (string) Str::uuid(),
+            'document_id' => $faker->numerify('########') . strtoupper($faker->randomLetter()),
+            'document_type' => $faker->randomElement(['DNI', 'DNI', 'DNI', 'passport']),
+            'name' => $faker->name(),
             'email'         => fake()->unique()->safeEmail(),
-            'active'        => fake()->boolean(90),
+            'active' => $faker->boolean(92),
             'password'      => bcrypt('password'),
             'administrator_id' => null,
             'created_at'    => now(),
